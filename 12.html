@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角洲行動 - 專業戰術支援服務</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e14 0%, #1a1f29 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* 導航欄 */
+        .navbar {
+            background: rgba(22, 27, 37, 0.98);
+            border-bottom: 3px solid #ff6600;
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff6600;
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        /* 桌面版導航 */
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #8a9ba8;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: #ffcc00;
+            background: rgba(255, 102, 0, 0.1);
+        }
+
+        .nav-link.active {
+            color: #ffffff;
+            background: #ff6600;
+        }
+
+        /* 漢堡選單按鈕（手機版） */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            background: rgba(255, 102, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #ff6600;
+            margin: 3px 0;
+            transition: 0.4s;
+            border-radius: 2px;
+        }
+
+        /* 手機版下拉選單 */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(22, 27, 37, 0.98);
+            border-top: 1px solid #333945;
+            border-bottom: 3px solid #ff6600;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            color: #8a9ba8;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-bottom: 1px solid rgba(51, 57, 69, 0.5);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            color: #ffffff;
+            background: rgba(255, 102, 0, 0.2);
+            border-left: 5px solid #ff6600;
+        }
+
+        .mobile-nav-link:last-child {
+            border-bottom: none;
+        }
+
+        .book-now-btn {
+            background: #00ff9d;
+            color: #0a0e14;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .book-now-btn:hover {
+            background: #00cc7d;
+            transform: scale(1.05);
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* 英雄區 */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(rgba(10, 14, 20, 0.9), rgba(26, 31, 41, 0.9));
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 2px solid #ff6600;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #ff6600, #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+            line-height: 1.3;
+        }
+
+        .hero-subtitle {
+            color: #8a9ba8;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* 服務卡片 */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .service-card {
+            background: rgba(22, 27, 37, 0.8);
+            border: 2px solid #333945;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 102, 0, 0.2);
+            border-color: #ff6600;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff6600;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            min-width: 40px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #ffcc00;
+            line-height: 1.3;
+        }
+
+        /* 價格表格響應式 */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .price-table th {
+            background: rgba(255, 102, 0, 0.2);
+            color: #ffcc00;
+            padding: 12px 10px;
+            text-align: left;
+            border: 1px solid #333945;
+            font-size: 1rem;
+        }
+
+        .price-table td {
+            padding: 12px 10px;
+            border: 1px solid #333945;
+            color: #e0e0e0;
+            line-height: 1.4;
+        }
+
+        /* 付款頁面響應式 */
+        .payment-section {
+            background: rgba(22, 27, 37, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 2px solid #00ff9d;
+            overflow-x: auto;
+        }
+
+        .payment-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        /* 聯繫區響應式 */
+        .contact-section {
+            background: rgba(0, 150, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-top: 50px;
+            text-align: center;
+            border: 2px solid #0096ff;
+        }
+
+        .contact-info {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin: 10px 0;
+            word-break: break-word;
+        }
+
+        /* 行動裝置優化 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                position: relative;
+            }
+            
+            /* 隱藏桌面導航，顯示漢堡選單 */
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .service-card {
+                padding: 20px;
+            }
+            
+            .card-title {
+                font-size: 1.3rem;
+            }
+            
+            .price-table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .price-table th,
+            .price-table td {
+                padding: 10px 8px;
+                font-size: 0.9rem;
+            }
+            
+            .payment-section {
+                padding: 20px 15px;
+            }
+            
+            .step {
+                min-width: 80px;
+            }
+            
+            .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            /* 表格在小螢幕上的優化 */
+            .price-table tr {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+                border: 1px solid #333945;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            
+            .price-table th {
+                display: none;
+            }
+            
+            .price-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 15px;
+                border: none;
+                border-bottom: 1px solid rgba(51, 57, 69, 0.5);
+            }
+            
+            .price-table td:last-child {
+                border-bottom: none;
+            }
+            
+            .price-table td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #ffcc00;
+                margin-right: 10px;
+                min-width: 80px;
+            }
+            
+            /* 按鈕組響應式 */
+            .btn-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            /* 服務卡片優化 */
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            /* 付款方法網格優化 */
+            .payment-methods {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .payment-method {
+                padding: 15px 10px;
+            }
+            
+            /* 訂單摘要優化 */
+            .order-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+                padding: 10px 0;
+            }
+            
+            .order-total {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 15px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero {
+                padding: 30px 15px;
+            }
+            
+            .service-card {
+                padding: 15px;
+            }
+            
+            .card-title {
+                font-size: 1.2rem;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-table td {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .price-table td::before {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+            
+            .book-now-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 觸控優化 */
+        button, .btn, .book-btn {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        input, select, textarea {
+            font-size: 16px; /* 防止iOS縮放 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar">
+        <a href="#" class="logo">三角洲行動</a>
+        
+        <!-- 桌面版導航 -->
+        <div class="nav-links">
+            <a href="#" class="nav-link active" data-tab="home">首頁</a>
+            <a href="#" class="nav-link" data-tab="escort">護航服務</a>
+            <a href="#" class="nav-link" data-tab="betting">賭約單</a>
+            <a href="#" class="nav-link" data-tab="entertainment">娛樂玩法</a>
+            <a href="#" class="nav-link" data-tab="peipei">娛樂陪玩</a>
+            <a href="#" class="nav-link" data-tab="rules">規則條款</a>
+            <button onclick="showTab('payment')" class="book-now-btn">立即預約</button>
+        </div>
+        
+        <!-- 漢堡選單按鈕（手機版） -->
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- 手機版下拉選單 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" class="mobile-nav-link active" data-tab="home" onclick="toggleMobileMenu()">🏠 首頁</a>
+        <a href="#" class="mobile-nav-link" data-tab="escort" onclick="toggleMobileMenu()">🛡️ 護航服務</a>
+        <a href="#" class="mobile-nav-link" data-tab="betting" onclick="toggleMobileMenu()">🎲 賭約單</a>
+        <a href="#" class="mobile-nav-link" data-tab="entertainment" onclick="toggleMobileMenu()">🎮 娛樂玩法</a>
+        <a href="#" class="mobile-nav-link" data-tab="peipei" onclick="toggleMobileMenu()">👥 娛樂陪玩</a>
+        <a href="#" class="mobile-nav-link" data-tab="rules" onclick="toggleMobileMenu()">📋 規則條款</a>
+        <a href="#" class="mobile-nav-link" data-tab="payment" onclick="toggleMobileMenu()">💳 立即預約</a>
+        <button onclick="showTab('payment'); toggleMobileMenu();" class="book-now-btn" style="margin: 15px 30px; width: calc(100% - 60px);">
+            立即預約付款
+        </button>
+    </div>
+
+    <!-- 主內容區 -->
+    <div class="container">
+        <!-- 首頁 -->
+        <div class="tab-content active" id="home">
+            <div class="hero">
+                <h1 class="hero-title">三角洲行動<br>專業戰術支援</h1>
+                <p class="hero-subtitle">頂尖打手團隊 · 專業護航服務<br>安全高效保障</p>
+                <div style="margin-top: 25px;">
+                    <button onclick="showTab('escort')" style="background: #ff6600; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-size: 1rem; cursor: pointer; margin: 5px;">
+                        查看護航服務
+                    </button>
+                    <button onclick="showTab('payment')" style="background: #00ff9d; color: #0a0e14; border: none; padding: 12px 25px; border-radius: 8px; font-size: 1rem; cursor: pointer; margin: 5px; font-weight: bold;">
+                        立即預約
+                    </button>
+                </div>
+            </div>
+
+            <!-- 服務簡介 -->
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="card-header">
+                        <div class="card-icon">🛡️</div>
+                        <h2 class="card-title">戰術護航服務</h2>
+                    </div>
+                    <p>專業打手團隊，保證您的遊戲物資安全。無論是暗區撤離還是戰區競技，我們提供最可靠的護航服務。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px; color: #8a9ba8;">
+                        <li>基礎單：500起，保底600w</li>
+                        <li>體驗單：200起，保底400w</li>
+                        <li>航天賭約單：高風險高回報</li>
+                    </ul>
+                    <button onclick="showTab('escort')" style="margin-top: 20px; background: transparent; color: #ff6600; border: 2px solid #ff6600; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%;">
+                        了解更多
+                    </button>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-header">
+                        <div class="card-icon">🎮</div>
+                        <h2 class="card-title">娛樂陪玩服務</h2>
+                    </div>
+                    <p>專業陪玩師團隊，提供技術指導或輕鬆娛樂。男女陪玩師可選，讓您的遊戲體驗更加豐富有趣。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px; color: #8a9ba8;">
+                        <li>男陪玩：娛樂250/小時</li>
+                        <li>女陪玩：娛樂350/小時</li>
+                        <li>技術陪玩：450-550/小時</li>
+                    </ul>
+                    <button onclick="showTab('peipei')" style="margin-top: 20px; background: transparent; color: #0096ff; border: 2px solid #0096ff; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%;">
+                        了解更多
+                    </button>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-header">
+                        <div class="card-icon">⚡</div>
+                        <h2 class="card-title">特色娛樂玩法</h2>
+                    </div>
+                    <p>多種趣味玩法，讓遊戲更加精彩。牛角單、自力根生等特殊模式，挑戰極限，享受遊戲樂趣。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px; color: #8a9ba8;">
+                        <li>牛角單：1088起</li>
+                        <li>自力根生：1000起</li>
+                        <li>規則彈性可客製化</li>
+                    </ul>
+                    <button onclick="showTab('entertainment')" style="margin-top: 20px; background: transparent; color: #00ff9d; border: 2px solid #00ff9d; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%;">
+                        了解更多
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 護航服務頁 -->
+        <div class="tab-content" id="escort">
+            <h1 style="color: #ffcc00; font-size: 2rem; margin-bottom: 25px;">戰術護航服務</h1>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="card-header">
+                        <h2 class="card-title">基礎單</h2>
+                    </div>
+                    <table class="price-table">
+                        <tr>
+                            <th>價格</th>
+                            <th>保障內容</th>
+                            <th>預約</th>
+                        </tr>
+                        <tr>
+                            <td data-label="價格" class="price-number">500</td>
+                            <td data-label="保障內容"><span class="price-unit">保底 600w</span></td>
+                            <td data-label="預約"><button onclick="bookService('基礎單', '500', '保底 600w')" style="background: #ff6600; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                        <tr>
+                            <td data-label="價格" class="price-number">800</td>
+                            <td data-label="保障內容"><span class="price-unit">保底 900w</span></td>
+                            <td data-label="預約"><button onclick="bookService('基礎單', '800', '保底 900w')" style="background: #ff6600; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                        <tr>
+                            <td data-label="價格" class="price-number">1000</td>
+                            <td data-label="保障內容"><span class="price-unit">保底 1300w</span></td>
+                            <td data-label="預約"><button onclick="bookService('基礎單', '1000', '保底 1300w')" style="background: #ff6600; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                        <tr>
+                            <td data-label="價格" class="price-number">2000</td>
+                            <td data-label="保障內容"><span class="price-unit">保底 2300w</span></td>
+                            <td data-label="預約"><button onclick="bookService('基礎單', '2000', '保底 2300w')" style="background: #ff6600; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                    </table>
+                    <div style="margin-top: 20px; padding: 15px; background: rgba(255, 204, 0, 0.1); border-radius: 8px; font-size: 0.9rem;">
+                        <strong>※ 炸單補償：</strong> 失敗補償 +100w (上限1000w)
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-header">
+                        <h2 class="card-title">體驗單</h2>
+                    </div>
+                    <table class="price-table">
+                        <tr>
+                            <th>價格</th>
+                            <th>保障內容</th>
+                            <th>預約</th>
+                        </tr>
+                        <tr>
+                            <td data-label="價格" class="price-number">200</td>
+                            <td data-label="保障內容"><span class="price-unit">保底 400w</span></td>
+                            <td data-label="預約"><button onclick="bookService('體驗單', '200', '保底 400w')" style="background: #ff6600; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                        <tr>
+                            <td data-label="價格" class="price-number">600</td>
+                            <td data-label="保障內容"><span class="price-unit">保底 750w</span></td>
+                            <td data-label="預約"><button onclick="bookService('體驗單', '600', '保底 750w')" style="background: #ff6600; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                        <tr>
+                            <td data-label="價格" class="price-number">1500</td>
+                            <td data-label="保障內容"><span class="price-unit">保底 1700w</span></td>
+                            <td data-label="預約"><button onclick="bookService('體驗單', '1500', '保底 1700w')" style="background: #ff6600; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                    </table>
+                    <div style="margin-top: 20px; padding: 15px; background: rgba(0, 150, 255, 0.1); border-radius: 8px; font-size: 0.9rem;">
+                        <strong>📌 進階服務：</strong><br>
+                        • 航天絕密賭約單<br>
+                        • 娛樂玩法<br>
+                        • 完整規則與條款
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 賭約單頁 -->
+        <div class="tab-content" id="betting">
+            <h1 style="color: #ff66ff; font-size: 2rem; margin-bottom: 25px;">航天絕密賭約單</h1>
+            <p style="color: #8a9ba8; margin-bottom: 25px; font-size: 1rem;">高風險高回報 | 限單局帶出金額</p>
+            
+            <div class="service-card">
+                <div class="card-header">
+                    <h2 class="card-title">賭約單 - 單局挑戰</h2>
+                </div>
+                <table class="price-table">
+                    <tr>
+                        <th>價格</th>
+                        <th>挑戰內容</th>
+                        <th>預約</th>
+                    </tr>
+                    <tr>
+                        <td data-label="價格" class="price-number" style="color: #ff66ff;">1000</td>
+                        <td data-label="挑戰內容"><span class="price-unit">單局沒有 588w 不結單</span></td>
+                        <td data-label="預約"><button onclick="bookService('賭約單', '1000', '單局沒有 588w 不結單')" style="background: #ff66ff; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                    </tr>
+                    <tr>
+                        <td data-label="價格" class="price-number" style="color: #ff66ff;">1500</td>
+                        <td data-label="挑戰內容"><span class="price-unit">單局沒有 688w 不結單</span></td>
+                        <td data-label="預約"><button onclick="bookService('賭約單', '1500', '單局沒有 688w 不結單')" style="background: #ff66ff; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                    </tr>
+                    <tr>
+                        <td data-label="價格" class="price-number" style="color: #ff66ff;">2000</td>
+                        <td data-label="挑戰內容"><span class="price-unit">單局沒有 799w 不結單</span></td>
+                        <td data-label="預約"><button onclick="bookService('賭約單', '2000', '單局沒有 799w 不結單')" style="background: #ff66ff; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="service-card" style="margin-top: 20px;">
+                <div class="card-header">
+                    <h2 class="card-title">稀有目標保底</h2>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="price-table" style="min-width: 300px;">
+                        <tr>
+                            <th>價格</th>
+                            <th>保障內容</th>
+                            <th>預約</th>
+                        </tr>
+                        <tr>
+                            <td data-label="價格" class="price-number" style="color: #ff66ff;">588</td>
+                            <td data-label="保障內容"><span class="price-unit">沒出鍋保 688w</span></td>
+                            <td data-label="預約"><button onclick="bookService('稀有目標', '588', '沒出鍋保 688w')" style="background: #ff66ff; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                        <tr>
+                            <td data-label="價格" class="price-number" style="color: #ff66ff;">1088</td>
+                            <td data-label="保障內容"><span class="price-unit">必出鍋</span></td>
+                            <td data-label="預約"><button onclick="bookService('稀有目標', '1088', '必出鍋')" style="background: #ff66ff; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                        <tr>
+                            <td data-label="價格" class="price-number" style="color: #ff66ff;">1888</td>
+                            <td data-label="保障內容"><span class="price-unit">沒出油保 2000w</span></td>
+                            <td data-label="預約"><button onclick="bookService('稀有目標', '1888', '沒出油保 2000w')" style="background: #ff66ff; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 娛樂陪玩頁 -->
+        <div class="tab-content" id="peipei">
+            <h1 style="color: #ffcc00; font-size: 2rem; margin-bottom: 25px;">娛樂陪玩服務</h1>
+            <p style="color: #8a9ba8; margin-bottom: 25px; font-size: 1rem;">專業陪玩師團隊 · 男女可選</p>
+            
+            <div class="service-card">
+                <h3 style="color: #ffffff; margin-bottom: 20px; font-size: 1.2rem;">基礎陪玩服務</h3>
+                <div style="overflow-x: auto;">
+                    <table class="price-table" style="min-width: 400px;">
+                        <tr>
+                            <th>陪玩師</th>
+                            <th>娛樂陪玩</th>
+                            <th>技術陪玩</th>
+                        </tr>
+                        <tr>
+                            <td data-label="陪玩師" style="background: rgba(0, 150, 255, 0.1);"><strong>👨 男陪玩師</strong></td>
+                            <td data-label="娛樂陪玩">
+                                <div class="price-number">250/小時</div>
+                                <div style="color: #ff9999; font-size: 0.85rem;">輕鬆聊天娛樂局</div>
+                                <button onclick="bookService('男陪玩-娛樂', '250', '每小時')" style="background: #ff6600; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; margin-top: 8px;">預約</button>
+                            </td>
+                            <td data-label="技術陪玩">
+                                <div class="price-number">450/小時</div>
+                                <div style="color: #ff9999; font-size: 0.85rem;">戰術指導技術局</div>
+                                <button onclick="bookService('男陪玩-技術', '450', '每小時')" style="background: #ff6600; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; margin-top: 8px;">預約</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="陪玩師" style="background: rgba(255, 102, 182, 0.1);"><strong>👩 女陪玩師</strong></td>
+                            <td data-label="娛樂陪玩">
+                                <div class="price-number">350/小時</div>
+                                <div style="color: #ff9999; font-size: 0.85rem;">甜蜜互動娛樂局</div>
+                                <button onclick="bookService('女陪玩-娛樂', '350', '每小時')" style="background: #ff6600; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; margin-top: 8px;">預約</button>
+                            </td>
+                            <td data-label="技術陪玩">
+                                <div class="price-number">550/小時</div>
+                                <div style="color: #ff9999; font-size: 0.85rem;">專業指導技術局</div>
+                                <button onclick="bookService('女陪玩-技術', '550', '每小時')" style="background: #ff6600; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; margin-top: 8px;">預約</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="text-align: center; color: #ff9999; margin: 20px 0; padding: 15px; background: rgba(255, 50, 50, 0.1); border-radius: 8px; font-size: 0.9rem;">
+                    ⚠️ 注意：以上服務皆不保證擊殺數（不包得吃）
+                </div>
+            </div>
+        </div>
+
+        <!-- 聯繫區 -->
+        <div class="contact-section">
+            <h2 class="contact-title" style="color: #66b3ff; font-size: 1.8rem; margin-bottom: 20px;">📞 需要協助？</h2>
+            <div class="contact-info">官方LINE客服：@deltaforce</div>
+            <div class="contact-info">服務時間：每日 10:00 - 02:00</div>
+            <div class="contact-info">緊急聯繫：24小時值班客服</div>
+            <div style="margin-top: 20px;">
+                <button onclick="window.open('https://line.me/R/ti/p/@deltaforce')" style="background: #00ff9d; color: #0a0e14; border: none; padding: 12px 25px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; width: 100%;">
+                    立即聯繫客服
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁腳 -->
+    <footer class="footer">
+        <div>三角洲行動 · 專業戰術支援服務</div>
+        <div style="margin-top: 10px;">© 2024 三角洲行動戰術支援服務中心</div>
+        <div style="margin-top: 10px; font-size: 0.8rem; color: #666;">本服務僅供娛樂參考，請遵守遊戲規則</div>
+    </footer>
+
+    <script>
+        // 分頁切換功能
+        function showTab(tabId) {
+            // 隱藏所有分頁
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 移除所有導航連結的active類
+            document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // 顯示選中的分頁
+            document.getElementById(tabId).classList.add('active');
+            
+            // 激活對應的導航連結
+            const targetLink = document.querySelector(`[data-tab="${tabId}"]`);
+            if (targetLink) {
+                targetLink.classList.add('active');
+            }
+            
+            // 如果是手機版，關閉選單
+            if (window.innerWidth <= 768) {
+                closeMobileMenu();
+            }
+            
+            // 滾動到頂部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // 導航連結點擊事件
+        document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const tabId = this.getAttribute('data-tab');
+                showTab(tabId);
+            });
+        });
+        
+        // 手機選單功能
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
+        }
+        
+        menuToggle.addEventListener('click', toggleMobileMenu);
+        
+        // 點擊選單外區域關閉選單
+        document.addEventListener('click', function(event) {
+            if (!menuToggle.contains(event.target) && !mobileMenu.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+        
+        // 初始化顯示首頁
+        window.addEventListener('load', function() {
+            showTab('home');
+        });
+        
+        // 預約服務函數
+        function bookService(serviceName, price, description) {
+            alert(`已選擇服務：${serviceName}\n價格：${price}元\n描述：${description}\n\n請聯繫客服完成預約。\nLINE客服：@deltaforce`);
+            
+            // 可以在此處添加導向付款頁面的代碼
+            // showTab('payment');
+        }
+        
+        // 響應式表格數據標籤
+        document.querySelectorAll('.price-table th').forEach((th, index) => {
+            document.querySelectorAll('.price-table td:nth-child(' + (index + 1) + ')').forEach(td => {
+                td.setAttribute('data-label', th.textContent);
+            });
+        });
+        
+        // 視窗大小改變時關閉手機選單
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+    </script>
+</body>
+</html>
