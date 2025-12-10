@@ -1657,12 +1657,12 @@
                             </tr>
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">90000</td>
-                                <td><span class="price-unit">沒出淚淚保 10888w</span></td>
+                                <td><span class="price-unit">沒出淚保 10888w</span></td>
                                 <td><button onclick="selectService('稀有目標-90000', '90000', '沒出心保 10888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">130000</td>
-                                <td><span class="price-unit">必出淚保</span></td>
+                                <td><span class="price-unit">必出淚</span></td>
                                 <td><button onclick="selectService('稀有目標-130000', '130000', '必出淚保')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                         </table>
@@ -2065,13 +2065,7 @@
                             <div style="font-weight: bold;">銀行轉帳</div>
                             <div style="color: var(--text-secondary); font-size: 0.9rem;">ATM/網銀轉帳</div>
                         </div>
-                        
-                        <div class="payment-method" onclick="selectPaymentMethod('crypto')">
-                            <div class="payment-icon">₿</div>
-                            <div style="font-weight: bold;">加密貨幣</div>
-                            <div style="color: var(--text-secondary); font-size: 0.9rem;">BTC/ETH/USDT</div>
-                        </div>
-                        
+    
                         <div class="payment-method" onclick="selectPaymentMethod('711')">
                             <div class="payment-icon">🏪</div>
                             <div style="font-weight: bold;">超商代碼</div>
@@ -2179,7 +2173,7 @@
                 <button onclick="closeAdminPanel()" class="login-btn" style="background: var(--border-color);">取消</button>
             </div>
             <p style="text-align: center; margin-top: 20px; color: var(--text-secondary); font-size: 0.9rem;">
-                提示：初始密碼為 Smile1124
+                提示：我就不告訴你 嘿嘿嘿
             </p>
         </div>
 
@@ -2574,11 +2568,7 @@
                 enableNotifications.checked = SYSTEM_CONFIG.ENABLE_NOTIFICATIONS;
             }
             
-            // 顯示密碼提示
-            const passwordHint = document.querySelector('.admin-login p');
-            if (passwordHint) {
-                passwordHint.textContent = `提示：初始密碼為 ${DEFAULT_ADMIN_PASSWORD}`;
-            }
+            
         }
         
         function loadOrders() {
