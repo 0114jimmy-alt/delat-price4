@@ -44,7 +44,6 @@
             text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
             text-decoration: none;
             white-space: nowrap;
-            cursor: pointer;
         }
 
         /* 漢堡選單按鈕 */
@@ -232,15 +231,6 @@
             background: #00cc7d;
         }
 
-        .btn-secondary {
-            background: #333945;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #444a55;
-        }
-
         /* 價格表格 */
         .price-table {
             width: 100%;
@@ -283,15 +273,7 @@
             to { opacity: 1; }
         }
 
-        /* 付款頁面 - 專注於選擇的服務 */
-        .payment-section {
-            background: rgba(22, 27, 37, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
-            border: 2px solid #00ff9d;
-        }
-
+        /* 付款頁面 */
         .payment-step {
             display: none;
             animation: slideIn 0.3s ease;
@@ -306,7 +288,6 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        /* 步驟指示器 */
         .step-indicator {
             display: flex;
             justify-content: center;
@@ -349,55 +330,6 @@
             color: #00ff9d;
         }
 
-        /* 已選服務顯示區 */
-        .selected-service-display {
-            background: rgba(0, 255, 157, 0.1);
-            border-radius: 10px;
-            padding: 25px;
-            margin: 20px 0;
-            border: 2px solid #00ff9d;
-            text-align: center;
-        }
-
-        .selected-service-title {
-            color: #00ff9d;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        .selected-service-details {
-            font-size: 1.2rem;
-            color: #66b3ff;
-            margin: 10px 0;
-        }
-
-        .selected-service-price {
-            font-size: 2rem;
-            color: #00ff9d;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-
-        .change-service-btn {
-            background: rgba(255, 102, 0, 0.2);
-            color: #ff6600;
-            border: 2px solid #ff6600;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .change-service-btn:hover {
-            background: rgba(255, 102, 0, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* 表單樣式 */
         .form-group {
             margin-bottom: 20px;
         }
@@ -425,7 +357,6 @@
             border-color: #00ff9d;
         }
 
-        /* 付款方式選擇 */
         .payment-methods {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -452,7 +383,6 @@
             transform: translateY(-3px);
         }
 
-        /* 按鈕組 */
         .btn-group {
             display: flex;
             gap: 15px;
@@ -462,62 +392,6 @@
         .btn-group .btn {
             flex: 1;
             margin: 0;
-        }
-
-        /* 訂單確認頁面 */
-        .order-confirmation {
-            text-align: center;
-            padding: 30px 20px;
-            background: rgba(0, 255, 157, 0.1);
-            border-radius: 15px;
-            border: 2px solid #00ff9d;
-        }
-
-        .confirmation-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #00ff9d;
-        }
-
-        .confirmation-title {
-            color: #00ff9d;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .order-summary-box {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 25px;
-            margin: 25px 0;
-            text-align: left;
-        }
-
-        .order-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .order-item:last-child {
-            border-bottom: none;
-        }
-
-        .order-item .label {
-            color: #8a9ba8;
-        }
-
-        .order-item .value {
-            color: #00ff9d;
-            font-weight: bold;
-        }
-
-        .order-number {
-            color: #ffcc00;
-            font-size: 1.5rem;
-            margin: 20px 0;
-            font-weight: bold;
         }
 
         /* 聯繫區 */
@@ -559,10 +433,6 @@
             .service-card {
                 padding: 20px;
             }
-            
-            .payment-section {
-                padding: 20px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -572,10 +442,6 @@
             
             .card-title {
                 font-size: 1.3rem;
-            }
-            
-            .selected-service-price {
-                font-size: 1.8rem;
             }
         }
 
@@ -604,7 +470,7 @@
 <body>
     <!-- 導航欄 -->
     <nav class="navbar">
-        <div class="logo" onclick="showPage('home')">三角洲行動</div>
+        <div class="logo">三角洲行動</div>
         <button class="menu-toggle" id="menuToggle">
             <span></span>
             <span></span>
@@ -627,7 +493,7 @@
             <button class="menu-item" onclick="showPage('betting')">🎲 賭約單</button>
             <button class="menu-item" onclick="showPage('entertainment')">🎮 娛樂玩法</button>
             <button class="menu-item" onclick="showPage('peipei')">👥 娛樂陪玩</button>
-            <button class="menu-item" onclick="showPage('payment')" id="payment-menu-item">💳 立即預約</button>
+            <button class="menu-item" onclick="showPage('payment')">💳 立即預約</button>
         </div>
     </div>
 
@@ -636,9 +502,9 @@
         <div class="container">
             <!-- 首頁 -->
             <div class="page active" id="home">
-                <div class="service-card" style="text-align: center; border-color: #ff6600;">
-                    <h1 style="color: #ff6600; font-size: 1.8rem; margin-bottom: 15px;">三角洲行動 · 專業戰術支援</h1>
-                    <p style="color: #8a9ba8; margin-bottom: 25px;">頂尖打手團隊 · 專業護航服務 · 安全高效保障</p>
+                <div class="service-card">
+                    <h1 style="color: #ff6600; font-size: 1.8rem; margin-bottom: 15px; text-align: center;">三角洲行動 · 專業戰術支援</h1>
+                    <p style="color: #8a9ba8; margin-bottom: 25px; text-align: center;">頂尖打手團隊 · 專業護航服務 · 安全高效保障</p>
                     
                     <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                         <button class="btn btn-primary" onclick="showPage('escort')">查看護航服務</button>
@@ -837,14 +703,14 @@
                 </div>
             </div>
 
-            <!-- 付款頁面 - 簡潔版本，只顯示選擇的服務 -->
+            <!-- 付款頁面 -->
             <div class="page" id="payment">
-                <div class="payment-section">
+                <div class="service-card" style="border-color: #00ff9d;">
                     <!-- 步驟指示器 -->
                     <div class="step-indicator">
                         <div class="step active" id="step1-indicator">
                             <div class="step-number">1</div>
-                            <div class="step-text">確認服務</div>
+                            <div class="step-text">選擇服務</div>
                         </div>
                         <div class="step" id="step2-indicator">
                             <div class="step-number">2</div>
@@ -860,25 +726,32 @@
                         </div>
                     </div>
 
-                    <!-- 步驟1：顯示已選服務 -->
+                    <!-- 步驟1：選擇服務 -->
                     <div class="payment-step active" id="step1">
-                        <h2 style="color: #00ff9d; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">確認服務項目</h2>
+                        <h2 style="color: #00ff9d; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">選擇服務項目</h2>
                         
-                        <div id="selected-service-container">
-                            <!-- 這裡會動態顯示已選擇的服務 -->
-                            <div class="selected-service-display" id="no-service-selected">
-                                <div class="selected-service-title">尚未選擇服務</div>
-                                <p style="color: #8a9ba8; margin: 15px 0;">請先返回選擇您要的服務項目</p>
-                                <div style="display: flex; gap: 15px; margin-top: 20px;">
-                                    <button class="btn btn-primary" onclick="showPage('escort')">選擇護航服務</button>
-                                    <button class="btn btn-success" onclick="showPage('peipei')">選擇陪玩服務</button>
-                                </div>
-                            </div>
+                        <div style="display: grid; gap: 15px;">
+                            <button class="service-card" style="text-align: center; padding: 15px;" onclick="setSelectedService('基礎單-500元', 500, '保底 600w')">
+                                <div style="font-size: 1.2rem; color: #ffcc00;">基礎單</div>
+                                <div style="font-size: 1.5rem; color: #00ff9d; margin: 10px 0;">500元</div>
+                                <div style="color: #66b3ff;">保底 600w</div>
+                            </button>
+                            
+                            <button class="service-card" style="text-align: center; padding: 15px;" onclick="setSelectedService('男陪玩-娛樂', 250, '每小時')">
+                                <div style="font-size: 1.2rem; color: #ffcc00;">男陪玩師</div>
+                                <div style="font-size: 1.5rem; color: #00ff9d; margin: 10px 0;">250元/小時</div>
+                                <div style="color: #66b3ff;">娛樂陪玩</div>
+                            </button>
+                            
+                            <button class="service-card" style="text-align: center; padding: 15px;" onclick="setSelectedService('女陪玩-娛樂', 350, '每小時')">
+                                <div style="font-size: 1.2rem; color: #ffcc00;">女陪玩師</div>
+                                <div style="font-size: 1.5rem; color: #00ff9d; margin: 10px 0;">350元/小時</div>
+                                <div style="color: #66b3ff;">娛樂陪玩</div>
+                            </button>
                         </div>
                         
                         <div class="btn-group">
-                            <button class="btn btn-secondary" onclick="goToServiceSelection()">重新選擇服務</button>
-                            <button class="btn btn-success" onclick="nextStep()" id="step1-next-btn" disabled>下一步：填寫資料</button>
+                            <button class="btn btn-success" onclick="nextStep()">下一步</button>
                         </div>
                     </div>
 
@@ -886,17 +759,18 @@
                     <div class="payment-step" id="step2">
                         <h2 style="color: #00ff9d; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">填寫預約資料</h2>
                         
-                        <!-- 顯示已選服務摘要 -->
-                        <div id="step2-service-summary"></div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">遊戲ID（暱稱）*</label>
-                            <input type="text" class="form-input" id="game-id" placeholder="請輸入您的遊戲ID" required>
+                        <div style="background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 20px; margin-bottom: 25px;">
+                            <div id="order-summary">請先選擇服務項目</div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label">聯絡方式 *</label>
-                            <select class="form-input" id="contact-type" required>
+                            <label class="form-label">遊戲ID（暱稱）</label>
+                            <input type="text" class="form-input" id="game-id" placeholder="請輸入您的遊戲ID">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">聯絡方式</label>
+                            <select class="form-input" id="contact-type">
                                 <option value="">選擇聯絡方式</option>
                                 <option value="line">LINE</option>
                                 <option value="discord">Discord</option>
@@ -905,15 +779,383 @@
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label">聯絡帳號 *</label>
-                            <input type="text" class="form-input" id="contact-id" placeholder="請輸入您的聯絡帳號" required>
+                            <label class="form-label">聯絡帳號</label>
+                            <input type="text" class="form-input" id="contact-id" placeholder="請輸入您的聯絡帳號">
                         </div>
                         
-                        <div class="form-group">
-                            <label class="form-label">預約時間 *</label>
-                            <input type="datetime-local" class="form-input" id="booking-time" required>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="prevStep()">上一步</button>
+                            <button class="btn btn-success" onclick="nextStep()">下一步</button>
+                        </div>
+                    </div>
+
+                    <!-- 步驟3：選擇付款方式 -->
+                    <div class="payment-step" id="step3">
+                        <h2 style="color: #00ff9d; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">選擇付款方式</h2>
+                        
+                        <div class="payment-methods">
+                            <button class="payment-method" onclick="selectPaymentMethod('linepay')">
+                                <div style="font-size: 2rem;">💳</div>
+                                <div style="font-weight: bold;">LINE Pay</div>
+                                <div style="color: #8a9ba8; font-size: 0.9rem;">快速安全支付</div>
+                            </button>
+                            
+                            <button class="payment-method" onclick="selectPaymentMethod('bank')">
+                                <div style="font-size: 2rem;">🏦</div>
+                                <div style="font-weight: bold;">銀行轉帳</div>
+                                <div style="color: #8a9ba8; font-size: 0.9rem;">ATM/網銀轉帳</div>
+                            </button>
+                            
+                            <button class="payment-method" onclick="selectPaymentMethod('711')">
+                                <div style="font-size: 2rem;">🏪</div>
+                                <div style="font-weight: bold;">超商代碼</div>
+                                <div style="color: #8a9ba8; font-size: 0.9rem;">7-11/全家</div>
+                            </button>
                         </div>
                         
-                        <div class="form-group">
-                            <label class="form-label">特殊需求（選填）</label>
-                            <textarea class="form-input" id="special-request" placeholder="請輸入任何特殊需求
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="prevStep()">上一步</button>
+                            <button class="btn btn-success" onclick="nextStep()">下一步</button>
+                        </div>
+                    </div>
+
+                    <!-- 步驟4：確認訂單 -->
+                    <div class="payment-step" id="step4">
+                        <h2 style="color: #00ff9d; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">確認訂單</h2>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 20px; margin-bottom: 25px;">
+                            <div id="order-details">訂單詳情將在此顯示</div>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="color: #ffcc00; font-size: 1.5rem; margin: 20px 0;" id="order-number">訂單編號: DELTA-2024-001</div>
+                            <p style="color: #8a9ba8; margin-bottom: 25px;">請記下您的訂單編號，並聯繫客服完成付款</p>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="showPage('home')">返回首頁</button>
+                            <button class="btn btn-success" onclick="contactCustomerService()">聯繫客服付款</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 聯繫區 -->
+            <div class="contact-section">
+                <h2 class="contact-title">📞 需要協助？</h2>
+                <div class="contact-info">官方LINE客服：@deltaforce</div>
+                <div class="contact-info">服務時間：每日 10:00 - 02:00</div>
+                <button class="btn btn-success" style="margin-top: 20px;" onclick="contactCustomerService()">立即聯繫客服</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 頁面管理 ====================
+        let currentPage = 'home';
+        let currentStep = 1;
+        let selectedService = null;
+        let selectedPaymentMethod = null;
+
+        // 顯示頁面函數 - 修復滾動問題
+        function showPage(pageId) {
+            console.log('切換到頁面:', pageId);
+            
+            // 隱藏所有頁面
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // 顯示目標頁面
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // 更新當前頁面
+            currentPage = pageId;
+            
+            // 更新選單狀態
+            updateMenuActiveState();
+            
+            // 關閉手機選單
+            closeMobileMenu();
+            
+            // 防止頁面跳動
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 10);
+            
+            // 如果切換到付款頁面，重置步驟
+            if (pageId === 'payment') {
+                resetPaymentSteps();
+            }
+        }
+
+        // 更新選單激活狀態
+        function updateMenuActiveState() {
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const activeItem = Array.from(document.querySelectorAll('.menu-item')).find(item => {
+                const pageMap = {
+                    '🏠 首頁': 'home',
+                    '🛡️ 護航服務': 'escort',
+                    '🎲 賭約單': 'betting',
+                    '🎮 娛樂玩法': 'entertainment',
+                    '👥 娛樂陪玩': 'peipei',
+                    '💳 立即預約': 'payment'
+                };
+                return pageMap[item.textContent] === currentPage;
+            });
+            
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+        }
+
+        // ==================== 手機選單控制 ====================
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            
+            // 防止背景滾動
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 綁定事件
+        document.getElementById('menuToggle').addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+
+        document.getElementById('closeMenu').addEventListener('click', closeMobileMenu);
+        document.getElementById('menuOverlay').addEventListener('click', closeMobileMenu);
+
+        // 防止選單內點擊事件冒泡
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // ==================== 服務選擇 ====================
+        function selectService(name, price, description) {
+            console.log('選擇服務:', name, price, description);
+            setSelectedService(name, price, description);
+            showPage('payment');
+        }
+
+        function setSelectedService(name, price, description) {
+            selectedService = {
+                name: name,
+                price: price,
+                description: description
+            };
+            
+            // 更新顯示
+            document.getElementById('order-summary').innerHTML = `
+                <div style="margin-bottom: 10px;">
+                    <strong style="color: #00ff9d;">${name}</strong>
+                </div>
+                <div style="color: #66b3ff;">${description}</div>
+                <div style="margin-top: 10px; font-size: 1.2rem; color: #00ff9d;">價格：${price}元</div>
+            `;
+        }
+
+        // ==================== 付款流程控制 ====================
+        function resetPaymentSteps() {
+            currentStep = 1;
+            selectedPaymentMethod = null;
+            
+            // 重置步驟顯示
+            document.querySelectorAll('.payment-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('step1').classList.add('active');
+            
+            // 重置步驟指示器
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('active');
+                if (index === 0) step.classList.add('active');
+            });
+            
+            // 重置付款方式選擇
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('selected');
+            });
+        }
+
+        function nextStep() {
+            if (currentStep < 4) {
+                // 驗證當前步驟
+                if (currentStep === 1 && !selectedService) {
+                    alert('請先選擇服務項目');
+                    return;
+                }
+                
+                if (currentStep === 2) {
+                    const gameId = document.getElementById('game-id').value.trim();
+                    const contactType = document.getElementById('contact-type').value;
+                    const contactId = document.getElementById('contact-id').value.trim();
+                    
+                    if (!gameId || !contactType || !contactId) {
+                        alert('請填寫所有必填資料');
+                        return;
+                    }
+                }
+                
+                if (currentStep === 3 && !selectedPaymentMethod) {
+                    alert('請選擇付款方式');
+                    return;
+                }
+                
+                // 切換到下一步
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                document.getElementById(`step${currentStep + 1}`).classList.add('active');
+                
+                // 更新步驟指示器
+                document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
+                document.getElementById(`step${currentStep + 1}-indicator`).classList.add('active');
+                
+                currentStep++;
+                
+                // 如果是步驟4，更新訂單詳情
+                if (currentStep === 4) {
+                    updateOrderConfirmation();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                document.getElementById(`step${currentStep - 1}`).classList.add('active');
+                
+                document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
+                document.getElementById(`step${currentStep - 1}-indicator`).classList.add('active');
+                
+                currentStep--;
+            }
+        }
+
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            
+            // 移除所有選擇狀態
+            document.querySelectorAll('.payment-method').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // 添加選擇狀態
+            event.currentTarget.classList.add('selected');
+        }
+
+        function updateOrderConfirmation() {
+            const gameId = document.getElementById('game-id').value;
+            const contactType = document.getElementById('contact-type').value;
+            const contactId = document.getElementById('contact-id').value;
+            
+            const paymentMethods = {
+                'linepay': 'LINE Pay',
+                'bank': '銀行轉帳',
+                '711': '超商代碼'
+            };
+            
+            const orderDetails = `
+                <div style="margin-bottom: 15px;">
+                    <div style="color: #00ff9d; font-weight: bold; margin-bottom: 5px;">訂單詳情：</div>
+                    <div style="padding-left: 15px;">
+                        <div>服務：${selectedService.name}</div>
+                        <div>內容：${selectedService.description}</div>
+                        <div>金額：<span style="color: #00ff9d;">${selectedService.price}元</span></div>
+                        <div>付款方式：${paymentMethods[selectedPaymentMethod] || '未選擇'}</div>
+                        <div>遊戲ID：${gameId || '未填寫'}</div>
+                        <div>聯絡方式：${contactType || '未選擇'}</div>
+                        <div>聯絡帳號：${contactId || '未填寫'}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('order-details').innerHTML = orderDetails;
+            
+            // 生成訂單編號
+            const orderNumber = 'DELTA-' + new Date().getFullYear() + '-' + 
+                Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            document.getElementById('order-number').textContent = `訂單編號: ${orderNumber}`;
+        }
+
+        // ==================== 聯繫客服 ====================
+        function contactCustomerService() {
+            const message = `你好，我想預約三角洲行動服務！\n\n請協助處理付款事宜。`;
+            const lineUrl = `https://line.me/R/oaMessage/@deltaforce/?${encodeURIComponent(message)}`;
+            
+            // 嘗試打開LINE
+            window.open(lineUrl, '_blank');
+            
+            // 備用提示
+            alert('請聯繫客服完成付款：\n\nLINE：@deltaforce\n\n請提供訂單編號給客服');
+        }
+
+        // ==================== 初始化 ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('頁面載入完成');
+            
+            // 初始化顯示首頁
+            showPage('home');
+            updateMenuActiveState();
+            
+            // 測試所有按鈕綁定
+            setTimeout(() => {
+                console.log('按鈕測試：');
+                console.log('1. 漢堡選單按鈕:', document.getElementById('menuToggle'));
+                console.log('2. 關閉選單按鈕:', document.getElementById('closeMenu'));
+                console.log('3. 所有頁面切換按鈕數量:', document.querySelectorAll('[onclick^="showPage"]').length);
+            }, 100);
+            
+            // 阻止所有按鈕的預設行為
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (!this.getAttribute('type') || this.getAttribute('type') === 'submit') {
+                        e.preventDefault();
+                    }
+                });
+            });
+        });
+
+        // 防止表單提交
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        });
+
+        // 確保所有按鈕點擊都有反饋
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.97)';
+            });
+            button.addEventListener('mouseup', function() {
+                this.style.transform = '';
+            });
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>
