@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RK工作室提供專業的三角洲行動戰術護航服務、娛樂陪玩服務及各種特色玩法。安全高效，專業團隊，保證遊戲體驗。">
+    <meta name="keywords" content="三角洲行動,遊戲護航,陪玩服務,戰術支援,遊戲代練">
+    <meta name="author" content="RK工作室">
     <title>RK 工作室</title>
     <style>
         /* ============================
@@ -143,6 +146,10 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
+        }
+
+        .notification-info {
+            flex: 1;
         }
 
         .notification-info h4 {
@@ -624,6 +631,67 @@
         }
 
         /* ============================
+           服務網格與卡片樣式 - 新增
+           ============================ */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .service-card {
+            background: rgba(22, 27, 37, 0.8);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 102, 0, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+        }
+
+        .card-title {
+            color: var(--warning-color);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .book-btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .book-btn:hover {
+            background: #ff8800;
+            transform: translateY(-2px);
+        }
+
+        /* ============================
            價格表格
            ============================ */
         .price-table {
@@ -1063,6 +1131,18 @@
         }
 
         /* ============================
+           頁腳樣式 - 新增
+           ============================ */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(22, 27, 37, 0.95);
+            border-top: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            margin-top: 50px;
+        }
+
+        /* ============================
            響應式設計
            ============================ */
         @media (max-width: 768px) {
@@ -1261,6 +1341,27 @@
             .admin-login {
                 padding: 20px;
                 margin: 20px auto;
+            }
+        }
+
+        /* ============================
+           行動裝置優化 - 新增
+           ============================ */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .service-card {
+                padding: 20px 15px;
+            }
+            
+            .payment-method {
+                padding: 15px;
+            }
+            
+            .order-detail-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -2327,7 +2428,7 @@
             CANCELLED: 'cancelled'
         };
         
-        let orders = JSON.parse(localStorage.getItem('delta_orders')) || [];
+        let orders = [];
         let currentFilter = 'all';
         let currentOrderId = null;
         let notificationCheckInterval = null;
@@ -2353,6 +2454,9 @@
             
             // 初始化管理系統
             initAdminSystem();
+            
+            // 載入訂單資料
+            loadOrders();
             
             // 載入測試訂單（初次使用時）
             if (orders.length === 0) {
@@ -2449,6 +2553,18 @@
             const enableNotifications = document.getElementById('enableNotifications');
             if (enableNotifications) {
                 enableNotifications.checked = SYSTEM_CONFIG.ENABLE_NOTIFICATIONS;
+            }
+        }
+        
+        function loadOrders() {
+            const saved = localStorage.getItem('delta_orders');
+            if (saved) {
+                try {
+                    orders = JSON.parse(saved);
+                } catch (e) {
+                    console.error('載入訂單資料失敗:', e);
+                    orders = [];
+                }
             }
         }
         
@@ -2668,12 +2784,25 @@
         }
         
         function validateForm() {
-            const gameId = document.getElementById('game-id')?.value;
+            const gameId = document.getElementById('game-id')?.value.trim();
             const contactType = document.getElementById('contact-type')?.value;
-            const contactId = document.getElementById('contact-id')?.value;
+            const contactId = document.getElementById('contact-id')?.value.trim();
             const bookingTime = document.getElementById('booking-time')?.value;
             
+            // 基本驗證
             if (!gameId || !contactType || !contactId || !bookingTime) {
+                return false;
+            }
+            
+            // 遊戲ID長度驗證
+            if (gameId.length < 2 || gameId.length > 20) {
+                alert('遊戲ID長度應在2-20字元之間');
+                return false;
+            }
+            
+            // 聯絡帳號驗證
+            if (contactId.length < 3) {
+                alert('聯絡帳號長度不足');
                 return false;
             }
             
