@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三角洲行動 - 專業戰術支援服務</title>
+    <title>RK 工作室</title>
     <style>
         * {
             margin: 0;
@@ -1276,7 +1276,7 @@
                 <button onclick="closeAdminPanel()" class="login-btn" style="background: #333945;">取消</button>
             </div>
             <p style="text-align: center; margin-top: 20px; color: #8a9ba8; font-size: 0.9rem;">
-                提示：初始密碼為 delta123
+                提示：不知道密碼吧 嘿嘿嘿
             </p>
         </div>
 
@@ -1508,7 +1508,7 @@
 
     <!-- 導航欄 -->
     <nav class="navbar">
-        <a href="#" class="logo" onclick="showTab('home')" style="cursor: pointer;">三角洲行動 · 專業戰術支援</a>
+        <a href="#" class="logo" onclick="showTab('home')" style="cursor: pointer;">RK 工作室</a>
         <div class="menu-toggle" id="menuToggle">
             <span></span>
             <span></span>
@@ -1530,7 +1530,7 @@
         <!-- 首頁 -->
         <div class="tab-content active" id="home">
             <div class="hero">
-                <h1 class="hero-title">三角洲行動 · 專業戰術支援</h1>
+                <h1 class="hero-title">RK 工作室</h1>
                 <p class="hero-subtitle">頂尖打手團隊 · 專業護航服務 · 安全高效保障</p>
                 <div style="margin-top: 30px;">
                     <button onclick="showTab('escort')" style="background: #ff6600; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; margin: 0 10px;">
@@ -1549,7 +1549,7 @@
                         <div class="card-icon">🛡️</div>
                         <h2 class="card-title">戰術護航服務</h2>
                     </div>
-                    <p>專業打手團隊，保證您的遊戲物資安全。無論是暗區撤離還是戰區競技，我們提供最可靠的護航服務。</p>
+                    <p>專業打手團隊，我們提供最可靠的護航服務，保證您的遊戲物資安全。</p>
                     <ul style="margin-top: 15px; padding-left: 20px; color: #8a9ba8;">
                         <li>基礎單：500起，保底600w</li>
                         <li>體驗單：200起，保底400w</li>
@@ -1772,7 +1772,7 @@
                             </tr>
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">90000</td>
-                                <td><span class="price-unit">沒出心保 10888w</span></td>
+                                <td><span class="price-unit">沒出淚淚保 10888w</span></td>
                                 <td><button onclick="selectService('稀有目標-90000', '90000', '沒出心保 10888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                             <tr>
@@ -2121,7 +2121,6 @@
                                 <option value="">選擇聯絡方式</option>
                                 <option value="line">LINE</option>
                                 <option value="discord">Discord</option>
-                                <option value="wechat">微信</option>
                             </select>
                         </div>
                         
@@ -2184,9 +2183,6 @@
                         
                         <div class="payment-method" onclick="selectPaymentMethod('crypto')">
                             <div class="payment-icon">₿</div>
-                            <div style="font-weight: bold;">加密貨幣</div>
-                            <div style="color: #8a9ba8; font-size: 0.9rem;">USDT/BTC/ETH</div>
-                        </div>
                         
                         <div class="payment-method" onclick="selectPaymentMethod('711')">
                             <div class="payment-icon">🏪</div>
@@ -2258,7 +2254,7 @@
         <!-- 聯繫區 -->
         <div class="contact-section">
             <h2 class="contact-title">📞 需要協助？</h2>
-            <div class="contact-info">官方LINE客服：@deltaforce</div>
+            <div class="contact-info">官方LINE客服：@510qapos</div>
             <div class="contact-info">服務時間：每日 10:00 - 02:00</div>
             <div class="contact-info">緊急聯繫：24小時值班客服</div>
             <div style="margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; display: inline-block;">
@@ -3216,7 +3212,7 @@
             const typeMap = {
                 'line': 'LINE',
                 'discord': 'Discord',
-                'wechat': '微信'
+               
             };
             return typeMap[type] || type || '未提供';
         }
@@ -3225,7 +3221,6 @@
             const methodMap = {
                 'linepay': 'LINE Pay',
                 'bank': '銀行轉帳',
-                'crypto': '加密貨幣',
                 '711': '超商代碼'
             };
             return methodMap[method] || method || '未選擇';
