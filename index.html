@@ -1143,6 +1143,18 @@
         }
 
         /* ============================
+           幣號專區樣式
+           ============================ */
+        .area-title {
+            font-size: 2.5rem;
+            color: #ffcc00;
+            margin-bottom: 30px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ffcc00;
+        }
+
+        /* ============================
            響應式設計
            ============================ */
         @media (max-width: 768px) {
@@ -1405,6 +1417,7 @@
             <a href="#" class="nav-link" onclick="showTab('betting')">賭約單</a>
             <a href="#" class="nav-link" onclick="showTab('entertainment')">娛樂玩法</a>
             <a href="#" class="nav-link" onclick="showTab('peipei')">娛樂陪玩</a>
+            <a href="#" class="nav-link" onclick="showTab('coin')">幣號專區</a>
             <a href="#" class="nav-link" onclick="showTab('rules')">規則條款</a>
             <a href="#" class="nav-link book-now-btn" onclick="showTab('payment')">立即預約</a>
         </div>
@@ -1463,16 +1476,17 @@
 
                 <div class="service-card">
                     <div class="card-header">
-                        <div class="card-icon">⚡</div>
-                        <h2 class="card-title">特色娛樂玩法</h2>
+                        <div class="card-icon">💰</div>
+                        <h2 class="card-title">幣號專區</h2>
                     </div>
-                    <p>多種趣味玩法，讓遊戲更加精彩。牛角單、自力根生等特殊模式，挑戰極限，享受遊戲樂趣。</p>
+                    <p>提供各類遊戲幣號及雲機腳本服務，快速獲得遊戲資源，提升遊戲體驗。</p>
                     <ul style="margin-top: 15px; padding-left: 20px; color: var(--text-secondary);">
-                        <li>牛角單：1088起，保底800w</li>
-                        <li>自力根生：1000起，初始保底500w</li>
-                        <li>規則彈性，可客製化需求</li>
+                        <li>40M幣號：300元</li>
+                        <li>100M幣號：600元</li>
+                        <li>150M幣號：800元</li>
+                        <li>雲機+腳本：500元/月</li>
                     </ul>
-                    <button onclick="showTab('entertainment')" class="book-btn">
+                    <button onclick="showTab('coin')" class="book-btn">
                         了解更多
                     </button>
                 </div>
@@ -1825,6 +1839,113 @@
             </div>
         </div>
 
+        <!-- 幣號專區頁 -->
+        <div class="tab-content" id="coin">
+            <h1 style="color: #ffcc00; font-size: 2.5rem; margin-bottom: 30px;">幣號專區</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 1.1rem;">提供各類遊戲幣號及雲機腳本服務，快速獲得遊戲資源</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="card-header">
+                        <div class="card-icon">💰</div>
+                        <h2 class="card-title">40M 幣號</h2>
+                    </div>
+                    <div style="text-align: center; padding: 30px;">
+                        <div style="font-size: 2.5rem; color: #ffcc00; font-weight: bold; margin-bottom: 20px;">NT$300</div>
+                        <div style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 20px;">
+                            包含多項遊戲資源，立即可用。
+                        </div>
+                        <ul style="text-align: left; padding-left: 20px; color: var(--text-secondary);">
+                            <li>立即獲得40M遊戲幣</li>
+                            <li>包含基礎遊戲資源</li>
+                            <li>立即可用，無需等待</li>
+                            <li>安全穩定，保障帳號安全</li>
+                        </ul>
+                    </div>
+                    <button onclick="selectService('40M幣號', '300', '40M遊戲幣')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                        立即購買
+                    </button>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-header">
+                        <div class="card-icon">💰</div>
+                        <h2 class="card-title">100M 幣號</h2>
+                    </div>
+                    <div style="text-align: center; padding: 30px;">
+                        <div style="font-size: 2.5rem; color: #ffcc00; font-weight: bold; margin-bottom: 20px;">NT$600</div>
+                        <div style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 20px;">
+                            包含高額遊戲資源與道具。
+                        </div>
+                        <ul style="text-align: left; padding-left: 20px; color: var(--text-secondary);">
+                            <li>立即獲得100M遊戲幣</li>
+                            <li>包含高級遊戲資源</li>
+                            <li>額外遊戲道具</li>
+                            <li>適合中等需求玩家</li>
+                        </ul>
+                    </div>
+                    <button onclick="selectService('100M幣號', '600', '100M遊戲幣')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                        立即購買
+                    </button>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-header">
+                        <div class="card-icon">💰</div>
+                        <h2 class="card-title">150M 幣號</h2>
+                    </div>
+                    <div style="text-align: center; padding: 30px;">
+                        <div style="font-size: 2.5rem; color: #ffcc00; font-weight: bold; margin-bottom: 20px;">NT$800</div>
+                        <div style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 20px;">
+                            包含極高額遊戲資源，適合高階玩家。
+                        </div>
+                        <ul style="text-align: left; padding-left: 20px; color: var(--text-secondary);">
+                            <li>立即獲得150M遊戲幣</li>
+                            <li>包含大量高級資源</li>
+                            <li>稀有遊戲道具</li>
+                            <li>適合高階玩家需求</li>
+                        </ul>
+                    </div>
+                    <button onclick="selectService('150M幣號', '800', '150M遊戲幣')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                        立即購買
+                    </button>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-header">
+                        <div class="card-icon">☁️</div>
+                        <h2 class="card-title">雲機+腳本</h2>
+                    </div>
+                    <div style="text-align: center; padding: 30px;">
+                        <div style="font-size: 2.5rem; color: #ffcc00; font-weight: bold; margin-bottom: 20px;">NT$500</div>
+                        <div style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 20px;">
+                            1台/1個月，穩定高效。
+                        </div>
+                        <ul style="text-align: left; padding-left: 20px; color: var(--text-secondary);">
+                            <li>雲端機器人服務</li>
+                            <li>自動化腳本運行</li>
+                            <li>24小時不間斷</li>
+                            <li>穩定高效，省時省力</li>
+                        </ul>
+                    </div>
+                    <button onclick="selectService('雲機+腳本(1個月)', '500', '雲機+腳本服務')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                        立即訂購
+                    </button>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 25px; background: rgba(255, 204, 0, 0.1); border-radius: 15px; border: 2px solid #ffcc00;">
+                <h3 style="color: #ffcc00; margin-bottom: 15px;">⚠️ 重要提醒</h3>
+                <ul style="color: #ffdd66; padding-left: 20px; line-height: 1.8;">
+                    <li>幣號交付後恕不退換，請確認需求後購買</li>
+                    <li>雲機腳本服務需配合我方設定指引</li>
+                    <li>購買後請聯繫客服進行交付與設定</li>
+                    <li>請勿分享帳號密碼給非官方人員</li>
+                    <li>服務過程中如遇遊戲官方封號，責任自負</li>
+                </ul>
+            </div>
+        </div>
+
         <!-- 規則條款頁 -->
         <div class="tab-content" id="rules">
             <h1 style="color: var(--text-primary); font-size: 2.5rem; margin-bottom: 30px;">服務規則條款</h1>
@@ -1970,6 +2091,24 @@
                                 <span class="price-number">350元/小時</span>
                             </div>
                             <div style="color: #66b3ff; margin-top: 10px;">甜蜜互動娛樂局</div>
+                        </div>
+                        
+                        <div class="service-card" onclick="selectService('40M幣號', '300', '40M遊戲幣')">
+                            <h3 style="color: #ffcc00;">40M幣號</h3>
+                            <div class="order-item">
+                                <span>遊戲幣號</span>
+                                <span class="price-number">300元</span>
+                            </div>
+                            <div style="color: #66b3ff; margin-top: 10px;">包含多項遊戲資源</div>
+                        </div>
+                        
+                        <div class="service-card" onclick="selectService('雲機+腳本(1個月)', '500', '雲機+腳本服務')">
+                            <h3 style="color: #ffcc00;">雲機+腳本</h3>
+                            <div class="order-item">
+                                <span>1個月服務</span>
+                                <span class="price-number">500元</span>
+                            </div>
+                            <div style="color: #66b3ff; margin-top: 10px;">穩定高效自動化</div>
                         </div>
                     </div>
                     
@@ -2395,7 +2534,7 @@
                         <button onclick="updateOrderStatus('processing')" class="action-btn edit">開始處理</button>
                         <button onclick="updateOrderStatus('completed')" class="action-btn" style="background: #6666ff;">完成訂單</button>
                         <button onclick="updateOrderStatus('cancelled')" class="action-btn delete">取消訂單</button>
-                        <button onclick="assignToMe()" class="action-btn" style="background: #ff66ff;">我來處理</button>
+                        <button onclick="assignToMe()" class="action-btn" style="background: #ff66ff;">指派打手</button>
                         <button onclick="addOrderNote()" class="action-btn" style="background: var(--warning-color); color: var(--dark-bg);">新增備註</button>
                     </div>
                 </div>
