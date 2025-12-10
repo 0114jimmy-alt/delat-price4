@@ -43,7 +43,7 @@
         }
 
         /* ============================
-           載入動畫
+           載入動畫 - 簡化版本
            ============================ */
         .loading-overlay {
             position: fixed;
@@ -57,7 +57,12 @@
             justify-content: center;
             align-items: center;
             z-index: 10002;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .loading-spinner {
@@ -77,74 +82,6 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
-        }
-
-        /* ============================
-           通用組件樣式
-           ============================ */
-        .card {
-            background: var(--dark-card);
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            padding: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 102, 0, 0.2);
-            border-color: var(--primary-color);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-            text-align: center;
-            min-height: 44px;
-            min-width: 44px;
-        }
-
-        .btn:hover {
-            background: #ff8800;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: var(--border-color);
-        }
-
-        .btn-success {
-            background: var(--success-color);
-            color: var(--dark-bg);
-        }
-
-        .btn-danger {
-            background: var(--danger-color);
-            color: white;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            color: white;
-            font-size: 1rem;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-            background: rgba(0, 255, 157, 0.05);
         }
 
         /* ============================
@@ -176,57 +113,202 @@
         }
 
         /* ============================
-           訂單通知浮窗
+           導航欄
            ============================ */
-        .notification-container {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 9998;
-            max-width: 350px;
-        }
-
-        .order-notification {
-            background: linear-gradient(135deg, var(--secondary-color), var(--success-color));
-            color: var(--dark-bg);
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.3);
-            margin-bottom: 10px;
-            animation: slideIn 0.5s ease;
-            display: none;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .notification-content {
+        .navbar {
+            background: rgba(22, 27, 37, 0.95);
+            border-bottom: 3px solid var(--primary-color);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .notification-icon {
-            font-size: 2rem;
-            animation: pulse 1.5s infinite;
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+            text-decoration: none;
+            cursor: pointer;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--warning-color);
+            background: rgba(255, 102, 0, 0.1);
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--primary-color);
+        }
+
+        .book-now-btn {
+            background: var(--secondary-color);
+            color: var(--dark-bg);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .book-now-btn:hover {
+            background: #00cc7d;
+            transform: scale(1.05);
         }
 
         /* ============================
-           管理後台樣式
+           主容器
+           ============================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* ============================
+           英雄區
+           ============================ */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(rgba(10, 14, 20, 0.9), rgba(26, 31, 41, 0.9));
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, var(--primary-color), #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+        }
+
+        /* ============================
+           服務卡片
+           ============================ */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .service-card {
+            background: var(--dark-card);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 102, 0, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: var(--warning-color);
+        }
+
+        .book-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .book-btn:hover {
+            background: #ff8800;
+            transform: scale(1.05);
+        }
+
+        /* ============================
+           付款頁面
+           ============================ */
+        .payment-section {
+            background: var(--dark-card);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .payment-title {
+            color: var(--secondary-color);
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* ============================
+           頁腳
+           ============================ */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ============================
+           管理後台
            ============================ */
         .admin-panel {
             display: none;
@@ -246,30 +328,22 @@
         }
 
         /* ============================
-           導航欄
+           響應式設計
            ============================ */
-        .navbar {
-            background: rgba(22, 27, 37, 0.95);
-            border-bottom: 3px solid var(--primary-color);
-            padding: 15px 30px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
         @media (max-width: 768px) {
             .navbar {
                 flex-wrap: wrap;
                 padding: 10px 15px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+                order: 1;
+            }
+            
+            .menu-toggle {
+                display: flex;
+                order: 2;
             }
             
             .nav-links {
@@ -287,564 +361,37 @@
                 display: flex;
             }
             
-            .btn, .book-btn, .action-btn {
-                min-height: 44px;
-                min-width: 44px;
-            }
-        }
-
-        /* ============================
-           主容器
-           ============================ */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-
-        /* ============================
-           服務卡片
-           ============================ */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        /* ============================
-           付款頁面
-           ============================ */
-        .payment-section {
-            background: rgba(22, 27, 37, 0.95);
-            border-radius: 15px;
-            padding: 40px;
-            margin: 30px 0;
-            border: 2px solid var(--secondary-color);
-        }
-
-        .payment-steps {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        /* ============================
-           確認頁面
-           ============================ */
-        .confirmation-box {
-            text-align: center;
-            padding: 50px;
-            background: rgba(0, 255, 157, 0.1);
-            border-radius: 15px;
-            border: 2px solid var(--secondary-color);
-        }
-
-        /* ============================
-           聯繫區
-           ============================ */
-        .contact-section {
-            background: rgba(0, 150, 255, 0.1);
-            border-radius: 15px;
-            padding: 40px;
-            margin-top: 50px;
-            text-align: center;
-            border: 2px solid var(--accent-color);
-        }
-
-        /* ============================
-           頁腳
-           ============================ */
-        .footer {
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* ============================
-           訂單表格
-           ============================ */
-        .orders-table {
-            width: 100%;
-            background: var(--dark-card);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid var(--border-color);
-            margin-bottom: 30px;
-        }
-
-        .table-row {
-            display: grid;
-            grid-template-columns: 100px 1fr 150px 150px 150px 120px 120px;
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            align-items: center;
-        }
-
-        /* ============================
-           數據同步面板
-           ============================ */
-        .sync-panel {
-            background: rgba(0, 255, 157, 0.1);
-            border: 2px solid var(--secondary-color);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        /* ============================
-           錯誤提示
-           ============================ */
-        .error-toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--danger-color);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            z-index: 10001;
-            display: none;
-            animation: slideIn 0.3s ease;
-        }
-
-        .success-toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--success-color);
-            color: var(--dark-bg);
-            padding: 15px 20px;
-            border-radius: 8px;
-            z-index: 10001;
-            display: none;
-            animation: slideIn 0.3s ease;
-        }
-
-        /* ============================
-           網絡狀態指示器
-           ============================ */
-        .network-status {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            z-index: 9997;
-            display: none;
-        }
-
-        .network-online {
-            background: var(--success-color);
-            color: var(--dark-bg);
-        }
-
-        .network-offline {
-            background: var(--danger-color);
-            color: white;
-        }
-
-        /* ============================
-           倒數計時器
-           ============================ */
-        .countdown-timer {
-            background: rgba(255, 102, 0, 0.1);
-            border: 1px solid var(--primary-color);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 20px 0;
-            text-align: center;
-            font-size: 1.2rem;
-            color: var(--primary-color);
-        }
-
-        /* ============================
-           分析面板
-           ============================ */
-        .analytics-panel {
-            background: rgba(102, 102, 255, 0.1);
-            border: 2px solid #6666ff;
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 40px;
-        }
-
-        /* ============================
-           搜尋框
-           ============================ */
-        .search-box {
-            margin-bottom: 20px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid var(--border-color);
-            border-radius: 25px;
-            color: white;
-            font-size: 1rem;
-        }
-
-        /* 保留原有的所有其他樣式，只添加和修改部分 */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-            
-            .menu-toggle span {
-                width: 25px;
-                height: 3px;
-                background: var(--primary-color);
-                margin: 3px 0;
-                transition: 0.3s;
-            }
-            
-            /* 移動端表格響應式 */
-            .table-header {
-                display: none;
-            }
-            
-            .table-row {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                padding: 20px;
-            }
-            
-            .table-row > div {
+            .nav-link {
                 width: 100%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+                text-align: center;
+                padding: 12px;
+                margin: 5px 0;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
             }
         }
+
+        /* 隱藏一些複雜的樣式以簡化初始化 */
     </style>
 </head>
 <body>
-    <!-- 載入動畫 -->
+    <!-- 載入動畫 - 簡化版本 -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner"></div>
-        <div class="loading-text">載入中...</div>
+        <div class="loading-text">系統載入中...</div>
     </div>
 
-    <!-- 網絡狀態指示器 -->
-    <div class="network-status" id="networkStatus"></div>
-
-    <!-- 錯誤提示 -->
-    <div class="error-toast" id="errorToast"></div>
-    <div class="success-toast" id="successToast"></div>
-
     <!-- 管理員登入按鈕 -->
-    <button class="admin-btn" onclick="openAdminPanel()" aria-label="管理後台">
+    <button class="admin-btn" onclick="openAdminPanel()">
         <span>🔧</span>
         <span>管理後台</span>
     </button>
 
-    <!-- 訂單通知容器 -->
-    <div class="notification-container" id="notificationContainer">
-        <!-- 通知將動態生成在這裡 -->
-    </div>
-
-    <!-- 管理後台 -->
-    <div class="admin-panel" id="adminPanel">
-        <div class="admin-header">
-            <h1 class="admin-title">📊 訂單管理後台</h1>
-            <p style="color: var(--text-secondary);">完全內嵌 · 無需外部設定 · 即時同步</p>
-        </div>
-
-        <!-- 登入表單 -->
-        <div class="admin-login" id="adminLogin">
-            <h2 style="color: var(--warning-color); text-align: center; margin-bottom: 30px;">管理員登入</h2>
-            <div class="login-form">
-                <input type="password" id="adminPassword" class="login-input" placeholder="輸入管理員密碼" autocomplete="off">
-                <button onclick="adminLogin()" class="login-btn">登入</button>
-                <button onclick="closeAdminPanel()" class="login-btn" style="background: var(--border-color);">取消</button>
-            </div>
-            <p style="text-align: center; margin-top: 20px; color: var(--text-secondary); font-size: 0.9rem;">
-                提示：初始密碼為 Smile1124
-            </p>
-        </div>
-
-        <!-- 訂單管理面板 -->
-        <div class="orders-panel" id="ordersPanel">
-            <div class="orders-header">
-                <h2 style="color: var(--warning-color);">📋 訂單列表</h2>
-                <div class="orders-stats">
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalOrders">0</div>
-                        <div class="stat-label">總訂單數</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="pendingOrders">0</div>
-                        <div class="stat-label">待處理</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="todayOrders">0</div>
-                        <div class="stat-label">今日訂單</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalRevenue">0</div>
-                        <div class="stat-label">總收入</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 搜尋框 -->
-            <div class="search-box">
-                <input type="text" id="orderSearch" class="search-input" placeholder="🔍 搜尋訂單 (訂單編號、遊戲ID、服務名稱...)" onkeyup="searchOrders()">
-            </div>
-
-            <!-- 訂單篩選器 -->
-            <div class="order-filters">
-                <button class="filter-btn active" onclick="filterOrders('all')">全部訂單</button>
-                <button class="filter-btn" onclick="filterOrders('pending')">待處理</button>
-                <button class="filter-btn" onclick="filterOrders('paid')">已付款</button>
-                <button class="filter-btn" onclick="filterOrders('processing')">處理中</button>
-                <button class="filter-btn" onclick="filterOrders('completed')">已完成</button>
-                <button class="filter-btn" onclick="filterOrders('cancelled')">已取消</button>
-                <button class="filter-btn" onclick="batchUpdateSelected()" style="background: var(--accent-color); color: white;">批量操作</button>
-                <button class="filter-btn" onclick="refreshOrders()" style="background: var(--secondary-color); color: var(--dark-bg);">🔄 刷新</button>
-                <button class="filter-btn" onclick="exportOrders()" style="background: var(--accent-color); color: white;">📤 匯出</button>
-                <button class="filter-btn" onclick="showSyncPanel()" style="background: #ff66ff; color: white;">🔄 資料同步</button>
-                <button onclick="closeAdminPanel()" class="filter-btn" style="background: var(--danger-color); color: white;">❌ 關閉</button>
-            </div>
-
-            <!-- 批量操作面板 -->
-            <div class="batch-panel" id="batchPanel" style="display: none; margin-bottom: 20px; padding: 15px; background: rgba(0, 150, 255, 0.1); border-radius: 8px;">
-                <h4 style="color: var(--warning-color); margin-bottom: 10px;">批量操作</h4>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button onclick="batchUpdateStatus('paid')" class="filter-btn" style="background: var(--secondary-color); color: var(--dark-bg);">標記為已付款</button>
-                    <button onclick="batchUpdateStatus('processing')" class="filter-btn" style="background: var(--accent-color); color: white;">標記為處理中</button>
-                    <button onclick="batchUpdateStatus('completed')" class="filter-btn" style="background: #6666ff; color: white;">標記為已完成</button>
-                    <button onclick="batchUpdateStatus('cancelled')" class="filter-btn" style="background: var(--danger-color); color: white;">批量取消</button>
-                    <button onclick="hideBatchPanel()" class="filter-btn">取消</button>
-                </div>
-            </div>
-
-            <!-- 訂單表格 -->
-            <div class="orders-table">
-                <div class="table-header">
-                    <div><input type="checkbox" id="selectAll" onchange="toggleSelectAll()"></div>
-                    <div>訂單編號</div>
-                    <div>服務項目</div>
-                    <div>客戶資訊</div>
-                    <div>預約時間</div>
-                    <div>金額</div>
-                    <div>狀態</div>
-                    <div>操作</div>
-                </div>
-                <div id="ordersList">
-                    <!-- 訂單將動態生成在這裡 -->
-                </div>
-            </div>
-
-            <!-- 數據分析面板 -->
-            <div class="analytics-panel">
-                <h3 style="color: #6666ff; margin-bottom: 20px;">📈 數據分析</h3>
-                <div class="analytics-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="avgOrderValue">0</div>
-                        <div class="stat-label">平均訂單金額</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="conversionRate">0%</div>
-                        <div class="stat-label">轉換率</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="popularService">-</div>
-                        <div class="stat-label">最受歡迎服務</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="peakHour">-</div>
-                        <div class="stat-label">高峰時段</div>
-                    </div>
-                </div>
-                <button onclick="generateAnalyticsReport()" class="btn" style="margin-top: 20px; background: #6666ff;">生成詳細報告</button>
-            </div>
-
-            <!-- 資料同步面板 -->
-            <div class="sync-panel" id="syncPanel" style="display: none;">
-                <h3 style="color: var(--secondary-color); margin-bottom: 15px;">🔄 跨裝置資料同步</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 15px;">
-                    將以下同步碼分享給其他管理員，或輸入同步碼來同步訂單資料：
-                </p>
-                
-                <div class="settings-grid">
-                    <div class="setting-item">
-                        <h4 style="color: var(--warning-color); margin-bottom: 10px;">產生同步碼</h4>
-                        <button onclick="generateSyncCode()" class="login-btn" style="width: 100%;">產生新同步碼</button>
-                        <div class="sync-code-display" id="syncCodeDisplay">
-                            點擊上方按鈕產生同步碼
-                        </div>
-                        <p style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 10px;">
-                            此同步碼24小時內有效，分享給其他管理員
-                        </p>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <h4 style="color: var(--warning-color); margin-bottom: 10px;">輸入同步碼</h4>
-                        <textarea id="inputSyncCode" class="login-input" placeholder="貼上同步碼..." rows="4" style="width: 100%;"></textarea>
-                        <button onclick="importFromSyncCode()" class="login-btn" style="width: 100%; margin-top: 10px; background: var(--warning-color); color: var(--dark-bg);">匯入資料</button>
-                        <p style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 10px;">
-                            貼上其他管理員分享的同步碼來同步資料
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 系統設定 -->
-            <div class="system-settings">
-                <h3 style="color: var(--accent-color); margin-bottom: 20px;">⚙️ 系統設定</h3>
-                <div class="settings-grid">
-                    <div class="setting-item">
-                        <h4 style="color: var(--warning-color); margin-bottom: 10px;">基本設定</h4>
-                        <div style="margin-bottom: 15px;">
-                            <label style="display: block; color: var(--text-secondary); margin-bottom: 5px;">管理員密碼：</label>
-                            <input type="password" id="newAdminPassword" class="login-input" placeholder="輸入新密碼 (至少4個字元)" style="width: 100%;">
-                        </div>
-                        <button onclick="changeAdminPassword()" class="login-btn" style="width: 100%;">更改密碼</button>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <h4 style="color: var(--warning-color); margin-bottom: 10px;">通知設定</h4>
-                        <div style="margin-bottom: 15px;">
-                            <label style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
-                                <input type="checkbox" id="enableNotifications" checked>
-                                啟用新訂單通知
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary); margin-top: 10px;">
-                                <input type="checkbox" id="enableDesktopNotifications">
-                                啟用桌面通知
-                            </label>
-                        </div>
-                        <button onclick="saveNotificationSettings()" class="login-btn" style="width: 100%; background: var(--warning-color); color: var(--dark-bg);">儲存設定</button>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <h4 style="color: var(--warning-color); margin-bottom: 10px;">資料管理</h4>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <button onclick="exportOrders()" class="login-btn" style="width: 100%; background: var(--accent-color);">匯出訂單</button>
-                            <button onclick="backupData()" class="login-btn" style="width: 100%; background: #6666ff;">備份資料</button>
-                            <button onclick="clearOldOrders()" class="login-btn" style="width: 100%; background: var(--danger-color);">清除舊訂單</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 訂單詳情彈窗 -->
-            <div class="order-detail-modal" id="orderDetailModal">
-                <div class="order-detail-content">
-                    <button class="close-modal" onclick="closeOrderDetail()">×</button>
-                    <h2 style="color: var(--warning-color); margin-bottom: 20px;">📄 訂單詳情</h2>
-                    
-                    <div class="order-detail-grid">
-                        <div class="detail-section">
-                            <h4>訂單資訊</h4>
-                            <div class="detail-item">
-                                <span class="detail-label">訂單編號：</span>
-                                <span class="detail-value" id="detailOrderId">-</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">服務項目：</span>
-                                <span class="detail-value" id="detailService">-</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">服務詳情：</span>
-                                <span class="detail-value" id="detailDescription">-</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">訂單金額：</span>
-                                <span class="detail-value" id="detailAmount">-</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">建立時間：</span>
-                                <span class="detail-value" id="detailCreateTime">-</span>
-                            </div>
-                        </div>
-
-                        <div class="detail-section">
-                            <h4>客戶資訊</h4>
-                            <div class="detail-item">
-                                <span class="detail-label">遊戲ID：</span>
-                                <span class="detail-value" id="detailGameId">-</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">聯絡方式：</span>
-                                <span class="detail-value" id="detailContactType">-</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">聯絡帳號：</span>
-                                <span class="detail-value" id="detailContactId">-</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">預約時間：</span>
-                                <span class="detail-value" id="detailBookingTime">-</span>
-                            </div>
-                        </div>
-
-                        <div class="detail-section">
-                            <h4>付款資訊</h4>
-                            <div class="detail-item">
-                                <span class="detail-label">付款方式：</span>
-                                <span class="detail-value" id="detailPaymentMethod">-</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">付款狀態：</span>
-                                <span class="detail-value" id="detailPaymentStatus">-</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">付款時間：</span>
-                                <span class="detail-value" id="detailPaymentTime">-</span>
-                            </div>
-                        </div>
-
-                        <div class="detail-section">
-                            <h4>訂單管理</h4>
-                            <div class="detail-item">
-                                <span class="detail-label">當前狀態：</span>
-                                <span class="detail-value" id="detailStatus">-</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">負責打手：</span>
-                                <span class="detail-value" id="detailAssignedTo">未指派</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">備註：</span>
-                                <span class="detail-value" id="detailNotes">無</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 30px; display: flex; gap: 15px; flex-wrap: wrap;">
-                        <button onclick="updateOrderStatus('paid')" class="action-btn view">標記為已付款</button>
-                        <button onclick="updateOrderStatus('processing')" class="action-btn edit">開始處理</button>
-                        <button onclick="updateOrderStatus('completed')" class="action-btn" style="background: #6666ff;">完成訂單</button>
-                        <button onclick="updateOrderStatus('cancelled')" class="action-btn delete">取消訂單</button>
-                        <button onclick="assignToMe()" class="action-btn" style="background: #ff66ff;">我來處理</button>
-                        <button onclick="addOrderNote()" class="action-btn" style="background: var(--warning-color); color: var(--dark-bg);">新增備註</button>
-                        <button onclick="uploadPaymentProof()" class="action-btn" style="background: var(--secondary-color); color: var(--dark-bg);">上傳付款證明</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- 導航欄 -->
     <nav class="navbar">
-        <a href="#" class="logo" onclick="showTab('home')" style="cursor: pointer; color: var(--primary-color); text-decoration: none; font-size: 1.8rem; font-weight: bold;">RK 工作室</a>
+        <a href="#" class="logo" onclick="showTab('home')">RK 工作室</a>
         <div class="menu-toggle" id="menuToggle">
             <span></span>
             <span></span>
@@ -863,218 +410,92 @@
 
     <!-- 主內容區 -->
     <div class="container">
-        <!-- 付款頁面倒數計時器 -->
-        <div class="countdown-timer" id="countdownTimer" style="display: none;">
-            ⏰ 付款剩餘時間：<span id="countdownDisplay">15:00</span>
-        </div>
-
-        <!-- 各分頁內容保持不變 -->
         <!-- 首頁 -->
         <div class="tab-content active" id="home">
-            <!-- 原有首頁內容 -->
-        </div>
+            <div class="hero">
+                <h1 class="hero-title">RK 工作室</h1>
+                <p class="hero-subtitle" style="color: var(--text-secondary); font-size: 1.3rem; margin-bottom: 25px;">
+                    頂尖打手團隊 · 專業護航服務 · 安全高效保障
+                </p>
+                <div style="margin-top: 30px;">
+                    <button onclick="showTab('escort')" style="background: var(--primary-color); color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; margin: 0 10px;">
+                        查看護航服務
+                    </button>
+                    <button onclick="showTab('payment')" style="background: var(--secondary-color); color: var(--dark-bg); border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; margin: 0 10px; font-weight: bold;">
+                        立即預約付款
+                    </button>
+                </div>
+            </div>
 
-        <!-- 護航服務頁 -->
-        <div class="tab-content" id="escort">
-            <!-- 原有護航服務內容 -->
-        </div>
+            <!-- 服務簡介 -->
+            <div class="services-grid">
+                <div class="service-card" onclick="selectService('基礎單-500', '500', '保底 600w')">
+                    <div class="card-header">
+                        <div class="card-icon">🛡️</div>
+                        <h2 class="card-title">戰術護航服務</h2>
+                    </div>
+                    <p>專業打手團隊，我們提供最可靠的護航服務，保證您的遊戲物資安全。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px; color: var(--text-secondary);">
+                        <li>基礎單：500起，保底600w</li>
+                        <li>體驗單：200起，保底400w</li>
+                        <li>航天賭約單：高風險高回報</li>
+                    </ul>
+                    <button class="book-btn">了解更多</button>
+                </div>
 
-        <!-- 賭約單頁 -->
-        <div class="tab-content" id="betting">
-            <!-- 原有賭約單內容 -->
-        </div>
+                <div class="service-card" onclick="selectService('男陪玩-娛樂', '250', '每小時')">
+                    <div class="card-header">
+                        <div class="card-icon">🎮</div>
+                        <h2 class="card-title">娛樂陪玩服務</h2>
+                    </div>
+                    <p>專業陪玩師團隊，提供技術指導或輕鬆娛樂。男女陪玩師可選，讓您的遊戲體驗更加豐富有趣。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px; color: var(--text-secondary);">
+                        <li>男陪玩：娛樂250/小時，技術450/小時</li>
+                        <li>女陪玩：娛樂350/小時，技術550/小時</li>
+                        <li>時長套餐優惠，新客專屬福利</li>
+                    </ul>
+                    <button class="book-btn">了解更多</button>
+                </div>
 
-        <!-- 娛樂玩法頁 -->
-        <div class="tab-content" id="entertainment">
-            <!-- 原有娛樂玩法內容 -->
-        </div>
-
-        <!-- 娛樂陪玩頁 -->
-        <div class="tab-content" id="peipei">
-            <!-- 原有娛樂陪玩內容 -->
-        </div>
-
-        <!-- 規則條款頁 -->
-        <div class="tab-content" id="rules">
-            <!-- 原有規則條款內容 -->
+                <div class="service-card" onclick="selectService('牛角單-1088', '1088', '保底 800w')">
+                    <div class="card-header">
+                        <div class="card-icon">⚡</div>
+                        <h2 class="card-title">特色娛樂玩法</h2>
+                    </div>
+                    <p>多種趣味玩法，讓遊戲更加精彩。牛角單、自力根生等特殊模式，挑戰極限，享受遊戲樂趣。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px; color: var(--text-secondary);">
+                        <li>牛角單：1088起，保底800w</li>
+                        <li>自力根生：1000起，初始保底500w</li>
+                        <li>規則彈性，可客製化需求</li>
+                    </ul>
+                    <button class="book-btn">了解更多</button>
+                </div>
+            </div>
         </div>
 
         <!-- 付款頁面 -->
         <div class="tab-content" id="payment">
             <div class="payment-section">
-                <!-- 已選擇服務顯示區 -->
-                <div class="selected-service-display" id="selectedServiceDisplay">
-                    <div class="selected-service-title">已選擇服務</div>
-                    <div class="selected-service-details">
-                        <div class="service-info">
-                            <div id="displayServiceName">尚未選擇服務</div>
-                            <div id="displayServiceDescription" style="color: var(--text-secondary); font-size: 0.9rem;"></div>
-                        </div>
-                        <div class="service-price" id="displayServicePrice">0元</div>
-                        <button class="change-service-btn" onclick="clearServiceSelection()">更換服務</button>
-                    </div>
-                </div>
-
-                <!-- 付款步驟 -->
-                <div class="payment-steps">
-                    <div class="step active" id="step1">
-                        <div class="step-number">1</div>
-                        <div class="step-text">選擇服務</div>
-                    </div>
-                    <div class="step" id="step2">
-                        <div class="step-number">2</div>
-                        <div class="step-text">填寫資料</div>
-                    </div>
-                    <div class="step" id="step3">
-                        <div class="step-number">3</div>
-                        <div class="step-text">選擇付款</div>
-                    </div>
-                    <div class="step" id="step4">
-                        <div class="step-number">4</div>
-                        <div class="step-text">確認訂單</div>
-                    </div>
-                </div>
-
-                <!-- 步驟1：選擇服務 -->
-                <div id="payment-step1" class="payment-step active">
-                    <!-- 原有步驟1內容 -->
-                </div>
-
-                <!-- 步驟2：填寫資料 -->
-                <div id="payment-step2" class="payment-step" style="display: none;">
-                    <!-- 原有步驟2內容 -->
-                </div>
-
-                <!-- 步驟3：選擇付款方式 -->
-                <div id="payment-step3" class="payment-step" style="display: none;">
-                    <h2 class="payment-title">選擇付款方式</h2>
-                    
-                    <div class="order-summary">
-                        <h3 style="color: var(--warning-color); margin-bottom: 15px;">訂單確認</h3>
-                        <div class="order-item">
-                            <span id="confirm-service-name">尚未選擇服務</span>
-                            <span id="confirm-service-price">0元</span>
-                        </div>
-                        <div class="order-item">
-                            <span>預約時間</span>
-                            <span id="confirm-booking-time">未設定</span>
-                        </div>
-                        <div class="order-total">
-                            <span>應付金額</span>
-                            <span id="confirm-order-total">0元</span>
-                        </div>
-                    </div>
-                    
-                    <h3 style="color: var(--accent-color); margin: 30px 0 20px;">請選擇付款方式</h3>
-                    
-                    <div class="payment-methods">
-                        <div class="payment-method" onclick="selectPaymentMethod('linepay')">
-                            <div class="payment-icon">💳</div>
-                            <div style="font-weight: bold;">LINE Pay</div>
-                            <div style="color: var(--text-secondary); font-size: 0.9rem;">快速安全支付</div>
-                        </div>
-                        
-                        <div class="payment-method" onclick="selectPaymentMethod('bank')">
-                            <div class="payment-icon">🏦</div>
-                            <div style="font-weight: bold;">銀行轉帳</div>
-                            <div style="color: var(--text-secondary); font-size: 0.9rem;">ATM/網銀轉帳</div>
-                        </div>
-                        
-                        <div class="payment-method" onclick="selectPaymentMethod('crypto')">
-                            <div class="payment-icon">₿</div>
-                            <div style="font-weight: bold;">加密貨幣</div>
-                            <div style="color: var(--text-secondary); font-size: 0.9rem;">BTC/ETH/USDT</div>
-                        </div>
-                        
-                        <div class="payment-method" onclick="selectPaymentMethod('711')">
-                            <div class="payment-icon">🏪</div>
-                            <div style="font-weight: bold;">超商代碼</div>
-                            <div style="color: var(--text-secondary); font-size: 0.9rem;">7-11/全家</div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 30px; padding: 20px; background: rgba(255, 204, 0, 0.1); border-radius: 10px;">
-                        <h4 style="color: var(--warning-color); margin-bottom: 10px;">⚠️ 付款注意事項</h4>
-                        <ul style="color: #ffdd66; padding-left: 20px;">
-                            <li>付款完成後請提供付款證明給客服</li>
-                            <li>確認收款後客服會主動與您聯繫</li>
-                            <li>付款後10分鐘內未收到確認請聯繫客服</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="btn-group">
-                        <button onclick="prevStep()" class="btn btn-secondary">上一步</button>
-                        <button onclick="nextStep()" class="btn btn-success">下一步：確認訂單</button>
-                    </div>
-                </div>
-
-                <!-- 步驟4：確認訂單 -->
-                <div id="payment-step4" class="payment-step" style="display: none;">
-                    <div class="confirmation-box">
-                        <div class="confirmation-icon">✅</div>
-                        <h2 class="confirmation-title">訂單已建立</h2>
-                        <p class="confirmation-text">您的訂單已成功建立，請完成付款以確認預約</p>
-                        
-                        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 10px; margin: 25px 0;">
-                            <div class="order-item">
-                                <span>訂單編號</span>
-                                <span class="order-id" id="order-id-display">DELTA-2024-0001</span>
-                            </div>
-                            <div class="order-item">
-                                <span>服務項目</span>
-                                <span id="final-service-name">尚未選擇服務</span>
-                            </div>
-                            <div class="order-item">
-                                <span>付款金額</span>
-                                <span id="final-order-total" style="color: var(--secondary-color); font-weight: bold;">0元</span>
-                            </div>
-                            <div class="order-item">
-                                <span>付款方式</span>
-                                <span id="final-payment-method">未選擇</span>
-                            </div>
-                        </div>
-                        
-                        <!-- 付款證明上傳 -->
-                        <div style="margin: 30px 0;">
-                            <h3 style="color: var(--accent-color); margin-bottom: 15px;">📤 上傳付款證明</h3>
-                            <input type="file" id="paymentProof" accept="image/*,.pdf" style="display: none;">
-                            <button onclick="document.getElementById('paymentProof').click()" class="btn btn-secondary" style="margin-bottom: 10px;">選擇檔案</button>
-                            <div id="fileInfo" style="color: var(--text-secondary); font-size: 0.9rem;"></div>
-                        </div>
-                        
-                        <div style="margin: 30px 0;">
-                            <h3 style="color: var(--accent-color); margin-bottom: 15px;">📋 下一步操作</h3>
-                            <div style="color: var(--text-secondary); text-align: left; max-width: 500px; margin: 0 auto;">
-                                1. 請在 <strong style="color: var(--warning-color);">15分鐘內</strong> 完成付款<br>
-                                2. 付款後請將 <strong style="color: var(--warning-color);">付款證明截圖</strong> 上傳<br>
-                                3. 聯繫客服提供訂單編號及付款證明<br>
-                                4. 客服確認後會立即為您安排服務
-                            </div>
-                        </div>
-                        
-                        <div class="btn-group">
-                            <button onclick="printOrder()" class="btn btn-secondary">列印訂單</button>
-                            <button onclick="window.open('https://line.me/R/ti/p/@510qapos', '_blank')" class="btn btn-success">聯繫客服完成付款</button>
-                        </div>
-                    </div>
+                <h2 class="payment-title">預約服務</h2>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 30px;">
+                    請從首頁選擇您需要的服務，或直接聯繫客服 @510qapos
+                </p>
+                <div style="text-align: center;">
+                    <button onclick="window.open('https://line.me/R/ti/p/@510qapos', '_blank')" 
+                            class="book-now-btn" 
+                            style="padding: 15px 40px; font-size: 1.2rem;">
+                        📞 聯繫客服預約
+                    </button>
                 </div>
             </div>
         </div>
 
         <!-- 聯繫區 -->
-        <div class="contact-section">
-            <h2 class="contact-title">📞 需要協助？</h2>
-            <div class="contact-info">官方LINE客服：@510qapos</div>
-            <div class="contact-info">服務時間：每日 10:00 - 02:00</div>
-            <div class="contact-info">緊急聯繫：24小時值班客服</div>
-            <div style="margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; display: inline-block;">
-                <div style="color: var(--warning-color); font-size: 1.2rem; margin-bottom: 10px;">掃描QR Code添加客服</div>
-                <div class="contact-qr">
-                    <div style="width: 150px; height: 150px; background: #333; margin: 0 auto; display: flex; align-items: center; justify-content: center; color: #666;">
-                        [LINE QR Code]
-                    </div>
-                </div>
-            </div>
+        <div class="contact-section" style="background: rgba(0, 150, 255, 0.1); border-radius: 15px; padding: 40px; margin-top: 50px; text-align: center; border: 2px solid var(--accent-color);">
+            <h2 style="color: var(--accent-color); font-size: 2rem; margin-bottom: 20px;">📞 需要協助？</h2>
+            <div style="color: var(--text-primary); font-size: 1.3rem; margin: 15px 0;">官方LINE客服：@510qapos</div>
+            <div style="color: var(--text-primary); font-size: 1.3rem; margin: 15px 0;">服務時間：每日 10:00 - 02:00</div>
+            <div style="color: var(--text-primary); font-size: 1.3rem; margin: 15px 0;">緊急聯繫：24小時值班客服</div>
         </div>
     </div>
 
@@ -1083,124 +504,88 @@
         <div>三角洲行動 · 專業戰術支援服務</div>
         <div style="margin-top: 10px;">© 2024 三角洲行動戰術支援服務中心 | 版本：2024.01</div>
         <div style="margin-top: 10px; font-size: 0.8rem; color: var(--text-muted);">本服務僅供娛樂參考，請遵守遊戲規則與相關法律</div>
-        <div style="margin-top: 10px; font-size: 0.7rem; color: var(--text-muted);">系統狀態：<span id="systemStatus">正常</span></div>
     </footer>
+
+    <!-- 簡化的管理後台 -->
+    <div class="admin-panel" id="adminPanel">
+        <div style="padding: 20px;">
+            <h1 style="color: var(--primary-color); text-align: center; margin-bottom: 30px;">📊 訂單管理後台</h1>
+            
+            <!-- 登入表單 -->
+            <div id="adminLogin" style="max-width: 400px; margin: 50px auto; padding: 40px; background: var(--dark-card); border-radius: 15px; border: 2px solid var(--primary-color);">
+                <h2 style="color: var(--warning-color); text-align: center; margin-bottom: 30px;">管理員登入</h2>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <input type="password" id="adminPassword" 
+                           placeholder="輸入管理員密碼" 
+                           autocomplete="off"
+                           style="padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid var(--border-color); border-radius: 8px; color: white; font-size: 1rem;">
+                    <button onclick="adminLogin()" 
+                            style="background: var(--secondary-color); color: var(--dark-bg); border: none; padding: 15px; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer;">
+                        登入
+                    </button>
+                    <button onclick="closeAdminPanel()" 
+                            style="background: var(--border-color); color: white; border: none; padding: 15px; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer;">
+                        取消
+                    </button>
+                </div>
+                <p style="text-align: center; margin-top: 20px; color: var(--text-secondary); font-size: 0.9rem;">
+                    提示：初始密碼為 Smile1124
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ============================
-        // 全域設定與變數
+        // 簡化初始化
         // ============================
         
+        // 系統配置
         const SYSTEM_CONFIG = {
-            ADMIN_PASSWORD: localStorage.getItem('admin_password') || 'Smile1124',
-            ENABLE_NOTIFICATIONS: localStorage.getItem('enable_notifications') !== 'false',
-            ENABLE_DESKTOP_NOTIFICATIONS: localStorage.getItem('enable_desktop_notifications') === 'true',
-            SYNC_CODE_EXPIRY: 24 * 60 * 60 * 1000,
-            PAYMENT_TIMEOUT: 15 * 60 * 1000, // 15分鐘
-            LOGIN_ATTEMPTS: {},
-            MAX_LOGIN_ATTEMPTS: 5,
-            LOCKOUT_TIME: 15 * 60 * 1000 // 15分鐘鎖定
+            ADMIN_PASSWORD: 'Smile1124'
         };
         
-        const ORDER_STATUS = {
-            PENDING: 'pending',
-            PAID: 'paid',
-            PROCESSING: 'processing',
-            COMPLETED: 'completed',
-            CANCELLED: 'cancelled'
-        };
+        // 初始訂單數據
+        let orders = [];
         
-        let orders = JSON.parse(localStorage.getItem('delta_orders')) || [];
-        let currentFilter = 'all';
-        let currentOrderId = null;
-        let notificationCheckInterval = null;
-        let currentStep = 1;
-        let selectedService = null;
-        let selectedPaymentMethod = '';
-        let paymentCountdownInterval = null;
-        let selectedOrders = new Set();
-        let saveTimeout = null;
-        
-        // ============================
-        // 初始化
-        // ============================
-        
-        document.addEventListener('DOMContentLoaded', async function() {
-            // 顯示載入動畫
-            showLoading();
+        // 頁面載入完成後執行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('頁面載入完成，開始初始化...');
             
-            // 初始化網站功能
-            await initWebsite();
-            
-            // 初始化管理系統
-            initAdminSystem();
-            
-            // 載入測試訂單（初次使用時）
-            if (orders.length === 0) {
-                loadSampleOrders();
-            }
-            
-            // 開始訂單通知檢查
-            startNotificationCheck();
-            
-            // 初始化性能監控
-            initPerformanceMonitoring();
-            
-            // 初始化離線支持
-            initOfflineSupport();
-            
-            // 初始化桌面通知
-            initDesktopNotifications();
-            
-            // 初始化備份系統
-            initAutoBackup();
-            
-            // 初始化手勢支持
-            initTouchGestures();
-            
-            // 隱藏載入動畫
+            // 立即隱藏載入畫面
             setTimeout(() => {
-                hideLoading();
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                if (loadingOverlay) {
+                    loadingOverlay.classList.add('hidden');
+                    
+                    // 完全移除載入畫面
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                    }, 500);
+                }
             }, 500);
+            
+            // 初始化基本功能
+            initBasicFunctions();
+            
+            // 載入訂單數據
+            loadOrders();
+            
+            // 初始化漢堡選單
+            initMenuToggle();
+            
+            console.log('初始化完成！');
         });
         
-        async function initWebsite() {
-            // 手機版漢堡選單功能
-            const menuToggle = document.getElementById('menuToggle');
-            const navLinks = document.getElementById('navLinks');
-            
-            if (menuToggle) {
-                menuToggle.addEventListener('click', () => {
-                    navLinks.classList.toggle('active');
-                    
-                    const spans = menuToggle.querySelectorAll('span');
-                    if (navLinks.classList.contains('active')) {
-                        spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
-                        spans[1].style.opacity = '0';
-                        spans[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
-                    } else {
-                        spans[0].style.transform = 'none';
-                        spans[1].style.opacity = '1';
-                        spans[2].style.transform = 'none';
-                    }
-                });
-                
-                // 點擊導航連結後關閉漢堡選單（手機版）
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (window.innerWidth <= 768) {
-                            navLinks.classList.remove('active');
-                            const spans = menuToggle.querySelectorAll('span');
-                            spans[0].style.transform = 'none';
-                            spans[1].style.opacity = '1';
-                            spans[2].style.transform = 'none';
-                        }
-                    });
-                });
-            }
-            
+        // ============================
+        // 基本功能初始化
+        // ============================
+        
+        function initBasicFunctions() {
             // 頁面切換功能
             window.showTab = function(tabId) {
+                console.log('切換到分頁:', tabId);
+                
                 // 隱藏所有分頁
                 document.querySelectorAll('.tab-content').forEach(tab => {
                     tab.classList.remove('active');
@@ -1223,994 +608,184 @@
                     activeLink.classList.add('active');
                 }
                 
-                // 如果是付款頁面，重置付款流程
-                if (tabId === 'payment') {
-                    resetPaymentSteps();
-                }
-                
                 // 滾動到頂部
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             };
             
-            // 設定日期時間輸入框的最小值和預設值
-            const bookingTimeInput = document.getElementById('booking-time');
-            if (bookingTimeInput) {
-                const now = new Date();
-                const minDate = new Date(now.getTime() + 3600000); // 1小時後
-                bookingTimeInput.min = minDate.toISOString().slice(0, 16);
-                bookingTimeInput.value = minDate.toISOString().slice(0, 16);
-            }
-            
-            // 設置訂單通知
-            setupOrderNotifications();
-            
-            // 監聽文件上傳
-            const paymentProofInput = document.getElementById('paymentProof');
-            if (paymentProofInput) {
-                paymentProofInput.addEventListener('change', handleFileUpload);
-            }
-        }
-        
-        function initAdminSystem() {
-            // 載入設定到表單
-            const enableNotifications = document.getElementById('enableNotifications');
-            if (enableNotifications) {
-                enableNotifications.checked = SYSTEM_CONFIG.ENABLE_NOTIFICATIONS;
-            }
-            
-            const enableDesktopNotifications = document.getElementById('enableDesktopNotifications');
-            if (enableDesktopNotifications) {
-                enableDesktopNotifications.checked = SYSTEM_CONFIG.NABLE_DESKTOP_NOTIFICATIONS;
-            }
-        }
-        
-        // ============================
-        // 安全增強功能
-        // ============================
-        
-        function sanitizeInput(input) {
-            if (!input) return '';
-            return input.toString()
-                .replace(/[<>]/g, '') // 移除HTML標籤
-                .replace(/javascript:/gi, '') // 移除javascript協議
-                .replace(/on\w+=/gi, '') // 移除事件處理器
-                .trim()
-                .substring(0, 500); // 長度限制
-        }
-        
-        function isAccountLocked() {
-            const ip = getClientIP();
-            const lockInfo = SYSTEM_CONFIG.LOGIN_ATTEMPTS[ip];
-            if (lockInfo && lockInfo.lockedUntil > Date.now()) {
-                const minutesLeft = Math.ceil((lockInfo.lockedUntil - Date.now()) / 60000);
-                showError(`帳戶已鎖定，請 ${minutesLeft} 分鐘後再試`);
-                return true;
-            }
-            return false;
-        }
-        
-        function recordFailedLogin() {
-            const ip = getClientIP();
-            if (!SYSTEM_CONFIG.LOGIN_ATTEMPTS[ip]) {
-                SYSTEM_CONFIG.LOGIN_ATTEMPTS[ip] = { count: 0, lockedUntil: 0 };
-            }
-            
-            SYSTEM_CONFIG.LOGIN_ATTEMPTS[ip].count++;
-            
-            if (SYSTEM_CONFIG.LOGIN_ATTEMPTS[ip].count >= SYSTEM_CONFIG.MAX_LOGIN_ATTEMPTS) {
-                SYSTEM_CONFIG.LOGIN_ATTEMPTS[ip].lockedUntil = Date.now() + SYSTEM_CONFIG.LOCKOUT_TIME;
-                showError(`登入失敗次數過多，帳戶已鎖定 ${SYSTEM_CONFIG.LOCKOUT_TIME / 60000} 分鐘`);
-            }
-        }
-        
-        function resetLoginAttempts() {
-            const ip = getClientIP();
-            if (SYSTEM_CONFIG.LOGIN_ATTEMPTS[ip]) {
-                SYSTEM_CONFIG.LOGIN_ATTEMPTS[ip].count = 0;
-                SYSTEM_CONFIG.LOGIN_ATTEMPTS[ip].lockedUntil = 0;
-            }
-        }
-        
-        function getClientIP() {
-            // 簡單的客戶端IP模擬（實際應用應使用後端獲取真實IP）
-            return navigator.userAgent + navigator.language + screen.width + screen.height;
-        }
-        
-        // ============================
-        // 離線支持功能
-        // ============================
-        
-        function initOfflineSupport() {
-            window.addEventListener('online', updateOnlineStatus);
-            window.addEventListener('offline', updateOnlineStatus);
-            updateOnlineStatus();
-        }
-        
-        function updateOnlineStatus() {
-            const networkStatus = document.getElementById('networkStatus');
-            if (!networkStatus) return;
-            
-            const isOnline = navigator.onLine;
-            if (isOnline) {
-                networkStatus.textContent = '✅ 在線';
-                networkStatus.className = 'network-status network-online';
-                networkStatus.style.display = 'block';
-                
-                // 上線時同步數據
-                setTimeout(() => {
-                    networkStatus.style.display = 'none';
-                }, 3000);
-                
-                // 如果有離線數據，嘗試同步
-                syncOfflineData();
-            } else {
-                networkStatus.textContent = '⚠️ 離線模式';
-                networkStatus.className = 'network-status network-offline';
-                networkStatus.style.display = 'block';
-                showError('您目前處於離線狀態，部分功能可能受限');
-            }
-        }
-        
-        function syncOfflineData() {
-            // 這裡可以實現離線數據同步邏輯
-            const offlineOrders = JSON.parse(localStorage.getItem('offline_orders')) || [];
-            if (offlineOrders.length > 0) {
-                offlineOrders.forEach(order => {
-                    createOrder(order);
-                });
-                localStorage.removeItem('offline_orders');
-                showSuccess(`${offlineOrders.length} 筆離線訂單已同步`);
-            }
-        }
-        
-        // ============================
-        // 桌面通知功能
-        // ============================
-        
-        function initDesktopNotifications() {
-            if ('Notification' in window && Notification.permission === 'default') {
-                Notification.requestPermission().then(permission => {
-                    if (permission === 'granted') {
-                        localStorage.setItem('enable_desktop_notifications', 'true');
-                    }
-                });
-            }
-        }
-        
-        function showDesktopNotification(title, body) {
-            if (!SYSTEM_CONFIG.ENABLE_DESKTOP_NOTIFICATIONS) return;
-            
-            if ('Notification' in window && Notification.permission === 'granted') {
-                new Notification(title, {
-                    body: body,
-                    icon: 'https://cdn-icons-png.flaticon.com/512/2917/2917995.png'
-                });
-            }
-        }
-        
-        // ============================
-        // 自動備份功能
-        // ============================
-        
-        function initAutoBackup() {
-            // 每小時自動備份一次
-            setInterval(() => {
-                backupData(true); // 靜默備份
-            }, 3600000);
-            
-            // 監聽頁面卸載事件
-            window.addEventListener('beforeunload', () => {
-                backupData(true);
-            });
-        }
-        
-        // ============================
-        // 手勢支持
-        // ============================
-        
-        function initTouchGestures() {
-            let touchStartX = 0;
-            let touchEndX = 0;
-            
-            document.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-            });
-            
-            document.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            });
-            
-            function handleSwipe() {
-                const swipeThreshold = 50;
-                const diff = touchStartX - touchEndX;
-                
-                if (Math.abs(diff) > swipeThreshold) {
-                    if (diff > 0) {
-                        // 向左滑動
-                        if (currentStep < 4) nextStep();
-                    } else {
-                        // 向右滑動
-                        if (currentStep > 1) prevStep();
-                    }
-                }
-            }
-        }
-        
-        // ============================
-        // 性能監控
-        // ============================
-        
-        function initPerformanceMonitoring() {
-            window.addEventListener('load', () => {
-                const loadTime = performance.now();
-                console.log(`頁面載入時間: ${loadTime.toFixed(2)}ms`);
-                
-                // 監聽頁面性能
-                if ('performance' in window) {
-                    const perfData = performance.getEntriesByType('navigation')[0];
-                    if (perfData) {
-                        console.log(`DNS查詢時間: ${perfData.domainLookupEnd - perfData.domainLookupStart}ms`);
-                        console.log(`TCP連接時間: ${perfData.connectEnd - perfData.connectStart}ms`);
-                        console.log(`請求響應時間: ${perfData.responseEnd - perfData.requestStart}ms`);
-                    }
-                }
-            });
-        }
-        
-        // ============================
-        // 付款流程功能
-        // ============================
-        
-        function selectService(name, price, description) {
-            selectedService = {
-                name: sanitizeInput(name),
-                price: parseInt(price),
-                description: sanitizeInput(description)
+            // 服務選擇功能
+            window.selectService = function(name, price, description) {
+                alert(`已選擇服務：${name}\n價格：${price}元\n說明：${description}\n請聯繫客服完成預約。`);
+                showTab('payment');
             };
             
-            // 更新顯示
-            updateSelectedServiceDisplay();
-            
-            // 更新其他顯示元素
-            const elementsToUpdate = {
-                'selected-service-name': `${name} - ${description}`,
-                'selected-service-price': `${price}元`,
-                'order-total': `${price}元`,
-                'confirm-service-name': `${name} - ${description}`,
-                'confirm-service-price': `${price}元`,
-                'confirm-order-total': `${price}元`,
-                'final-service-name': `${name} - ${description}`,
-                'final-order-total': `${price}元`,
-                'displayServiceName': name,
-                'displayServiceDescription': description,
-                'displayServicePrice': `${price}元`
+            // 管理後台功能
+            window.openAdminPanel = function() {
+                document.getElementById('adminPanel').classList.add('active');
+                document.getElementById('adminPassword').value = '';
             };
             
-            for (const [id, text] of Object.entries(elementsToUpdate)) {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.textContent = text;
+            window.closeAdminPanel = function() {
+                document.getElementById('adminPanel').classList.remove('active');
+            };
+            
+            window.adminLogin = function() {
+                const password = document.getElementById('adminPassword').value;
+                
+                if (password === SYSTEM_CONFIG.ADMIN_PASSWORD) {
+                    alert('登入成功！管理後台功能正在開發中...');
+                    closeAdminPanel();
+                } else {
+                    alert('密碼錯誤！');
                 }
-            }
-            
-            // 切換到付款頁面
-            showTab('payment');
-            resetPaymentSteps();
-            goToStep(1);
+            };
         }
         
-        function updateSelectedServiceDisplay() {
-            const displayElement = document.getElementById('selectedServiceDisplay');
-            if (selectedService && displayElement) {
-                displayElement.classList.add('active');
-            } else if (displayElement) {
-                displayElement.classList.remove('active');
+        // ============================
+        // 漢堡選單初始化
+        // ============================
+        
+        function initMenuToggle() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!menuToggle || !navLinks) return;
+            
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                
+                const spans = menuToggle.querySelectorAll('span');
+                if (navLinks.classList.contains('active')) {
+                    spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+                    spans[1].style.opacity = '0';
+                    spans[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+                } else {
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                }
+            });
+            
+            // 點擊導航連結後關閉漢堡選單（手機版）
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                        const spans = menuToggle.querySelectorAll('span');
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    }
+                });
+            });
+        }
+        
+        // ============================
+        // 訂單數據管理
+        // ============================
+        
+        function loadOrders() {
+            try {
+                const savedOrders = localStorage.getItem('delta_orders');
+                if (savedOrders) {
+                    orders = JSON.parse(savedOrders);
+                    console.log(`已載入 ${orders.length} 筆訂單`);
+                } else {
+                    // 載入示例訂單
+                    loadSampleOrders();
+                    console.log('載入示例訂單');
+                }
+            } catch (error) {
+                console.error('載入訂單數據時出錯:', error);
+                orders = [];
             }
         }
         
-        function clearServiceSelection() {
-            selectedService = null;
-            selectedPaymentMethod = '';
-            
-            // 重置顯示
-            const displayElement = document.getElementById('selectedServiceDisplay');
-            if (displayElement) {
-                displayElement.classList.remove('active');
-            }
-            
-            // 重置表格顯示
-            const elementsToReset = [
-                'selected-service-name',
-                'selected-service-price',
-                'order-total',
-                'confirm-service-name',
-                'confirm-service-price',
-                'confirm-order-total',
-                'final-service-name',
-                'final-order-total',
-                'displayServiceName',
-                'displayServiceDescription',
-                'displayServicePrice'
+        function loadSampleOrders() {
+            const sampleOrders = [
+                {
+                    id: 'DELTA-20240001',
+                    gameId: '遊戲玩家001',
+                    contactType: 'line',
+                    contactId: 'line001',
+                    bookingTime: new Date(Date.now() + 86400000).toISOString(),
+                    serviceName: '基礎單',
+                    description: '保底 600w',
+                    amount: '500',
+                    specialRequest: '希望晚上時段',
+                    status: 'pending',
+                    createdAt: new Date(Date.now() - 3600000).toISOString(),
+                    updatedAt: new Date(Date.now() - 3600000).toISOString(),
+                    paymentMethod: '待確認',
+                    notes: '新客戶，首次預約'
+                },
+                {
+                    id: 'DELTA-20240002',
+                    gameId: '資深玩家',
+                    contactType: 'discord',
+                    contactId: 'discord_user',
+                    bookingTime: new Date(Date.now() + 172800000).toISOString(),
+                    serviceName: '男陪玩-技術',
+                    description: '每小時',
+                    amount: '450',
+                    specialRequest: '需要技術指導',
+                    status: 'paid',
+                    createdAt: new Date(Date.now() - 7200000).toISOString(),
+                    updatedAt: new Date(Date.now() - 3600000).toISOString(),
+                    paymentMethod: 'LINE Pay',
+                    paymentTime: new Date(Date.now() - 3600000).toISOString(),
+                    assignedTo: '打手阿明',
+                    notes: '已付款，等待服務'
+                }
             ];
             
-            elementsToReset.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    if (id.includes('price') || id.includes('total') || id.includes('ServicePrice')) {
-                        element.textContent = '0元';
-                    } else if (id.includes('ServiceName')) {
-                        element.textContent = '尚未選擇服務';
-                    } else if (id.includes('Description')) {
-                        element.textContent = '';
-                    } else {
-                        element.textContent = '尚未選擇服務';
-                    }
-                }
-            });
-            
-            // 重置步驟
-            goToStep(1);
-        }
-        
-        function goToStep(step) {
-            // 隱藏所有步驟
-            document.querySelectorAll('.payment-step').forEach(el => {
-                el.style.display = 'none';
-            });
-            
-            // 顯示當前步驟
-            const currentStepEl = document.getElementById(`payment-step${step}`);
-            if (currentStepEl) {
-                currentStepEl.style.display = 'block';
-            }
-            
-            // 更新步驟指示器
-            document.querySelectorAll('.step').forEach((el, index) => {
-                el.classList.remove('active', 'completed');
-                if (index + 1 < step) {
-                    el.classList.add('completed');
-                } else if (index + 1 === step) {
-                    el.classList.add('active');
-                }
-            });
-            
-            currentStep = step;
-            
-            // 如果是步驟4，啟動倒數計時
-            if (step === 4) {
-                startPaymentCountdown();
-            } else {
-                stopPaymentCountdown();
-            }
-        }
-        
-        function nextStep() {
-            if (currentStep < 4) {
-                // 檢查是否已選擇服務（步驟1）
-                if (currentStep === 1 && !selectedService) {
-                    showError('請先選擇服務項目');
-                    return;
-                }
-                
-                // 表單驗證（步驟2）
-                if (currentStep === 2) {
-                    if (!validateForm()) {
-                        showError('請填寫所有必填欄位');
-                        return;
-                    }
-                    
-                    // 更新確認頁面的資料
-                    const bookingTimeInput = document.getElementById('booking-time');
-                    const confirmBookingTime = document.getElementById('confirm-booking-time');
-                    if (bookingTimeInput && confirmBookingTime) {
-                        confirmBookingTime.textContent = bookingTimeInput.value || '未設定';
-                    }
-                }
-                
-                // 檢查付款方式（步驟3）
-                if (currentStep === 3 && !selectedPaymentMethod) {
-                    showError('請選擇付款方式');
-                    return;
-                }
-                
-                // 如果是最後一步，完成訂單
-                if (currentStep === 3 && selectedService) {
-                    // 收集訂單資料
-                    const orderData = {
-                        serviceName: selectedService.name,
-                        description: selectedService.description,
-                        amount: selectedService.price,
-                        gameId: sanitizeInput(document.getElementById('game-id')?.value || ''),
-                        contactType: sanitizeInput(document.getElementById('contact-type')?.value || ''),
-                        contactId: sanitizeInput(document.getElementById('contact-id')?.value || ''),
-                        bookingTime: document.getElementById('booking-time')?.value || '',
-                        specialRequest: sanitizeInput(document.getElementById('special-request')?.value || ''),
-                        paymentMethod: selectedPaymentMethod,
-                        status: ORDER_STATUS.PENDING,
-                        createdAt: new Date().toISOString(),
-                        updatedAt: new Date().toISOString()
-                    };
-                    
-                    // 檢查網絡狀態
-                    if (!navigator.onLine) {
-                        // 儲存到離線訂單
-                        const offlineOrders = JSON.parse(localStorage.getItem('offline_orders')) || [];
-                        offlineOrders.push(orderData);
-                        localStorage.setItem('offline_orders', JSON.stringify(offlineOrders));
-                        showSuccess('訂單已儲存為離線訂單，上線後會自動同步');
-                    }
-                    
-                    // 建立訂單
-                    const orderId = createOrder(orderData);
-                    
-                    // 顯示訂單編號
-                    const orderIdDisplay = document.getElementById('order-id-display');
-                    if (orderIdDisplay) {
-                        orderIdDisplay.textContent = orderId;
-                    }
-                    
-                    // 顯示付款方式
-                    const finalPaymentMethod = document.getElementById('final-payment-method');
-                    if (finalPaymentMethod) {
-                        finalPaymentMethod.textContent = getPaymentMethodText(selectedPaymentMethod);
-                    }
-                    
-                    // 顯示成功訊息
-                    showSuccess(`訂單建立成功！\n訂單編號：${orderId}\n請聯繫客服完成付款。`);
-                    
-                    // 發送桌面通知
-                    showDesktopNotification('訂單建立成功', `訂單編號：${orderId}`);
-                }
-                
-                goToStep(currentStep + 1);
-            }
-        }
-        
-        function prevStep() {
-            if (currentStep > 1) {
-                goToStep(currentStep - 1);
-            }
-        }
-        
-        function resetPaymentSteps() {
-            currentStep = 1;
-            selectedPaymentMethod = '';
-            document.querySelectorAll('.payment-method').forEach(el => {
-                el.classList.remove('selected');
-            });
-            goToStep(1);
-            stopPaymentCountdown();
-        }
-        
-        function selectPaymentMethod(method) {
-            selectedPaymentMethod = method;
-            
-            // 更新UI
-            document.querySelectorAll('.payment-method').forEach(el => {
-                el.classList.remove('selected');
-            });
-            event.currentTarget.classList.add('selected');
-        }
-        
-        function validateForm() {
-            const gameId = document.getElementById('game-id')?.value;
-            const contactType = document.getElementById('contact-type')?.value;
-            const contactId = document.getElementById('contact-id')?.value;
-            const bookingTime = document.getElementById('booking-time')?.value;
-            
-            if (!gameId || !contactType || !contactId || !bookingTime) {
-                return false;
-            }
-            
-            // 檢查預約時間是否在未來
-            const bookingDate = new Date(bookingTime);
-            const now = new Date();
-            if (bookingDate <= now) {
-                showError('預約時間必須在未來');
-                return false;
-            }
-            
-            return true;
+            orders = sampleOrders;
+            localStorage.setItem('delta_orders', JSON.stringify(orders));
         }
         
         // ============================
-        // 付款倒數計時
+        // 錯誤處理
         // ============================
         
-        function startPaymentCountdown() {
-            const timerElement = document.getElementById('countdownTimer');
-            const displayElement = document.getElementById('countdownDisplay');
-            if (!timerElement || !displayElement) return;
+        window.addEventListener('error', function(e) {
+            console.error('發生錯誤:', e.error);
             
-            timerElement.style.display = 'block';
-            let timeLeft = SYSTEM_CONFIG.PAYMENT_TIMEOUT / 1000; // 轉換為秒
-            
-            paymentCountdownInterval = setInterval(() => {
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                displayElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                if (timeLeft <= 0) {
-                    stopPaymentCountdown();
-                    showError('付款時間已過期，請重新下單');
-                    timerElement.style.display = 'none';
-                }
-                
-                timeLeft--;
-            }, 1000);
-        }
-        
-        function stopPaymentCountdown() {
-            if (paymentCountdownInterval) {
-                clearInterval(paymentCountdownInterval);
-                paymentCountdownInterval = null;
-            }
-            const timerElement = document.getElementById('countdownTimer');
-            if (timerElement) {
-                timerElement.style.display = 'none';
-            }
-        }
-        
-        // ============================
-        // 文件上傳處理
-        // ============================
-        
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            // 檢查文件大小（限制5MB）
-            if (file.size > 5 * 1024 * 1024) {
-                showError('文件大小不能超過5MB');
-                return;
+            // 隱藏載入畫面以防卡住
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'none';
             }
             
-            // 檢查文件類型
-            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
-            if (!allowedTypes.includes(file.type)) {
-                showError('僅支持JPEG、PNG、GIF圖片或PDF文件');
-                return;
-            }
-            
-            // 顯示文件信息
-            const fileInfo = document.getElementById('fileInfo');
-            if (fileInfo) {
-                fileInfo.textContent = `已選擇：${file.name} (${(file.size / 1024).toFixed(2)}KB)`;
-            }
-            
-            // 這裡可以添加上傳到伺服器的邏輯
-            // uploadFileToServer(file);
-        }
-        
-        function uploadPaymentProof() {
-            document.getElementById('paymentProof').click();
-        }
-        
-        // ============================
-        // 訂單管理功能
-        // ============================
-        
-        function createOrder(orderData) {
-            const now = new Date();
-            const orderId = `DELTA-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(orders.length + 1).padStart(4, '0')}`;
-            
-            const newOrder = {
-                id: orderId,
-                ...orderData,
-                paymentTime: null,
-                assignedTo: null,
-                notes: ''
-            };
-            
-            orders.unshift(newOrder);
-            debouncedSave();
-            
-            // 更新數據分析
-            updateAnalytics();
-            
-            // 發送通知
-            if (SYSTEM_CONFIG.ENABLE_NOTIFICATIONS) {
-                showNewOrderNotification(newOrder);
-            }
-            
-            return orderId;
-        }
-        
-        function debouncedSave() {
-            clearTimeout(saveTimeout);
-            saveTimeout = setTimeout(() => {
-                localStorage.setItem('delta_orders', JSON.stringify(orders));
-            }, 1000);
-        }
-        
-        function refreshOrders() {
-            loadOrders();
-            renderOrders();
-            updateOrderStats();
-            updateAnalytics();
-        }
-        
-        function filterOrders(status) {
-            currentFilter = status;
-            
-            // 更新按鈕狀態
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            renderOrders();
-        }
-        
-        function searchOrders() {
-            const keyword = document.getElementById('orderSearch').value.toLowerCase();
-            const filteredOrders = orders.filter(order => {
-                return order.id.toLowerCase().includes(keyword) ||
-                       order.gameId.toLowerCase().includes(keyword) ||
-                       order.serviceName.toLowerCase().includes(keyword) ||
-                       (order.description && order.description.toLowerCase().includes(keyword));
-            });
-            
-            renderFilteredOrders(filteredOrders);
-        }
-        
-        function renderOrders() {
-            renderFilteredOrders(orders);
-        }
-        
-        function renderFilteredOrders(filteredOrders) {
-            const ordersList = document.getElementById('ordersList');
-            if (!ordersList) return;
-            
-            let ordersToRender = [...filteredOrders];
-            
-            // 應用篩選
-            if (currentFilter !== 'all') {
-                ordersToRender = filteredOrders.filter(order => order.status === currentFilter);
-            }
-            
-            // 排序：最新的在最上面
-            ordersToRender.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            
-            // 清空列表
-            ordersList.innerHTML = '';
-            
-            if (ordersToRender.length === 0) {
-                ordersList.innerHTML = `
-                    <div style="text-align: center; padding: 50px; color: var(--text-secondary);">
-                        <div>暫無訂單資料</div>
-                    </div>
-                `;
-                return;
-            }
-            
-            // 渲染每個訂單
-            ordersToRender.forEach(order => {
-                const isSelected = selectedOrders.has(order.id);
-                const row = document.createElement('div');
-                row.className = 'table-row';
-                row.innerHTML = `
-                    <div><input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleOrderSelection('${order.id}', this.checked)"></div>
-                    <div>${order.id}</div>
-                    <div>${order.serviceName}</div>
-                    <div>${order.gameId || 'N/A'}</div>
-                    <div>${formatDateTime(order.bookingTime)}</div>
-                    <div>${order.amount}元</div>
-                    <div><span class="order-status status-${order.status}">${getStatusText(order.status)}</span></div>
-                    <div class="order-actions">
-                        <button class="action-btn view" onclick="viewOrderDetail('${order.id}')">查看</button>
-                        <button class="action-btn edit" onclick="editOrder('${order.id}')">編輯</button>
-                        <button class="action-btn delete" onclick="deleteOrder('${order.id}')">刪除</button>
-                    </div>
-                `;
-                ordersList.appendChild(row);
-            });
-        }
-        
-        function toggleSelectAll() {
-            const selectAllCheckbox = document.getElementById('selectAll');
-            const checkboxes = document.querySelectorAll('.table-row input[type="checkbox"]');
-            
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = selectAllCheckbox.checked;
-                const orderId = checkbox.closest('.table-row').querySelector('div:nth-child(2)').textContent;
-                if (selectAllCheckbox.checked) {
-                    selectedOrders.add(orderId);
-                } else {
-                    selectedOrders.delete(orderId);
-                }
-            });
-            
-            updateBatchPanel();
-        }
-        
-        function toggleOrderSelection(orderId, isSelected) {
-            if (isSelected) {
-                selectedOrders.add(orderId);
-            } else {
-                selectedOrders.delete(orderId);
-            }
-            
-            // 更新全選狀態
-            const selectAllCheckbox = document.getElementById('selectAll');
-            const checkboxes = document.querySelectorAll('.table-row input[type="checkbox"]');
-            selectAllCheckbox.checked = checkboxes.length > 0 && selectedOrders.size === checkboxes.length;
-            
-            updateBatchPanel();
-        }
-        
-        function batchUpdateSelected() {
-            if (selectedOrders.size === 0) {
-                showError('請先選擇要操作的訂單');
-                return;
-            }
-            
-            const batchPanel = document.getElementById('batchPanel');
-            batchPanel.style.display = 'block';
-        }
-        
-        function hideBatchPanel() {
-            const batchPanel = document.getElementById('batchPanel');
-            batchPanel.style.display = 'none';
-        }
-        
-        function batchUpdateStatus(newStatus) {
-            selectedOrders.forEach(orderId => {
-                const orderIndex = orders.findIndex(o => o.id === orderId);
-                if (orderIndex !== -1) {
-                    orders[orderIndex].status = newStatus;
-                    orders[orderIndex].updatedAt = new Date().toISOString();
-                }
-            });
-            
-            debouncedSave();
-            refreshOrders();
-            hideBatchPanel();
-            showSuccess(`已批量更新 ${selectedOrders.size} 筆訂單狀態`);
-            selectedOrders.clear();
-        }
-        
-        function updateOrderStats() {
-            const totalOrders = orders.length;
-            const pendingOrders = orders.filter(o => o.status === ORDER_STATUS.PENDING).length;
-            const today = new Date().toISOString().split('T')[0];
-            const todayOrders = orders.filter(o => o.createdAt.split('T')[0] === today).length;
-            const totalRevenue = orders
-                .filter(o => o.status !== ORDER_STATUS.CANCELLED)
-                .reduce((sum, order) => sum + parseInt(order.amount || 0), 0);
-            
-            const totalOrdersEl = document.getElementById('totalOrders');
-            const pendingOrdersEl = document.getElementById('pendingOrders');
-            const todayOrdersEl = document.getElementById('todayOrders');
-            const totalRevenueEl = document.getElementById('totalRevenue');
-            
-            if (totalOrdersEl) totalOrdersEl.textContent = totalOrders;
-            if (pendingOrdersEl) pendingOrdersEl.textContent = pendingOrders;
-            if (todayOrdersEl) todayOrdersEl.textContent = todayOrders;
-            if (totalRevenueEl) totalRevenueEl.textContent = totalRevenue + '元';
-        }
-        
-        function updateAnalytics() {
-            // 平均訂單金額
-            const completedOrders = orders.filter(o => o.status === ORDER_STATUS.COMPLETED);
-            const avgOrderValue = completedOrders.length > 0 
-                ? Math.round(completedOrders.reduce((sum, o) => sum + parseInt(o.amount || 0), 0) / completedOrders.length)
-                : 0;
-            
-            // 轉換率（已完成訂單 / 總訂單）
-            const conversionRate = orders.length > 0 
-                ? Math.round((completedOrders.length / orders.length) * 100)
-                : 0;
-            
-            // 最受歡迎服務
-            const serviceCounts = {};
-            orders.forEach(order => {
-                serviceCounts[order.serviceName] = (serviceCounts[order.serviceName] || 0) + 1;
-            });
-            const popularService = Object.keys(serviceCounts).reduce((a, b) => 
-                serviceCounts[a] > serviceCounts[b] ? a : b, '');
-            
-            // 高峰時段
-            const hourCounts = {};
-            orders.forEach(order => {
-                const hour = new Date(order.createdAt).getHours();
-                hourCounts[hour] = (hourCounts[hour] || 0) + 1;
-            });
-            const peakHour = Object.keys(hourCounts).reduce((a, b) => 
-                hourCounts[a] > hourCounts[b] ? a : b, '');
-            
-            // 更新顯示
-            document.getElementById('avgOrderValue').textContent = avgOrderValue + '元';
-            document.getElementById('conversionRate').textContent = conversionRate + '%';
-            document.getElementById('popularService').textContent = popularService || '-';
-            document.getElementById('peakHour').textContent = peakHour ? `${peakHour}:00` : '-';
-        }
-        
-        function generateAnalyticsReport() {
-            const report = {
-                總訂單數: orders.length,
-                完成訂單數: orders.filter(o => o.status === ORDER_STATUS.COMPLETED).length,
-                總收入: orders.filter(o => o.status !== ORDER_STATUS.CANCELLED)
-                    .reduce((sum, order) => sum + parseInt(order.amount || 0), 0),
-                平均訂單金額: Math.round(orders.filter(o => o.status === ORDER_STATUS.COMPLETED)
-                    .reduce((sum, o) => sum + parseInt(o.amount || 0), 0) / 
-                    Math.max(1, orders.filter(o => o.status === ORDER_STATUS.COMPLETED).length)),
-                轉換率: Math.round((orders.filter(o => o.status === ORDER_STATUS.COMPLETED).length / Math.max(1, orders.length)) * 100) + '%',
-                生成時間: new Date().toLocaleString()
-            };
-            
-            alert('分析報告已生成！\n' + Object.entries(report).map(([key, value]) => `${key}: ${value}`).join('\n'));
-        }
-        
-        // ============================
-        // 管理後台介面
-        // ============================
-        
-        function openAdminPanel() {
-            document.getElementById('adminPanel').classList.add('active');
-            document.getElementById('adminLogin').style.display = 'block';
-            document.getElementById('ordersPanel').style.display = 'none';
-            document.getElementById('syncPanel').style.display = 'none';
-            document.getElementById('adminPassword').value = '';
-        }
-        
-        function closeAdminPanel() {
-            document.getElementById('adminPanel').classList.remove('active');
-        }
-        
-        function adminLogin() {
-            if (isAccountLocked()) {
-                return;
-            }
-            
-            const password = document.getElementById('adminPassword').value;
-            
-            if (password === SYSTEM_CONFIG.ADMIN_PASSWORD) {
-                resetLoginAttempts();
-                document.getElementById('adminLogin').style.display = 'none';
-                document.getElementById('ordersPanel').style.display = 'block';
-                refreshOrders();
-                showSuccess('登入成功！');
-            } else {
-                recordFailedLogin();
-                showError('密碼錯誤！');
-            }
-        }
-        
-        function changeAdminPassword() {
-            const newPassword = document.getElementById('newAdminPassword').value;
-            if (!newPassword) {
-                showError('請輸入新密碼！');
-                return;
-            }
-            
-            if (newPassword.length < 4) {
-                showError('密碼長度至少需要4個字元！');
-                return;
-            }
-            
-            SYSTEM_CONFIG.ADMIN_PASSWORD = newPassword;
-            localStorage.setItem('admin_password', newPassword);
-            
-            document.getElementById('newAdminPassword').value = '';
-            showSuccess('管理員密碼已更改！');
-        }
-        
-        // ============================
-        // 通知功能
-        // ============================
-        
-        function showNewOrderNotification(order) {
-            const notificationContainer = document.getElementById('notificationContainer');
-            if (!notificationContainer) return;
-            
-            const notification = document.createElement('div');
-            notification.className = 'order-notification';
-            notification.innerHTML = `
-                <div class="notification-content">
-                    <div class="notification-icon">🆕</div>
-                    <div class="notification-info">
-                        <h4>新訂單通知</h4>
-                        <p>訂單 ${order.id} - ${order.serviceName} (${order.amount}元)</p>
-                    </div>
-                    <button class="close-notification" onclick="this.parentElement.parentElement.remove()">×</button>
-                </div>
-            `;
-            
-            notificationContainer.appendChild(notification);
-            
-            // 播放提示音
-            playNotificationSound();
-            
-            // 發送桌面通知
-            showDesktopNotification('新訂單通知', `訂單 ${order.id} - ${order.serviceName}`);
-            
-            // 10秒後自動移除
+            // 顯示錯誤訊息
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.remove();
+                alert('系統發生錯誤，但基本功能仍可使用。\n請刷新頁面或聯繫客服。');
+            }, 100);
+        });
+        
+        // ============================
+        // 確保載入畫面一定會隱藏
+        // ============================
+        
+        // 設置安全超時，確保載入畫面不會永久顯示
+        setTimeout(() => {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay && loadingOverlay.style.display !== 'none') {
+                console.log('安全超時：強制隱藏載入畫面');
+                loadingOverlay.style.display = 'none';
+            }
+        }, 5000); // 5秒後強制隱藏
+        
+        // 監聽所有圖片載入完成
+        window.addEventListener('load', () => {
+            console.log('所有資源載入完成');
+            
+            // 最後確保載入畫面隱藏
+            setTimeout(() => {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                if (loadingOverlay) {
+                    loadingOverlay.style.display = 'none';
                 }
-            }, 10000);
-        }
-        
-        // ============================
-        // 工具函數
-        // ============================
-        
-        function showLoading() {
-            const overlay = document.getElementById('loadingOverlay');
-            if (overlay) overlay.style.display = 'flex';
-        }
-        
-        function hideLoading() {
-            const overlay = document.getElementById('loadingOverlay');
-            if (overlay) overlay.style.display = 'none';
-        }
-        
-        function showError(message) {
-            const toast = document.getElementById('errorToast');
-            if (toast) {
-                toast.textContent = message;
-                toast.style.display = 'block';
-                setTimeout(() => {
-                    toast.style.display = 'none';
-                }, 3000);
-            }
-        }
-        
-        function showSuccess(message) {
-            const toast = document.getElementById('successToast');
-            if (toast) {
-                toast.textContent = message;
-                toast.style.display = 'block';
-                setTimeout(() => {
-                    toast.style.display = 'none';
-                }, 3000);
-            }
-        }
-        
-        function formatDateTime(dateString) {
-            if (!dateString) return '未設定';
-            try {
-                const date = new Date(dateString);
-                return date.toLocaleString('zh-TW', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-            } catch (e) {
-                return dateString;
-            }
-        }
-        
-        function getStatusText(status) {
-            const statusMap = {
-                [ORDER_STATUS.PENDING]: '待處理',
-                [ORDER_STATUS.PAID]: '已付款',
-                [ORDER_STATUS.PROCESSING]: '處理中',
-                [ORDER_STATUS.COMPLETED]: '已完成',
-                [ORDER_STATUS.CANCELLED]: '已取消'
-            };
-            return statusMap[status] || status || '未知狀態';
-        }
-        
-        function getPaymentMethodText(method) {
-            const methodMap = {
-                'linepay': 'LINE Pay',
-                'bank': '銀行轉帳',
-                'crypto': '加密貨幣',
-                '711': '超商代碼'
-            };
-            return methodMap[method] || method || '未選擇';
-        }
-        
-        // 由於篇幅限制，這裡只展示了主要的新增和修改功能
-        // 原有的大部分函數（如 viewOrderDetail, updateOrderStatus, exportOrders 等）保持不變
-        // 請將原有代碼中的這些函數保留，並確保調用新的工具函數
-        
+            }, 100);
+        });
     </script>
 </body>
 </html>
