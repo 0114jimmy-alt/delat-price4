@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>三角洲行動 - 專業戰術支援服務</title>
     <style>
-        /* 重置所有樣式 */
         * {
             margin: 0;
             padding: 0;
@@ -17,19 +16,15 @@
             background: linear-gradient(135deg, #0a0e14 0%, #1a1f29 100%);
             color: #ffffff;
             min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
         }
 
-        /* 固定導航欄 */
+        /* 導航欄 */
         .navbar {
-            background: rgba(22, 27, 37, 0.98);
+            background: rgba(22, 27, 37, 0.95);
             border-bottom: 3px solid #ff6600;
-            padding: 15px 20px;
-            position: fixed;
+            padding: 15px 30px;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 1000;
             display: flex;
             justify-content: space-between;
@@ -38,23 +33,58 @@
         }
 
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #ff6600;
             text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
             text-decoration: none;
-            white-space: nowrap;
         }
 
-        /* 漢堡選單按鈕 */
-        .menu-toggle {
+        .nav-links {
             display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #8a9ba8;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .nav-link:hover {
+            color: #ffcc00;
+            background: rgba(255, 102, 0, 0.1);
+        }
+
+        .nav-link.active {
+            color: #ffffff;
+            background: #ff6600;
+        }
+
+        .book-now-btn {
+            background: #00ff9d;
+            color: #0a0e14;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .book-now-btn:hover {
+            background: #00cc7d;
+            transform: scale(1.05);
+        }
+
+        /* 手機版漢堡選單 */
+        .menu-toggle {
+            display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: 10px;
-            background: rgba(255, 102, 0, 0.2);
-            border-radius: 5px;
-            border: none;
+            padding: 5px;
         }
 
         .menu-toggle span {
@@ -62,173 +92,102 @@
             height: 3px;
             background: #ff6600;
             margin: 3px 0;
-            transition: 0.4s;
-            border-radius: 2px;
+            transition: 0.3s;
         }
 
-        /* 手機選單 - 使用側邊滑入 */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 280px;
-            height: 100vh;
-            background: rgba(10, 14, 20, 0.98);
-            z-index: 1001;
-            transition: right 0.3s ease;
-            padding-top: 80px;
-            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .mobile-menu.active {
-            right: 0;
-        }
-
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            display: none;
-        }
-
-        .menu-overlay.active {
-            display: block;
-        }
-
-        .menu-header {
-            padding: 20px;
-            border-bottom: 1px solid #333945;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .menu-title {
-            color: #ff6600;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-
-        .close-menu {
-            background: none;
-            border: none;
-            color: #ff6600;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .menu-content {
-            padding: 0;
-        }
-
-        .menu-item {
-            display: block;
-            color: #8a9ba8;
-            text-decoration: none;
-            padding: 18px 25px;
-            border-bottom: 1px solid rgba(51, 57, 69, 0.3);
-            font-weight: bold;
-            font-size: 1.1rem;
-            background: none;
-            border: none;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .menu-item:hover {
-            background: rgba(255, 102, 0, 0.1);
-            color: #ffcc00;
-        }
-
-        .menu-item.active {
-            background: rgba(255, 102, 0, 0.2);
-            color: #ffffff;
-            border-left: 5px solid #ff6600;
-        }
-
-        /* 主內容 - 添加 padding-top 避免被導航欄遮擋 */
-        .main-content {
-            padding-top: 80px;
-            min-height: 100vh;
-        }
-
+        /* 主容器 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px 15px;
+            padding: 30px 20px;
         }
 
-        /* 基本按鈕樣式 */
-        button {
-            cursor: pointer;
-            transition: all 0.2s ease;
-            -webkit-tap-highlight-color: transparent;
+        /* 英雄區 */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(rgba(10, 14, 20, 0.9), rgba(26, 31, 41, 0.9));
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 2px solid #ff6600;
         }
 
-        button:active {
-            transform: scale(0.97);
+        .hero-title {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, #ff6600, #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            color: #8a9ba8;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
         }
 
         /* 服務卡片 */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
         .service-card {
             background: rgba(22, 27, 37, 0.8);
             border: 2px solid #333945;
             border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
+            padding: 30px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 102, 0, 0.2);
             border-color: #ff6600;
-            box-shadow: 0 10px 20px rgba(255, 102, 0, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff6600;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
         }
 
         .card-title {
+            font-size: 1.8rem;
             color: #ffcc00;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
         }
 
-        /* 按鈕樣式 */
-        .btn {
+        .book-btn {
             display: inline-block;
+            margin-top: 20px;
             padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1rem;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        .btn-primary {
             background: #ff6600;
             color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
-        .btn-primary:hover {
+        .book-btn:hover {
             background: #ff8800;
-        }
-
-        .btn-success {
-            background: #00ff9d;
-            color: #0a0e14;
-        }
-
-        .btn-success:hover {
-            background: #00cc7d;
+            transform: scale(1.05);
         }
 
         /* 價格表格 */
@@ -241,13 +200,13 @@
         .price-table th {
             background: rgba(255, 102, 0, 0.2);
             color: #ffcc00;
-            padding: 12px;
+            padding: 15px;
             text-align: left;
             border: 1px solid #333945;
         }
 
         .price-table td {
-            padding: 12px;
+            padding: 15px;
             border: 1px solid #333945;
             color: #e0e0e0;
         }
@@ -255,65 +214,82 @@
         .price-number {
             color: #00ff9d;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
 
-        /* 頁面切換 */
-        .page {
+        .price-unit {
+            color: #66b3ff;
+            font-weight: bold;
+        }
+
+        /* 分頁內容 */
+        .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
 
-        .page.active {
+        .tab-content.active {
             display: block;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 付款頁面 */
-        .payment-step {
-            display: none;
-            animation: slideIn 0.3s ease;
+        /* 付款頁面樣式 */
+        .payment-section {
+            background: rgba(22, 27, 37, 0.95);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            border: 2px solid #00ff9d;
         }
 
-        .payment-step.active {
-            display: block;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .step-indicator {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
+        .payment-title {
+            color: #00ff9d;
+            font-size: 2.2rem;
             margin-bottom: 30px;
-            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .payment-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .payment-steps:before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: #333945;
+            z-index: 1;
         }
 
         .step {
             text-align: center;
+            position: relative;
+            z-index: 2;
             flex: 1;
-            min-width: 70px;
         }
 
         .step-number {
-            width: 36px;
-            height: 36px;
+            width: 50px;
+            height: 50px;
             background: #333945;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 8px;
+            margin: 0 auto 10px;
+            font-size: 1.5rem;
             font-weight: bold;
             color: #8a9ba8;
-            font-size: 0.9rem;
         }
 
         .step.active .step-number {
@@ -321,17 +297,150 @@
             color: #0a0e14;
         }
 
+        .step.completed .step-number {
+            background: #00cc7d;
+            color: white;
+        }
+
         .step-text {
-            font-size: 0.8rem;
             color: #8a9ba8;
+            font-size: 0.9rem;
         }
 
         .step.active .step-text {
             color: #00ff9d;
         }
 
+        /* 已選擇服務顯示 */
+        .selected-service-display {
+            background: rgba(255, 102, 0, 0.1);
+            border: 2px solid #ff6600;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .selected-service-display.active {
+            display: block;
+        }
+
+        .selected-service-title {
+            color: #ffcc00;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .selected-service-title:before {
+            content: "✓";
+            background: #00ff9d;
+            color: #0a0e14;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .selected-service-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .service-info {
+            flex: 1;
+        }
+
+        .service-price {
+            font-size: 1.8rem;
+            color: #00ff9d;
+            font-weight: bold;
+        }
+
+        .change-service-btn {
+            background: transparent;
+            border: 1px solid #ff6600;
+            color: #ff6600;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .change-service-btn:hover {
+            background: #ff6600;
+            color: white;
+        }
+
+        /* 訂單表格 */
+        .order-summary {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ff9d;
+        }
+
+        /* 付款方式 */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .payment-method {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #333945;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: #00ff9d;
+            transform: translateY(-3px);
+        }
+
+        .payment-method.selected {
+            border-color: #00ff9d;
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* 表單樣式 */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-label {
@@ -349,38 +458,84 @@
             border-radius: 8px;
             color: white;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .form-input:focus {
             outline: none;
             border-color: #00ff9d;
+            background: rgba(0, 255, 157, 0.05);
         }
 
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
-        }
-
-        .payment-method {
-            background: rgba(255, 255, 255, 0.05);
+        .form-select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
             border: 2px solid #333945;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #00ff9d;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #333945;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* 按鈕樣式 */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #ff6600;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
             transition: all 0.3s ease;
             border: none;
-            color: white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            text-align: center;
         }
 
-        .payment-method:hover,
-        .payment-method.selected {
-            border-color: #00ff9d;
-            background: rgba(0, 255, 157, 0.1);
-            transform: translateY(-3px);
+        .btn:hover {
+            background: #ff8800;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #333945;
+        }
+
+        .btn-secondary:hover {
+            background: #444a55;
+        }
+
+        .btn-success {
+            background: #00ff9d;
+            color: #0a0e14;
+        }
+
+        .btn-success:hover {
+            background: #00cc7d;
         }
 
         .btn-group {
@@ -389,191 +544,467 @@
             margin-top: 30px;
         }
 
-        .btn-group .btn {
-            flex: 1;
-            margin: 0;
+        /* 確認頁面 */
+        .confirmation-box {
+            text-align: center;
+            padding: 50px;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 15px;
+            border: 2px solid #00ff9d;
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #00ff9d;
+        }
+
+        .confirmation-title {
+            color: #00ff9d;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .confirmation-text {
+            color: #8a9ba8;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .order-id {
+            color: #ffcc00;
+            font-size: 1.5rem;
+            margin: 20px 0;
+            font-weight: bold;
         }
 
         /* 聯繫區 */
         .contact-section {
             background: rgba(0, 150, 255, 0.1);
             border-radius: 15px;
-            padding: 30px 20px;
-            margin-top: 40px;
+            padding: 40px;
+            margin-top: 50px;
             text-align: center;
             border: 2px solid #0096ff;
         }
 
         .contact-title {
             color: #66b3ff;
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 20px;
         }
 
         .contact-info {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             color: #ffffff;
-            margin: 10px 0;
+            margin: 15px 0;
         }
 
-        /* 響應式設計 */
-        @media (max-width: 768px) {
-            .btn-group {
-                flex-direction: column;
+        .contact-qr {
+            max-width: 200px;
+            margin: 20px auto;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        /* 頁腳 */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 1px solid #333945;
+            color: #8a9ba8;
+            font-size: 0.9rem;
+        }
+
+        /* 響應式設計 - 手機模式 */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 2.8rem;
             }
             
-            .payment-methods {
-                grid-template-columns: 1fr;
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                padding: 10px 15px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+                order: 1;
+            }
+            
+            .menu-toggle {
+                display: flex;
+                order: 2;
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                order: 3;
+                margin-top: 15px;
+                background: rgba(22, 27, 37, 0.95);
+                padding: 15px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+                margin: 5px 0;
+            }
+            
+            .book-now-btn {
+                width: 100%;
+                text-align: center;
+                margin-top: 10px;
+            }
+            
+            .hero {
+                padding: 40px 15px;
+                margin: 15px 0;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+                line-height: 1.3;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
             
             .container {
-                padding: 15px 10px;
+                padding: 15px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .service-card {
                 padding: 20px;
             }
+            
+            .card-title {
+                font-size: 1.5rem;
+            }
+            
+            .payment-section {
+                padding: 25px 15px;
+                margin: 20px 0;
+            }
+            
+            .payment-title {
+                font-size: 1.8rem;
+            }
+            
+            .payment-steps {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .payment-steps:before {
+                display: none;
+            }
+            
+            .step {
+                text-align: left;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .step-number {
+                margin: 0;
+                flex-shrink: 0;
+            }
+            
+            .selected-service-display {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .selected-service-details {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .service-price {
+                font-size: 1.5rem;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .confirmation-box {
+                padding: 30px 15px;
+            }
+            
+            .confirmation-title {
+                font-size: 1.6rem;
+            }
+            
+            .contact-section {
+                padding: 25px 15px;
+                margin-top: 30px;
+            }
+            
+            .contact-title {
+                font-size: 1.6rem;
+            }
+            
+            .contact-info {
+                font-size: 1.1rem;
+            }
+            
+            /* 手機橫向模式 */
+            @media (max-height: 600px) and (orientation: landscape) {
+                .navbar {
+                    position: relative;
+                }
+                
+                .hero {
+                    padding: 30px 15px;
+                }
+                
+                .service-card {
+                    padding: 15px;
+                }
+            }
         }
 
         @media (max-width: 480px) {
-            .mobile-menu {
-                width: 85%;
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .service-card {
+                padding: 15px;
             }
             
             .card-title {
                 font-size: 1.3rem;
             }
+            
+            .price-table th,
+            .price-table td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .selected-service-title {
+                font-size: 1.2rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .form-input,
+            .form-select,
+            .form-textarea {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
         }
 
-        /* 確保所有元素都可點擊 */
-        a, button, input, select, textarea {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
+        /* 列印樣式 */
+        @media print {
+            .navbar, .footer, .contact-section,
+            .menu-toggle, .nav-links,
+            .selected-service-display,
+            .change-service-btn {
+                display: none;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .service-card {
+                break-inside: avoid;
+                border: 1px solid #ccc;
+                background: white;
+                color: black;
+            }
+            
+            .hero {
+                border: 1px solid #ccc;
+            }
         }
 
-        /* 防止文字選擇 */
-        * {
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
-        /* 允許按鈕內的文字選擇 */
-        button {
-            user-select: auto;
-            -webkit-user-select: auto;
+        /* 動畫效果 */
+        .fade-in {
+            animation: fadeIn 0.5s ease;
         }
     </style>
 </head>
 <body>
     <!-- 導航欄 -->
     <nav class="navbar">
-        <div class="logo">三角洲行動</div>
-        <button class="menu-toggle" id="menuToggle">
+        <a href="#" class="logo">三角洲行動 · 專業戰術支援</a>
+        <div class="menu-toggle" id="menuToggle">
             <span></span>
             <span></span>
             <span></span>
-        </button>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#" class="nav-link active" data-tab="home">首頁</a>
+            <a href="#" class="nav-link" data-tab="escort">護航服務</a>
+            <a href="#" class="nav-link" data-tab="betting">賭約單</a>
+            <a href="#" class="nav-link" data-tab="entertainment">娛樂玩法</a>
+            <a href="#" class="nav-link" data-tab="peipei">娛樂陪玩</a>
+            <a href="#" class="nav-link" data-tab="rules">規則條款</a>
+            <a href="#" class="nav-link book-now-btn" data-tab="payment">立即預約</a>
+        </div>
     </nav>
 
-    <!-- 選單遮罩 -->
-    <div class="menu-overlay" id="menuOverlay"></div>
-
-    <!-- 手機選單 -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="menu-header">
-            <div class="menu-title">服務選單</div>
-            <button class="close-menu" id="closeMenu">×</button>
-        </div>
-        <div class="menu-content">
-            <button class="menu-item active" onclick="showPage('home')">🏠 首頁</button>
-            <button class="menu-item" onclick="showPage('escort')">🛡️ 護航服務</button>
-            <button class="menu-item" onclick="showPage('betting')">🎲 賭約單</button>
-            <button class="menu-item" onclick="showPage('entertainment')">🎮 娛樂玩法</button>
-            <button class="menu-item" onclick="showPage('peipei')">👥 娛樂陪玩</button>
-            <button class="menu-item" onclick="showPage('payment')">💳 立即預約</button>
-        </div>
-    </div>
-
-    <!-- 主內容 -->
-    <div class="main-content">
-        <div class="container">
-            <!-- 首頁 -->
-            <div class="page active" id="home">
-                <div class="service-card">
-                    <h1 style="color: #ff6600; font-size: 1.8rem; margin-bottom: 15px; text-align: center;">三角洲行動 · 專業戰術支援</h1>
-                    <p style="color: #8a9ba8; margin-bottom: 25px; text-align: center;">頂尖打手團隊 · 專業護航服務 · 安全高效保障</p>
-                    
-                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="showPage('escort')">查看護航服務</button>
-                        <button class="btn btn-success" onclick="showPage('payment')">立即預約</button>
-                    </div>
-                </div>
-
+    <!-- 主內容區 -->
+    <div class="container">
+        <!-- 首頁 -->
+        <div class="tab-content active" id="home">
+            <div class="hero">
+                <h1 class="hero-title">三角洲行動 · 專業戰術支援</h1>
+                <p class="hero-subtitle">頂尖打手團隊 · 專業護航服務 · 安全高效保障</p>
                 <div style="margin-top: 30px;">
-                    <div class="service-card">
-                        <h2 class="card-title">🛡️ 戰術護航服務</h2>
-                        <p style="color: #8a9ba8; margin-bottom: 15px;">專業打手團隊，保證您的遊戲物資安全。</p>
-                        <ul style="margin: 15px 0; padding-left: 20px; color: #8a9ba8;">
-                            <li>基礎單：500起，保底600w</li>
-                            <li>體驗單：200起，保底400w</li>
-                            <li>航天賭約單：高風險高回報</li>
-                        </ul>
-                        <button class="btn btn-primary" onclick="showPage('escort')">查看詳情</button>
-                    </div>
-
-                    <div class="service-card" style="margin-top: 20px;">
-                        <h2 class="card-title">🎮 娛樂陪玩服務</h2>
-                        <p style="color: #8a9ba8; margin-bottom: 15px;">專業陪玩師團隊，提供技術指導或輕鬆娛樂。</p>
-                        <ul style="margin: 15px 0; padding-left: 20px; color: #8a9ba8;">
-                            <li>男陪玩：娛樂250/小時</li>
-                            <li>女陪玩：娛樂350/小時</li>
-                            <li>技術陪玩：450-550/小時</li>
-                        </ul>
-                        <button class="btn btn-primary" onclick="showPage('peipei')">查看詳情</button>
-                    </div>
-
-                    <div class="service-card" style="margin-top: 20px;">
-                        <h2 class="card-title">⚡ 特色娛樂玩法</h2>
-                        <p style="color: #8a9ba8; margin-bottom: 15px;">多種趣味玩法，讓遊戲更加精彩。</p>
-                        <ul style="margin: 15px 0; padding-left: 20px; color: #8a9ba8;">
-                            <li>牛角單：1088起</li>
-                            <li>自力根生：1000起</li>
-                            <li>規則彈性可客製化</li>
-                        </ul>
-                        <button class="btn btn-primary" onclick="showPage('entertainment')">查看詳情</button>
-                    </div>
+                    <button onclick="showTab('escort')" style="background: #ff6600; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; margin: 0 10px;">
+                        查看護航服務
+                    </button>
+                    <button onclick="showTab('payment')" style="background: #00ff9d; color: #0a0e14; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; margin: 0 10px; font-weight: bold;">
+                        立即預約付款
+                    </button>
                 </div>
             </div>
 
-            <!-- 護航服務頁 -->
-            <div class="page" id="escort">
-                <h1 style="color: #ffcc00; font-size: 1.8rem; margin-bottom: 25px;">戰術護航服務</h1>
-                
+            <!-- 服務簡介 -->
+            <div class="services-grid">
                 <div class="service-card">
-                    <h2 style="color: #00ff9d; margin-bottom: 20px;">基礎單</h2>
+                    <div class="card-header">
+                        <div class="card-icon">🛡️</div>
+                        <h2 class="card-title">戰術護航服務</h2>
+                    </div>
+                    <p>專業打手團隊，保證您的遊戲物資安全。無論是暗區撤離還是戰區競技，我們提供最可靠的護航服務。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px; color: #8a9ba8;">
+                        <li>基礎單：500起，保底600w</li>
+                        <li>體驗單：200起，保底400w</li>
+                        <li>航天賭約單：高風險高回報</li>
+                    </ul>
+                    <button onclick="showTab('escort')" class="book-btn">
+                        了解更多
+                    </button>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-header">
+                        <div class="card-icon">🎮</div>
+                        <h2 class="card-title">娛樂陪玩服務</h2>
+                    </div>
+                    <p>專業陪玩師團隊，提供技術指導或輕鬆娛樂。男女陪玩師可選，讓您的遊戲體驗更加豐富有趣。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px; color: #8a9ba8;">
+                        <li>男陪玩：娛樂250/小時，技術450/小時</li>
+                        <li>女陪玩：娛樂350/小時，技術550/小時</li>
+                        <li>時長套餐優惠，新客專屬福利</li>
+                    </ul>
+                    <button onclick="showTab('peipei')" class="book-btn">
+                        了解更多
+                    </button>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-header">
+                        <div class="card-icon">⚡</div>
+                        <h2 class="card-title">特色娛樂玩法</h2>
+                    </div>
+                    <p>多種趣味玩法，讓遊戲更加精彩。牛角單、自力根生等特殊模式，挑戰極限，享受遊戲樂趣。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px; color: #8a9ba8;">
+                        <li>牛角單：1088起，保底800w</li>
+                        <li>自力根生：1000起，初始保底500w</li>
+                        <li>規則彈性，可客製化需求</li>
+                    </ul>
+                    <button onclick="showTab('entertainment')" class="book-btn">
+                        了解更多
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 護航服務頁 -->
+        <div class="tab-content" id="escort">
+            <h1 style="color: #ffcc00; font-size: 2.5rem; margin-bottom: 30px;">戰術護航服務</h1>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="card-header">
+                        <h2 class="card-title">基礎單</h2>
+                    </div>
                     <table class="price-table">
                         <tr>
                             <th>價格</th>
                             <th>保障內容</th>
-                            <th>操作</th>
+                            <th>預約</th>
                         </tr>
                         <tr>
                             <td class="price-number">500</td>
-                            <td>保底 600w</td>
-                            <td><button class="btn btn-primary" style="padding: 8px 15px;" onclick="selectService('基礎單-500元', 500, '保底 600w')">選擇</button></td>
+                            <td><span class="price-unit">保底 600w</span></td>
+                            <td><button onclick="bookService('基礎單', '500', '保底 600w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">800</td>
-                            <td>保底 900w</td>
-                            <td><button class="btn btn-primary" style="padding: 8px 15px;" onclick="selectService('基礎單-800元', 800, '保底 900w')">選擇</button></td>
+                            <td><span class="price-unit">保底 900w</span></td>
+                            <td><button onclick="bookService('基礎單', '800', '保底 900w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">1000</td>
-                            <td>保底 1300w</td>
-                            <td><button class="btn btn-primary" style="padding: 8px 15px;" onclick="selectService('基礎單-1000元', 1000, '保底 1300w')">選擇</button></td>
+                            <td><span class="price-unit">保底 1300w</span></td>
+                            <td><button onclick="bookService('基礎單', '1000', '保底 1300w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                        <tr>
+                            <td class="price-number">2000</td>
+                            <td><span class="price-unit">保底 2300w</span></td>
+                            <td><button onclick="bookService('基礎單', '2000', '保底 2300w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                        <tr>
+                            <td class="price-number">8000</td>
+                            <td><span class="price-unit">保底 8600w</span></td>
+                            <td><button onclick="bookService('基礎單', '8000', '保底 8600w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                        </tr>
+                        <tr>
+                            <td class="price-number">10000</td>
+                            <td><span class="price-unit">保底 11888w</span></td>
+                            <td><button onclick="bookService('基礎單', '10000', '保底 11888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                     </table>
                     <div style="margin-top: 20px; padding: 15px; background: rgba(255, 204, 0, 0.1); border-radius: 8px;">
@@ -581,196 +1012,455 @@
                     </div>
                 </div>
 
-                <div class="service-card" style="margin-top: 20px;">
-                    <h2 style="color: #00ff9d; margin-bottom: 20px;">體驗單</h2>
+                <div class="service-card">
+                    <div class="card-header">
+                        <h2 class="card-title">體驗單</h2>
+                    </div>
                     <table class="price-table">
                         <tr>
                             <th>價格</th>
                             <th>保障內容</th>
-                            <th>操作</th>
+                            <th>預約</th>
                         </tr>
                         <tr>
                             <td class="price-number">200</td>
-                            <td>保底 400w</td>
-                            <td><button class="btn btn-primary" style="padding: 8px 15px;" onclick="selectService('體驗單-200元', 200, '保底 400w')">選擇</button></td>
+                            <td><span class="price-unit">保底 400w</span></td>
+                            <td><button onclick="bookService('體驗單', '200', '保底 400w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">600</td>
-                            <td>保底 750w</td>
-                            <td><button class="btn btn-primary" style="padding: 8px 15px;" onclick="selectService('體驗單-600元', 600, '保底 750w')">選擇</button></td>
+                            <td><span class="price-unit">保底 750w</span></td>
+                            <td><button onclick="bookService('體驗單', '600', '保底 750w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">1500</td>
-                            <td>保底 1700w</td>
-                            <td><button class="btn btn-primary" style="padding: 8px 15px;" onclick="selectService('體驗單-1500元', 1500, '保底 1700w')">選擇</button></td>
+                            <td><span class="price-unit">保底 1700w</span></td>
+                            <td><button onclick="bookService('體驗單', '1500', '保底 1700w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                     </table>
+                    <div style="margin-top: 40px; padding: 15px; background: rgba(0, 150, 255, 0.1); border-radius: 8px;">
+                        <strong>📌 進階服務：</strong><br>
+                        • 航天絕密賭約單<br>
+                        • 娛樂玩法 (牛角單/自力根生)<br>
+                        • 完整規則與條款
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 賭約單頁 -->
+        <div class="tab-content" id="betting">
+            <h1 style="color: #ff66ff; font-size: 2.5rem; margin-bottom: 30px;">航天絕密賭約單</h1>
+            <p style="color: #8a9ba8; margin-bottom: 30px; font-size: 1.1rem;">高風險高回報 | 限單局帶出金額 | 玩的就是心跳</p>
+            
+            <div class="service-card">
+                <div class="card-header">
+                    <h2 class="card-title">賭約單 - 單局挑戰</h2>
+                </div>
+                <table class="price-table">
+                    <tr>
+                        <th>價格</th>
+                        <th>挑戰內容</th>
+                        <th>預約</th>
+                    </tr>
+                    <tr>
+                        <td class="price-number" style="color: #ff66ff;">1000</td>
+                        <td><span class="price-unit">單局沒有 588w 不結單</span></td>
+                        <td><button onclick="bookService('賭約單', '1000', '單局沒有 588w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                    </tr>
+                    <tr>
+                        <td class="price-number" style="color: #ff66ff;">1500</td>
+                        <td><span class="price-unit">單局沒有 688w 不結單</span></td>
+                        <td><button onclick="bookService('賭約單', '1500', '單局沒有 688w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                    </tr>
+                    <tr>
+                        <td class="price-number" style="color: #ff66ff;">2000</td>
+                        <td><span class="price-unit">單局沒有 799w 不結單</span></td>
+                        <td><button onclick="bookService('賭約單', '2000', '單局沒有 799w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                    </tr>
+                    <tr>
+                        <td class="price-number" style="color: #ff66ff;">2500</td>
+                        <td><span class="price-unit">單局沒有 888w 不結單</span></td>
+                        <td><button onclick="bookService('賭約單', '2500', '單局沒有 888w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                    </tr>
+                    <tr>
+                        <td class="price-number" style="color: #ff66ff;">3500</td>
+                        <td><span class="price-unit">單局沒有 1288w 不結單</span></td>
+                        <td><button onclick="bookService('賭約單', '3500', '單局沒有 1288w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                    </tr>
+                    <tr>
+                        <td class="price-number" style="color: #ff66ff;">5500</td>
+                        <td><span class="price-unit">單局沒有 1488w 不結單</span></td>
+                        <td><button onclick="bookService('賭約單', '5500', '單局沒有 1488w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="service-card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">稀有目標保底</h2>
+                </div>
+                <div class="services-grid">
+                    <div>
+                        <table class="price-table">
+                            <tr>
+                                <td class="price-number" style="color: #ff66ff;">588</td>
+                                <td><span class="price-unit">沒出鍋保 688w</span></td>
+                                <td><button onclick="bookService('稀有目標', '588', '沒出鍋保 688w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            </tr>
+                            <tr>
+                                <td class="price-number" style="color: #ff66ff;">1088</td>
+                                <td><span class="price-unit">必出鍋</span></td>
+                                <td><button onclick="bookService('稀有目標', '1088', '必出鍋')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            </tr>
+                            <tr>
+                                <td class="price-number" style="color: #ff66ff;">1888</td>
+                                <td><span class="price-unit">沒出油保 2000w</span></td>
+                                <td><button onclick="bookService('稀有目標', '1888', '沒出油保 2000w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            </tr>
+                            <tr>
+                                <td class="price-number" style="color: #ff66ff;">4888</td>
+                                <td><span class="price-unit">必出油</span></td>
+                                <td><button onclick="bookService('稀有目標', '4888', '必出油')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="price-table">
+                            <tr>
+                                <td class="price-number" style="color: #ff66ff;">5200</td>
+                                <td><span class="price-unit">沒出心保 6888w</span></td>
+                                <td><button onclick="bookService('稀有目標', '5200', '沒出心保 6888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            </tr>
+                            <tr>
+                                <td class="price-number" style="color: #ff66ff;">40000</td>
+                                <td><span class="price-unit">必出心</span></td>
+                                <td><button onclick="bookService('稀有目標', '40000', '必出心')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            </tr>
+                            <tr>
+                                <td class="price-number" style="color: #ff66ff;">90000</td>
+                                <td><span class="price-unit">沒出心保 10888w</span></td>
+                                <td><button onclick="bookService('稀有目標', '90000', '沒出心保 10888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            </tr>
+                            <tr>
+                                <td class="price-number" style="color: #ff66ff;">130000</td>
+                                <td><span class="price-unit">必出淚保</span></td>
+                                <td><button onclick="bookService('稀有目標', '130000', '必出淚保')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-            <!-- 賭約單頁 -->
-            <div class="page" id="betting">
-                <h1 style="color: #ff66ff; font-size: 1.8rem; margin-bottom: 25px;">航天絕密賭約單</h1>
-                
-                <div class="service-card">
-                    <h2 style="color: #ff66ff; margin-bottom: 20px;">賭約單 - 單局挑戰</h2>
-                    <table class="price-table">
-                        <tr>
-                            <th>價格</th>
-                            <th>挑戰內容</th>
-                            <th>操作</th>
-                        </tr>
-                        <tr>
-                            <td class="price-number" style="color: #ff66ff;">1000</td>
-                            <td>單局沒有 588w 不結單</td>
-                            <td><button class="btn btn-primary" style="background: #ff66ff; padding: 8px 15px;" onclick="selectService('賭約單-1000元', 1000, '單局沒有 588w 不結單')">選擇</button></td>
-                        </tr>
-                        <tr>
-                            <td class="price-number" style="color: #ff66ff;">1500</td>
-                            <td>單局沒有 688w 不結單</td>
-                            <td><button class="btn btn-primary" style="background: #ff66ff; padding: 8px 15px;" onclick="selectService('賭約單-1500元', 1500, '單局沒有 688w 不結單')">選擇</button></td>
-                        </tr>
-                        <tr>
-                            <td class="price-number" style="color: #ff66ff;">2000</td>
-                            <td>單局沒有 799w 不結單</td>
-                            <td><button class="btn btn-primary" style="background: #ff66ff; padding: 8px 15px;" onclick="selectService('賭約單-2000元', 2000, '單局沒有 799w 不結單')">選擇</button></td>
-                        </tr>
-                    </table>
-                </div>
+            <div class="rules-list">
+                <strong>⚠️ 賭約規則：</strong> 下訂後不可反悔或故意卡保底（如藏物品/丟槍械），發現直接結單。賭約內容及條約不可更動及耍賴，玩的就是心跳，得失心重者勿下單。
             </div>
+        </div>
 
-            <!-- 娛樂玩法頁 -->
-            <div class="page" id="entertainment">
-                <h1 style="color: #00ffff; font-size: 1.8rem; margin-bottom: 25px;">娛樂玩法</h1>
-                
+        <!-- 娛樂玩法頁 -->
+        <div class="tab-content" id="entertainment">
+            <h1 style="color: #00ffff; font-size: 2.5rem; margin-bottom: 30px;">娛樂玩法</h1>
+            <p style="color: #8a9ba8; margin-bottom: 30px; font-size: 1.1rem;">趣味挑戰 | 客製化服務 | 特殊目標</p>
+            
+            <div class="services-grid">
                 <div class="service-card">
-                    <h2 style="color: #00ffff; margin-bottom: 20px;">牛角單</h2>
-                    <div style="text-align: center; padding: 20px;">
-                        <div style="font-size: 2rem; color: #00ffff; font-weight: bold; margin-bottom: 15px;">1088元</div>
-                        <div style="font-size: 1.2rem; color: #66b3ff; margin-bottom: 15px;">保底 800w</div>
-                        <div style="padding: 15px; background: rgba(0, 200, 200, 0.1); border-radius: 8px; margin-bottom: 20px;">
+                    <div class="card-header">
+                        <h2 class="card-title">牛角單</h2>
+                    </div>
+                    <div style="text-align: center; padding: 30px;">
+                        <div style="font-size: 2.5rem; color: #00ffff; font-weight: bold; margin-bottom: 20px;">1088</div>
+                        <div style="font-size: 1.5rem; color: #66b3ff; margin-bottom: 20px;">保底 800w</div>
+                        <div style="padding: 15px; background: rgba(0, 200, 200, 0.1); border-radius: 8px; margin-top: 20px;">
                             <strong>※ 額外加成：</strong> 一個牛角額外加 50w (無上限)
                         </div>
-                        <button class="btn btn-primary" style="background: #00ffff; color: #0a0e14;" onclick="selectService('牛角單', 1088, '保底 800w')">選擇此服務</button>
                     </div>
+                    <button onclick="bookService('牛角單', '1088', '保底 800w')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                        立即預約
+                    </button>
                 </div>
 
-                <div class="service-card" style="margin-top: 20px;">
-                    <h2 style="color: #00ffff; margin-bottom: 20px;">自力根生</h2>
-                    <div style="text-align: center; padding: 20px;">
-                        <div style="font-size: 2rem; color: #00ffff; font-weight: bold; margin-bottom: 15px;">1000元</div>
-                        <div style="font-size: 1.2rem; color: #66b3ff; margin-bottom: 15px;">初始保底 500w</div>
-                        <div style="padding: 15px; background: rgba(0, 200, 200, 0.1); border-radius: 8px; margin-bottom: 20px;">
-                            <strong>※ 服務內容：</strong> 打手幫忙起裝，裝備會帶出去
-                        </div>
-                        <button class="btn btn-primary" style="background: #00ffff; color: #0a0e14;" onclick="selectService('自力根生', 1000, '初始保底 500w')">選擇此服務</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 娛樂陪玩頁 -->
-            <div class="page" id="peipei">
-                <h1 style="color: #ffcc00; font-size: 1.8rem; margin-bottom: 25px;">娛樂陪玩服務</h1>
-                
                 <div class="service-card">
-                    <h3 style="color: #ffffff; margin-bottom: 20px;">基礎陪玩服務</h3>
-                    <table class="price-table">
-                        <tr>
-                            <th>陪玩師</th>
-                            <th>娛樂陪玩</th>
-                            <th>操作</th>
-                        </tr>
-                        <tr>
-                            <td style="background: rgba(0, 150, 255, 0.1);"><strong>👨 男陪玩師</strong></td>
-                            <td>
-                                <div class="price-number">250元/小時</div>
-                                <div style="color: #ff9999; font-size: 0.9rem;">輕鬆聊天娛樂局</div>
-                            </td>
-                            <td><button class="btn btn-primary" style="padding: 8px 15px;" onclick="selectService('男陪玩-娛樂', 250, '每小時')">選擇</button></td>
-                        </tr>
-                        <tr>
-                            <td style="background: rgba(255, 102, 182, 0.1);"><strong>👩 女陪玩師</strong></td>
-                            <td>
-                                <div class="price-number">350元/小時</div>
-                                <div style="color: #ff9999; font-size: 0.9rem;">甜蜜互動娛樂局</div>
-                            </td>
-                            <td><button class="btn btn-primary" style="padding: 8px 15px;" onclick="selectService('女陪玩-娛樂', 350, '每小時')">選擇</button></td>
-                        </tr>
-                    </table>
-                    <div style="text-align: center; color: #ff9999; margin: 20px 0; padding: 15px; background: rgba(255, 50, 50, 0.1); border-radius: 8px;">
-                        ⚠️ 注意：以上服務皆不保證擊殺數（不包得吃）
+                    <div class="card-header">
+                        <h2 class="card-title">自力根生</h2>
                     </div>
+                    <div style="text-align: center; padding: 30px;">
+                        <div style="font-size: 2.5rem; color: #00ffff; font-weight: bold; margin-bottom: 20px;">1000</div>
+                        <div style="font-size: 1.5rem; color: #66b3ff; margin-bottom: 20px;">初始保底 500w</div>
+                        <div style="padding: 15px; background: rgba(0, 200, 200, 0.1); border-radius: 8px; margin-top: 20px;">
+                            <strong>※ 服務內容：</strong><br>
+                            1. 打手幫忙起裝，裝備會帶出去<br>
+                            2. 一個人加 100w，下局打手會幫忙打到金額
+                        </div>
+                    </div>
+                    <button onclick="bookService('自力根生', '1000', '初始保底 500w')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                        立即預約
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 娛樂陪玩頁 -->
+        <div class="tab-content" id="peipei">
+            <h1 style="color: #ffcc00; font-size: 2.5rem; margin-bottom: 30px;">娛樂陪玩服務</h1>
+            <p style="color: #8a9ba8; margin-bottom: 30px; font-size: 1.1rem;">專業陪玩師團隊 · 男女可選 · 技術娛樂兼備</p>
+            
+            <div class="service-card">
+                <h3 style="color: #ffffff; margin-bottom: 20px; font-size: 1.3rem;">基礎陪玩服務</h3>
+                <table class="price-table">
+                    <tr>
+                        <th>陪玩師</th>
+                        <th>娛樂陪玩</th>
+                        <th>技術陪玩</th>
+                    </tr>
+                    <tr>
+                        <td style="background: rgba(0, 150, 255, 0.1);"><strong>👨 男陪玩師</strong></td>
+                        <td>
+                            <div class="price-number">250/小時</div>
+                            <div style="color: #ff9999; font-size: 0.9rem;">輕鬆聊天娛樂局</div>
+                            <button onclick="bookService('男陪玩-娛樂', '250', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
+                        </td>
+                        <td>
+                            <div class="price-number">450/小時</div>
+                            <div style="color: #ff9999; font-size: 0.9rem;">戰術指導技術局</div>
+                            <button onclick="bookService('男陪玩-技術', '450', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background: rgba(255, 102, 182, 0.1);"><strong>👩 女陪玩師</strong></td>
+                        <td>
+                            <div class="price-number">350/小時</div>
+                            <div style="color: #ff9999; font-size: 0.9rem;">甜蜜互動娛樂局</div>
+                            <button onclick="bookService('女陪玩-娛樂', '350', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
+                        </td>
+                        <td>
+                            <div class="price-number">550/小時</div>
+                            <div style="color: #ff9999; font-size: 0.9rem;">專業指導技術局</div>
+                            <button onclick="bookService('女陪玩-技術', '550', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
+                        </td>
+                    </tr>
+                </table>
+                <div style="text-align: center; color: #ff9999; margin: 20px 0; padding: 15px; background: rgba(255, 50, 50, 0.1); border-radius: 8px;">
+                    ⚠️ 注意：以上服務皆不保證擊殺數（不包得吃）
                 </div>
             </div>
 
-            <!-- 付款頁面 -->
-            <div class="page" id="payment">
-                <div class="service-card" style="border-color: #00ff9d;">
-                    <!-- 步驟指示器 -->
-                    <div class="step-indicator">
-                        <div class="step active" id="step1-indicator">
-                            <div class="step-number">1</div>
-                            <div class="step-text">選擇服務</div>
+            <!-- 時長優惠 -->
+            <div class="payment-section" style="border-color: #ffcc00;">
+                <h2 class="payment-title">⏰ 時長優惠方案</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3 style="color: #ffcc00;">男陪玩 3小時套餐</h3>
+                        <div class="order-item">
+                            <span>娛樂套餐</span>
+                            <span class="price-number">700元</span>
                         </div>
-                        <div class="step" id="step2-indicator">
-                            <div class="step-number">2</div>
-                            <div class="step-text">填寫資料</div>
+                        <div class="order-item">
+                            <span>技術套餐</span>
+                            <span class="price-number">1200元</span>
                         </div>
-                        <div class="step" id="step3-indicator">
-                            <div class="step-number">3</div>
-                            <div class="step-text">付款方式</div>
+                        <button onclick="bookService('男陪玩3小時套餐', '700', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
+                        <button onclick="bookService('男陪玩3小時套餐', '1200', '技術套餐')" class="book-btn" style="margin-top: 10px; background: #333945;">選擇技術套餐</button>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3 style="color: #ffcc00;">男陪玩 5小時套餐</h3>
+                        <div class="order-item">
+                            <span>娛樂套餐</span>
+                            <span class="price-number">1100元</span>
                         </div>
-                        <div class="step" id="step4-indicator">
-                            <div class="step-number">4</div>
-                            <div class="step-text">確認訂單</div>
+                        <div class="order-item">
+                            <span>技術套餐</span>
+                            <span class="price-number">2000元</span>
+                        </div>
+                        <button onclick="bookService('男陪玩5小時套餐', '1100', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
+                        <button onclick="bookService('男陪玩5小時套餐', '2000', '技術套餐')" class="book-btn" style="margin-top: 10px; background: #333945;">選擇技術套餐</button>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3 style="color: #ffcc00;">女陪玩 3小時套餐</h3>
+                        <div class="order-item">
+                            <span>娛樂套餐</span>
+                            <span class="price-number">1000元</span>
+                        </div>
+                        <div class="order-item">
+                            <span>技術套餐</span>
+                            <span class="price-number">1500元</span>
+                        </div>
+                        <button onclick="bookService('女陪玩3小時套餐', '1000', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
+                        <button onclick="bookService('女陪玩3小時套餐', '1500', '技術套餐')" class="book-btn" style="margin-top: 10px; background: #333945;">選擇技術套餐</button>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3 style="color: #ffcc00;">女陪玩 5小時套餐</h3>
+                        <div class="order-item">
+                            <span>娛樂套餐</span>
+                            <span class="price-number">1600元</span>
+                        </div>
+                        <div class="order-item">
+                            <span>技術套餐</span>
+                            <span class="price-number">2500元</span>
+                        </div>
+                        <button onclick="bookService('女陪玩5小時套餐', '1600', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
+                        <button onclick="bookService('女陪玩5小時套餐', '2500', '技術套餐')" class="book-btn" style="margin-top: 10px; background: #333945;">選擇技術套餐</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 規則條款頁 -->
+        <div class="tab-content" id="rules">
+            <h1 style="color: #ffffff; font-size: 2.5rem; margin-bottom: 30px;">服務規則條款</h1>
+            <p style="color: #8a9ba8; margin-bottom: 30px; font-size: 1.1rem;">請仔細閱讀並遵守以下規則</p>
+            
+            <div class="service-card">
+                <div class="card-header">
+                    <h2 class="card-title">基本規則</h2>
+                </div>
+                <ul class="rules-list">
+                    <li><strong>下單確認：</strong> 下單前請確認需求及價格，下單後10分鐘內可取消，避免臨時改單或爭議。</li>
+                    <li><strong>錄影存證：</strong> 護航期間打手全程錄影，建議老闆也錄屏，發生爭議可以確保自身權益。</li>
+                    <li><strong>配合指令：</strong> 任務開始請配合打手行動，如不配合或是干擾打手，打手有權直接結單。</li>
+                    <li><strong>聯繫規範：</strong> 結束護航請勿遊戲內私下索要打手聯絡方式和私下談價格。</li>
+                    <li><strong>官方渠道：</strong> 所有訂單一律透過官方 LINE，其他渠道恕不接待。</li>
+                </ul>
+            </div>
+
+            <div class="service-card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">賭約單特別規則</h2>
+                </div>
+                <ul class="rules-list">
+                    <li><strong>不可反悔：</strong> 賭約單下訂後不可反悔或故意卡保底，例如藏物品或丟槍械，發現直接結單。</li>
+                    <li><strong>合約精神：</strong> 賭約內容及條約不可更動及耍賴，玩的就是心跳，得失心重者勿下單。</li>
+                    <li><strong>禁止情勒：</strong> 不可私下聯繫打手情勒求吃多點，一切按約定執行。</li>
+                </ul>
+            </div>
+
+            <div class="service-card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">重要提醒</h2>
+                </div>
+                <div style="padding: 25px; background: rgba(255, 50, 50, 0.1); border-radius: 10px;">
+                    <h3 style="color: #ff6666; margin-bottom: 15px;">⚠️ 風險告知：</h3>
+                    <div style="color: #ffaaaa; line-height: 1.8;">
+                        1. 遊戲帳號安全由老闆自行負責<br>
+                        2. 服務過程中如遇遊戲官方封號，責任自負<br>
+                        3. 請勿將帳號密碼交給非官方人員<br>
+                        4. 交易請透過官方渠道，避免詐騙
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 付款頁面 -->
+        <div class="tab-content" id="payment">
+            <div class="payment-section">
+                <!-- 已選擇服務顯示區 -->
+                <div class="selected-service-display" id="selectedServiceDisplay">
+                    <div class="selected-service-title">已選擇服務</div>
+                    <div class="selected-service-details">
+                        <div class="service-info">
+                            <div id="displayServiceName">尚未選擇服務</div>
+                            <div id="displayServiceDescription" style="color: #8a9ba8; font-size: 0.9rem;"></div>
+                        </div>
+                        <div class="service-price" id="displayServicePrice">0元</div>
+                        <button class="change-service-btn" onclick="clearServiceSelection()">更換服務</button>
+                    </div>
+                </div>
+
+                <!-- 付款步驟 -->
+                <div class="payment-steps">
+                    <div class="step active" id="step1">
+                        <div class="step-number">1</div>
+                        <div class="step-text">選擇服務</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-number">2</div>
+                        <div class="step-text">填寫資料</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-number">3</div>
+                        <div class="step-text">選擇付款</div>
+                    </div>
+                    <div class="step" id="step4">
+                        <div class="step-number">4</div>
+                        <div class="step-text">確認訂單</div>
+                    </div>
+                </div>
+
+                <!-- 步驟1：選擇服務 -->
+                <div id="payment-step1" class="payment-step active">
+                    <h2 class="payment-title">選擇服務項目</h2>
+                    <p style="text-align: center; color: #8a9ba8; margin-bottom: 30px;">請選擇您要預約的服務項目</p>
+                    
+                    <div class="services-grid">
+                        <div class="service-card" onclick="selectService('基礎單-500', '500', '保底 600w')">
+                            <h3 style="color: #ffcc00;">基礎單</h3>
+                            <div class="order-item">
+                                <span>500元方案</span>
+                                <span class="price-number">500元</span>
+                            </div>
+                            <div style="color: #66b3ff; margin-top: 10px;">保底 600w</div>
+                        </div>
+                        
+                        <div class="service-card" onclick="selectService('體驗單-200', '200', '保底 400w')">
+                            <h3 style="color: #ffcc00;">體驗單</h3>
+                            <div class="order-item">
+                                <span>200元方案</span>
+                                <span class="price-number">200元</span>
+                            </div>
+                            <div style="color: #66b3ff; margin-top: 10px;">保底 400w</div>
+                        </div>
+                        
+                        <div class="service-card" onclick="selectService('男陪玩-娛樂', '250', '每小時')">
+                            <h3 style="color: #00ffff;">男陪玩師</h3>
+                            <div class="order-item">
+                                <span>娛樂陪玩</span>
+                                <span class="price-number">250元/小時</span>
+                            </div>
+                            <div style="color: #66b3ff; margin-top: 10px;">輕鬆聊天娛樂局</div>
+                        </div>
+                        
+                        <div class="service-card" onclick="selectService('女陪玩-娛樂', '350', '每小時')">
+                            <h3 style="color: #ff66ff;">女陪玩師</h3>
+                            <div class="order-item">
+                                <span>娛樂陪玩</span>
+                                <span class="price-number">350元/小時</span>
+                            </div>
+                            <div style="color: #66b3ff; margin-top: 10px;">甜蜜互動娛樂局</div>
                         </div>
                     </div>
+                    
+                    <div class="btn-group">
+                        <button onclick="nextStep()" class="btn btn-success">下一步：填寫資料</button>
+                    </div>
+                </div>
 
-                    <!-- 步驟1：選擇服務 -->
-                    <div class="payment-step active" id="step1">
-                        <h2 style="color: #00ff9d; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">選擇服務項目</h2>
-                        
-                        <div style="display: grid; gap: 15px;">
-                            <button class="service-card" style="text-align: center; padding: 15px;" onclick="setSelectedService('基礎單-500元', 500, '保底 600w')">
-                                <div style="font-size: 1.2rem; color: #ffcc00;">基礎單</div>
-                                <div style="font-size: 1.5rem; color: #00ff9d; margin: 10px 0;">500元</div>
-                                <div style="color: #66b3ff;">保底 600w</div>
-                            </button>
-                            
-                            <button class="service-card" style="text-align: center; padding: 15px;" onclick="setSelectedService('男陪玩-娛樂', 250, '每小時')">
-                                <div style="font-size: 1.2rem; color: #ffcc00;">男陪玩師</div>
-                                <div style="font-size: 1.5rem; color: #00ff9d; margin: 10px 0;">250元/小時</div>
-                                <div style="color: #66b3ff;">娛樂陪玩</div>
-                            </button>
-                            
-                            <button class="service-card" style="text-align: center; padding: 15px;" onclick="setSelectedService('女陪玩-娛樂', 350, '每小時')">
-                                <div style="font-size: 1.2rem; color: #ffcc00;">女陪玩師</div>
-                                <div style="font-size: 1.5rem; color: #00ff9d; margin: 10px 0;">350元/小時</div>
-                                <div style="color: #66b3ff;">娛樂陪玩</div>
-                            </button>
+                <!-- 步驟2：填寫資料 -->
+                <div id="payment-step2" class="payment-step" style="display: none;">
+                    <h2 class="payment-title">填寫預約資料</h2>
+                    
+                    <div class="order-summary">
+                        <h3 style="color: #ffcc00; margin-bottom: 15px;">訂單摘要</h3>
+                        <div class="order-item">
+                            <span id="selected-service-name">尚未選擇服務</span>
+                            <span id="selected-service-price">0元</span>
                         </div>
-                        
-                        <div class="btn-group">
-                            <button class="btn btn-success" onclick="nextStep()">下一步</button>
+                        <div class="order-total">
+                            <span>總金額</span>
+                            <span id="order-total">0元</span>
                         </div>
                     </div>
-
-                    <!-- 步驟2：填寫資料 -->
-                    <div class="payment-step" id="step2">
-                        <h2 style="color: #00ff9d; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">填寫預約資料</h2>
-                        
-                        <div style="background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 20px; margin-bottom: 25px;">
-                            <div id="order-summary">請先選擇服務項目</div>
-                        </div>
-                        
+                    
+                    <form id="customer-form">
                         <div class="form-group">
                             <label class="form-label">遊戲ID（暱稱）</label>
-                            <input type="text" class="form-input" id="game-id" placeholder="請輸入您的遊戲ID">
+                            <input type="text" class="form-input" id="game-id" placeholder="請輸入您的遊戲ID" required>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">聯絡方式</label>
-                            <select class="form-input" id="contact-type">
+                            <select class="form-select" id="contact-type" required>
                                 <option value="">選擇聯絡方式</option>
                                 <option value="line">LINE</option>
                                 <option value="discord">Discord</option>
@@ -780,382 +1470,443 @@
                         
                         <div class="form-group">
                             <label class="form-label">聯絡帳號</label>
-                            <input type="text" class="form-input" id="contact-id" placeholder="請輸入您的聯絡帳號">
+                            <input type="text" class="form-input" id="contact-id" placeholder="請輸入您的聯絡帳號" required>
                         </div>
                         
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="prevStep()">上一步</button>
-                            <button class="btn btn-success" onclick="nextStep()">下一步</button>
+                        <div class="form-group">
+                            <label class="form-label">預約時間</label>
+                            <input type="datetime-local" class="form-input" id="booking-time" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">特殊需求（選填）</label>
+                            <textarea class="form-textarea" id="special-request" placeholder="請輸入任何特殊需求或備註..."></textarea>
+                        </div>
+                    </form>
+                    
+                    <div class="btn-group">
+                        <button onclick="prevStep()" class="btn btn-secondary">上一步</button>
+                        <button onclick="nextStep()" class="btn btn-success">下一步：選擇付款方式</button>
+                    </div>
+                </div>
+
+                <!-- 步驟3：選擇付款方式 -->
+                <div id="payment-step3" class="payment-step" style="display: none;">
+                    <h2 class="payment-title">選擇付款方式</h2>
+                    
+                    <div class="order-summary">
+                        <h3 style="color: #ffcc00; margin-bottom: 15px;">訂單確認</h3>
+                        <div class="order-item">
+                            <span id="confirm-service-name">尚未選擇服務</span>
+                            <span id="confirm-service-price">0元</span>
+                        </div>
+                        <div class="order-item">
+                            <span>預約時間</span>
+                            <span id="confirm-booking-time">未設定</span>
+                        </div>
+                        <div class="order-total">
+                            <span>應付金額</span>
+                            <span id="confirm-order-total">0元</span>
                         </div>
                     </div>
-
-                    <!-- 步驟3：選擇付款方式 -->
-                    <div class="payment-step" id="step3">
-                        <h2 style="color: #00ff9d; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">選擇付款方式</h2>
-                        
-                        <div class="payment-methods">
-                            <button class="payment-method" onclick="selectPaymentMethod('linepay')">
-                                <div style="font-size: 2rem;">💳</div>
-                                <div style="font-weight: bold;">LINE Pay</div>
-                                <div style="color: #8a9ba8; font-size: 0.9rem;">快速安全支付</div>
-                            </button>
-                            
-                            <button class="payment-method" onclick="selectPaymentMethod('bank')">
-                                <div style="font-size: 2rem;">🏦</div>
-                                <div style="font-weight: bold;">銀行轉帳</div>
-                                <div style="color: #8a9ba8; font-size: 0.9rem;">ATM/網銀轉帳</div>
-                            </button>
-                            
-                            <button class="payment-method" onclick="selectPaymentMethod('711')">
-                                <div style="font-size: 2rem;">🏪</div>
-                                <div style="font-weight: bold;">超商代碼</div>
-                                <div style="color: #8a9ba8; font-size: 0.9rem;">7-11/全家</div>
-                            </button>
+                    
+                    <h3 style="color: #66b3ff; margin: 30px 0 20px;">請選擇付款方式</h3>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method" onclick="selectPaymentMethod('linepay')">
+                            <div class="payment-icon">💳</div>
+                            <div style="font-weight: bold;">LINE Pay</div>
+                            <div style="color: #8a9ba8; font-size: 0.9rem;">快速安全支付</div>
                         </div>
                         
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="prevStep()">上一步</button>
-                            <button class="btn btn-success" onclick="nextStep()">下一步</button>
+                        <div class="payment-method" onclick="selectPaymentMethod('bank')">
+                            <div class="payment-icon">🏦</div>
+                            <div style="font-weight: bold;">銀行轉帳</div>
+                            <div style="color: #8a9ba8; font-size: 0.9rem;">ATM/網銀轉帳</div>
+                        </div>
+                        
+                        <div class="payment-method" onclick="selectPaymentMethod('crypto')">
+                            <div class="payment-icon">₿</div>
+                            <div style="font-weight: bold;">加密貨幣</div>
+                            <div style="color: #8a9ba8; font-size: 0.9rem;">USDT/BTC/ETH</div>
+                        </div>
+                        
+                        <div class="payment-method" onclick="selectPaymentMethod('711')">
+                            <div class="payment-icon">🏪</div>
+                            <div style="font-weight: bold;">超商代碼</div>
+                            <div style="color: #8a9ba8; font-size: 0.9rem;">7-11/全家</div>
                         </div>
                     </div>
+                    
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(255, 204, 0, 0.1); border-radius: 10px;">
+                        <h4 style="color: #ffcc00; margin-bottom: 10px;">⚠️ 付款注意事項</h4>
+                        <ul style="color: #ffdd66; padding-left: 20px;">
+                            <li>付款完成後請提供付款證明給客服</li>
+                            <li>確認收款後客服會主動與您聯繫</li>
+                            <li>付款後10分鐘內未收到確認請聯繫客服</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button onclick="prevStep()" class="btn btn-secondary">上一步</button>
+                        <button onclick="nextStep()" class="btn btn-success">下一步：確認訂單</button>
+                    </div>
+                </div>
 
-                    <!-- 步驟4：確認訂單 -->
-                    <div class="payment-step" id="step4">
-                        <h2 style="color: #00ff9d; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">確認訂單</h2>
+                <!-- 步驟4：確認訂單 -->
+                <div id="payment-step4" class="payment-step" style="display: none;">
+                    <div class="confirmation-box">
+                        <div class="confirmation-icon">✅</div>
+                        <h2 class="confirmation-title">訂單已建立</h2>
+                        <p class="confirmation-text">您的訂單已成功建立，請完成付款以確認預約</p>
                         
-                        <div style="background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 20px; margin-bottom: 25px;">
-                            <div id="order-details">訂單詳情將在此顯示</div>
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 10px; margin: 25px 0;">
+                            <div class="order-item">
+                                <span>訂單編號</span>
+                                <span class="order-id" id="order-id-display">DELTA-2024-0001</span>
+                            </div>
+                            <div class="order-item">
+                                <span>服務項目</span>
+                                <span id="final-service-name">尚未選擇服務</span>
+                            </div>
+                            <div class="order-item">
+                                <span>付款金額</span>
+                                <span id="final-order-total" style="color: #00ff9d; font-weight: bold;">0元</span>
+                            </div>
+                            <div class="order-item">
+                                <span>付款方式</span>
+                                <span id="final-payment-method">未選擇</span>
+                            </div>
                         </div>
                         
-                        <div style="text-align: center;">
-                            <div style="color: #ffcc00; font-size: 1.5rem; margin: 20px 0;" id="order-number">訂單編號: DELTA-2024-001</div>
-                            <p style="color: #8a9ba8; margin-bottom: 25px;">請記下您的訂單編號，並聯繫客服完成付款</p>
+                        <div style="margin: 30px 0;">
+                            <h3 style="color: #66b3ff; margin-bottom: 15px;">📋 下一步操作</h3>
+                            <div style="color: #8a9ba8; text-align: left; max-width: 500px; margin: 0 auto;">
+                                1. 請在 <strong style="color: #ffcc00;">15分鐘內</strong> 完成付款<br>
+                                2. 付款後請將 <strong style="color: #ffcc00;">付款證明截圖</strong><br>
+                                3. 聯繫客服提供訂單編號及付款證明<br>
+                                4. 客服確認後會立即為您安排服務
+                            </div>
                         </div>
                         
                         <div class="btn-group">
-                            <button class="btn btn-primary" onclick="showPage('home')">返回首頁</button>
-                            <button class="btn btn-success" onclick="contactCustomerService()">聯繫客服付款</button>
+                            <button onclick="printOrder()" class="btn btn-secondary">列印訂單</button>
+                            <button onclick="window.location.href='https://line.me/R/ti/p/@deltaforce'" class="btn btn-success">聯繫客服完成付款</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- 聯繫區 -->
-            <div class="contact-section">
-                <h2 class="contact-title">📞 需要協助？</h2>
-                <div class="contact-info">官方LINE客服：@deltaforce</div>
-                <div class="contact-info">服務時間：每日 10:00 - 02:00</div>
-                <button class="btn btn-success" style="margin-top: 20px;" onclick="contactCustomerService()">立即聯繫客服</button>
+        <!-- 聯繫區 -->
+        <div class="contact-section">
+            <h2 class="contact-title">📞 需要協助？</h2>
+            <div class="contact-info">官方LINE客服：@deltaforce</div>
+            <div class="contact-info">服務時間：每日 10:00 - 02:00</div>
+            <div class="contact-info">緊急聯繫：24小時值班客服</div>
+            <div style="margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; display: inline-block;">
+                <div style="color: #ffcc00; font-size: 1.2rem; margin-bottom: 10px;">掃描QR Code添加客服</div>
+                <div class="contact-qr">
+                    <div style="width: 150px; height: 150px; background: #333; margin: 0 auto; display: flex; align-items: center; justify-content: center; color: #666;">
+                        [LINE QR Code]
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- 頁腳 -->
+    <footer class="footer">
+        <div>三角洲行動 · 專業戰術支援服務</div>
+        <div style="margin-top: 10px;">© 2024 三角洲行動戰術支援服務中心 | 版本：2024.01</div>
+        <div style="margin-top: 10px; font-size: 0.8rem; color: #666;">本服務僅供娛樂參考，請遵守遊戲規則與相關法律</div>
+    </footer>
+
     <script>
-        // ==================== 頁面管理 ====================
-        let currentPage = 'home';
+        // 手機版漢堡選單功能
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            // 漢堡選單動畫
+            const spans = menuToggle.querySelectorAll('span');
+            if (navLinks.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+        
+        // 點擊導航連結後關閉漢堡選單（手機版）
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    const spans = menuToggle.querySelectorAll('span');
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                }
+            });
+        });
+        
+        // 分頁切換功能
+        function showTab(tabId) {
+            // 隱藏所有分頁
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 移除所有導航連結的active類
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // 顯示選中的分頁
+            document.getElementById(tabId).classList.add('active');
+            
+            // 激活對應的導航連結
+            const targetLink = document.querySelector(`[data-tab="${tabId}"]`);
+            if (targetLink) {
+                targetLink.classList.add('active');
+            }
+            
+            // 滾動到頂部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // 導航連結點擊事件
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const tabId = this.getAttribute('data-tab');
+                showTab(tabId);
+            });
+        });
+        
+        // 初始化顯示首頁
+        window.addEventListener('load', function() {
+            showTab('home');
+            updateOrderId();
+        });
+        
+        // 付款流程變數
         let currentStep = 1;
         let selectedService = null;
-        let selectedPaymentMethod = null;
-
-        // 顯示頁面函數 - 修復滾動問題
-        function showPage(pageId) {
-            console.log('切換到頁面:', pageId);
-            
-            // 隱藏所有頁面
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // 顯示目標頁面
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            }
-            
-            // 更新當前頁面
-            currentPage = pageId;
-            
-            // 更新選單狀態
-            updateMenuActiveState();
-            
-            // 關閉手機選單
-            closeMobileMenu();
-            
-            // 防止頁面跳動
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-            }, 10);
-            
-            // 如果切換到付款頁面，重置步驟
-            if (pageId === 'payment') {
-                resetPaymentSteps();
+        let selectedPrice = 0;
+        let selectedPaymentMethod = '';
+        
+        // 更新已選擇服務顯示
+        function updateSelectedServiceDisplay() {
+            const displayElement = document.getElementById('selectedServiceDisplay');
+            if (selectedService) {
+                displayElement.classList.add('active');
+                document.getElementById('displayServiceName').textContent = selectedService.name;
+                document.getElementById('displayServiceDescription').textContent = selectedService.description;
+                document.getElementById('displayServicePrice').textContent = `${selectedService.price}元`;
+            } else {
+                displayElement.classList.remove('active');
             }
         }
-
-        // 更新選單激活狀態
-        function updateMenuActiveState() {
-            document.querySelectorAll('.menu-item').forEach(item => {
-                item.classList.remove('active');
-            });
+        
+        // 清除服務選擇
+        function clearServiceSelection() {
+            selectedService = null;
+            selectedPrice = 0;
+            selectedPaymentMethod = '';
             
-            const activeItem = Array.from(document.querySelectorAll('.menu-item')).find(item => {
-                const pageMap = {
-                    '🏠 首頁': 'home',
-                    '🛡️ 護航服務': 'escort',
-                    '🎲 賭約單': 'betting',
-                    '🎮 娛樂玩法': 'entertainment',
-                    '👥 娛樂陪玩': 'peipei',
-                    '💳 立即預約': 'payment'
-                };
-                return pageMap[item.textContent] === currentPage;
-            });
+            // 重置顯示
+            document.getElementById('selectedServiceDisplay').classList.remove('active');
+            document.getElementById('selected-service-name').textContent = '尚未選擇服務';
+            document.getElementById('selected-service-price').textContent = '0元';
+            document.getElementById('order-total').textContent = '0元';
+            document.getElementById('confirm-service-name').textContent = '尚未選擇服務';
+            document.getElementById('confirm-service-price').textContent = '0元';
+            document.getElementById('confirm-order-total').textContent = '0元';
+            document.getElementById('final-service-name').textContent = '尚未選擇服務';
+            document.getElementById('final-order-total').textContent = '0元';
             
-            if (activeItem) {
-                activeItem.classList.add('active');
-            }
+            // 重置步驟
+            goToStep(1);
         }
-
-        // ==================== 手機選單控制 ====================
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const menuOverlay = document.getElementById('menuOverlay');
-            
-            mobileMenu.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-            
-            // 防止背景滾動
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        }
-
-        function closeMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const menuOverlay = document.getElementById('menuOverlay');
-            
-            mobileMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // 綁定事件
-        document.getElementById('menuToggle').addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleMobileMenu();
-        });
-
-        document.getElementById('closeMenu').addEventListener('click', closeMobileMenu);
-        document.getElementById('menuOverlay').addEventListener('click', closeMobileMenu);
-
-        // 防止選單內點擊事件冒泡
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-        });
-
-        // ==================== 服務選擇 ====================
-        function selectService(name, price, description) {
-            console.log('選擇服務:', name, price, description);
-            setSelectedService(name, price, description);
-            showPage('payment');
-        }
-
-        function setSelectedService(name, price, description) {
+        
+        // 預約服務函數
+        function bookService(serviceName, price, description) {
             selectedService = {
-                name: name,
-                price: price,
+                name: serviceName,
+                price: parseInt(price),
                 description: description
             };
+            selectedPrice = parseInt(price);
             
             // 更新顯示
-            document.getElementById('order-summary').innerHTML = `
-                <div style="margin-bottom: 10px;">
-                    <strong style="color: #00ff9d;">${name}</strong>
-                </div>
-                <div style="color: #66b3ff;">${description}</div>
-                <div style="margin-top: 10px; font-size: 1.2rem; color: #00ff9d;">價格：${price}元</div>
-            `;
+            updateSelectedServiceDisplay();
+            
+            document.getElementById('selected-service-name').textContent = `${serviceName} - ${description}`;
+            document.getElementById('selected-service-price').textContent = `${price}元`;
+            document.getElementById('order-total').textContent = `${price}元`;
+            
+            document.getElementById('confirm-service-name').textContent = `${serviceName} - ${description}`;
+            document.getElementById('confirm-service-price').textContent = `${price}元`;
+            document.getElementById('confirm-order-total').textContent = `${price}元`;
+            
+            document.getElementById('final-service-name').textContent = `${serviceName} - ${description}`;
+            document.getElementById('final-order-total').textContent = `${price}元`;
+            
+            // 切換到付款頁面
+            showTab('payment');
+            resetPaymentSteps();
+            goToStep(1);
         }
-
-        // ==================== 付款流程控制 ====================
-        function resetPaymentSteps() {
-            currentStep = 1;
-            selectedPaymentMethod = null;
-            
-            // 重置步驟顯示
-            document.querySelectorAll('.payment-step').forEach(step => {
-                step.classList.remove('active');
-            });
-            document.getElementById('step1').classList.add('active');
-            
-            // 重置步驟指示器
-            document.querySelectorAll('.step').forEach((step, index) => {
-                step.classList.remove('active');
-                if (index === 0) step.classList.add('active');
-            });
-            
-            // 重置付款方式選擇
-            document.querySelectorAll('.payment-method').forEach(method => {
-                method.classList.remove('selected');
-            });
+        
+        // 選擇服務
+        function selectService(name, price, description) {
+            bookService(name, price, description);
         }
-
+        
+        // 付款步驟控制
+        function goToStep(step) {
+            // 隱藏所有步驟
+            document.querySelectorAll('.payment-step').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // 顯示當前步驟
+            document.getElementById(`payment-step${step}`).style.display = 'block';
+            
+            // 更新步驟指示器
+            document.querySelectorAll('.step').forEach((el, index) => {
+                el.classList.remove('active', 'completed');
+                if (index + 1 < step) {
+                    el.classList.add('completed');
+                } else if (index + 1 === step) {
+                    el.classList.add('active');
+                }
+            });
+            
+            currentStep = step;
+        }
+        
         function nextStep() {
             if (currentStep < 4) {
-                // 驗證當前步驟
+                // 檢查是否已選擇服務（步驟1）
                 if (currentStep === 1 && !selectedService) {
                     alert('請先選擇服務項目');
                     return;
                 }
                 
+                // 表單驗證（步驟2）
                 if (currentStep === 2) {
-                    const gameId = document.getElementById('game-id').value.trim();
-                    const contactType = document.getElementById('contact-type').value;
-                    const contactId = document.getElementById('contact-id').value.trim();
-                    
-                    if (!gameId || !contactType || !contactId) {
-                        alert('請填寫所有必填資料');
+                    if (!validateForm()) {
+                        alert('請填寫所有必填欄位');
                         return;
                     }
+                    
+                    // 更新確認頁面的資料
+                    document.getElementById('confirm-booking-time').textContent = 
+                        document.getElementById('booking-time').value;
                 }
                 
+                // 檢查付款方式（步驟3）
                 if (currentStep === 3 && !selectedPaymentMethod) {
                     alert('請選擇付款方式');
                     return;
                 }
                 
-                // 切換到下一步
-                document.getElementById(`step${currentStep}`).classList.remove('active');
-                document.getElementById(`step${currentStep + 1}`).classList.add('active');
-                
-                // 更新步驟指示器
-                document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
-                document.getElementById(`step${currentStep + 1}-indicator`).classList.add('active');
-                
-                currentStep++;
-                
-                // 如果是步驟4，更新訂單詳情
-                if (currentStep === 4) {
-                    updateOrderConfirmation();
-                }
+                goToStep(currentStep + 1);
             }
         }
-
+        
         function prevStep() {
             if (currentStep > 1) {
-                document.getElementById(`step${currentStep}`).classList.remove('active');
-                document.getElementById(`step${currentStep - 1}`).classList.add('active');
-                
-                document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
-                document.getElementById(`step${currentStep - 1}-indicator`).classList.add('active');
-                
-                currentStep--;
+                goToStep(currentStep - 1);
             }
         }
-
+        
+        function resetPaymentSteps() {
+            currentStep = 1;
+            selectedPaymentMethod = '';
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            goToStep(1);
+        }
+        
+        // 選擇付款方式
         function selectPaymentMethod(method) {
             selectedPaymentMethod = method;
             
-            // 移除所有選擇狀態
-            document.querySelectorAll('.payment-method').forEach(btn => {
-                btn.classList.remove('selected');
+            // 更新UI
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
             });
-            
-            // 添加選擇狀態
             event.currentTarget.classList.add('selected');
+            
+            // 更新顯示
+            const methodNames = {
+                'linepay': 'LINE Pay',
+                'bank': '銀行轉帳',
+                'crypto': '加密貨幣',
+                '711': '超商代碼'
+            };
+            document.getElementById('final-payment-method').textContent = methodNames[method] || method;
         }
-
-        function updateOrderConfirmation() {
+        
+        // 表單驗證
+        function validateForm() {
             const gameId = document.getElementById('game-id').value;
             const contactType = document.getElementById('contact-type').value;
             const contactId = document.getElementById('contact-id').value;
+            const bookingTime = document.getElementById('booking-time').value;
             
-            const paymentMethods = {
-                'linepay': 'LINE Pay',
-                'bank': '銀行轉帳',
-                '711': '超商代碼'
-            };
-            
-            const orderDetails = `
-                <div style="margin-bottom: 15px;">
-                    <div style="color: #00ff9d; font-weight: bold; margin-bottom: 5px;">訂單詳情：</div>
-                    <div style="padding-left: 15px;">
-                        <div>服務：${selectedService.name}</div>
-                        <div>內容：${selectedService.description}</div>
-                        <div>金額：<span style="color: #00ff9d;">${selectedService.price}元</span></div>
-                        <div>付款方式：${paymentMethods[selectedPaymentMethod] || '未選擇'}</div>
-                        <div>遊戲ID：${gameId || '未填寫'}</div>
-                        <div>聯絡方式：${contactType || '未選擇'}</div>
-                        <div>聯絡帳號：${contactId || '未填寫'}</div>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('order-details').innerHTML = orderDetails;
-            
-            // 生成訂單編號
-            const orderNumber = 'DELTA-' + new Date().getFullYear() + '-' + 
-                Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-            document.getElementById('order-number').textContent = `訂單編號: ${orderNumber}`;
-        }
-
-        // ==================== 聯繫客服 ====================
-        function contactCustomerService() {
-            const message = `你好，我想預約三角洲行動服務！\n\n請協助處理付款事宜。`;
-            const lineUrl = `https://line.me/R/oaMessage/@deltaforce/?${encodeURIComponent(message)}`;
-            
-            // 嘗試打開LINE
-            window.open(lineUrl, '_blank');
-            
-            // 備用提示
-            alert('請聯繫客服完成付款：\n\nLINE：@deltaforce\n\n請提供訂單編號給客服');
-        }
-
-        // ==================== 初始化 ====================
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('頁面載入完成');
-            
-            // 初始化顯示首頁
-            showPage('home');
-            updateMenuActiveState();
-            
-            // 測試所有按鈕綁定
-            setTimeout(() => {
-                console.log('按鈕測試：');
-                console.log('1. 漢堡選單按鈕:', document.getElementById('menuToggle'));
-                console.log('2. 關閉選單按鈕:', document.getElementById('closeMenu'));
-                console.log('3. 所有頁面切換按鈕數量:', document.querySelectorAll('[onclick^="showPage"]').length);
-            }, 100);
-            
-            // 阻止所有按鈕的預設行為
-            document.querySelectorAll('button').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    if (!this.getAttribute('type') || this.getAttribute('type') === 'submit') {
-                        e.preventDefault();
-                    }
-                });
-            });
-        });
-
-        // 防止表單提交
-        document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
+            if (!gameId || !contactType || !contactId || !bookingTime) {
                 return false;
+            }
+            
+            return true;
+        }
+        
+        // 生成訂單編號
+        function updateOrderId() {
+            const orderId = `DELTA-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`;
+            document.getElementById('order-id-display').textContent = orderId;
+        }
+        
+        // 列印訂單
+        function printOrder() {
+            window.print();
+        }
+        
+        // 日期時間設定
+        document.getElementById('booking-time').min = new Date().toISOString().slice(0, 16);
+        document.getElementById('booking-time').value = new Date(Date.now() + 3600000).toISOString().slice(0, 16);
+        
+        // 手機版觸控優化
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
             });
-        });
-
-        // 確保所有按鈕點擊都有反饋
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('mousedown', function() {
-                this.style.transform = 'scale(0.97)';
-            });
-            button.addEventListener('mouseup', function() {
+            
+            card.addEventListener('touchend', function() {
                 this.style.transform = '';
             });
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = '';
-            });
         });
+        
+        // 防止手機上雙擊縮放
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
 </html>
