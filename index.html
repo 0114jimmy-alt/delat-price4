@@ -631,7 +631,7 @@
         }
 
         /* ============================
-           服務網格與卡片樣式 - 新增
+           服務網格與卡片樣式
            ============================ */
         .services-grid {
             display: grid;
@@ -1131,7 +1131,7 @@
         }
 
         /* ============================
-           頁腳樣式 - 新增
+           頁腳樣式
            ============================ */
         .footer {
             text-align: center;
@@ -1345,7 +1345,7 @@
         }
 
         /* ============================
-           行動裝置優化 - 新增
+           行動裝置優化
            ============================ */
         @media (max-width: 480px) {
             .hero-title {
@@ -2414,9 +2414,21 @@
         // 全域設定與變數
         // ============================
         
+        const DEFAULT_ADMIN_PASSWORD = 'Smile1124';
+        
         const SYSTEM_CONFIG = {
-            ADMIN_PASSWORD: localStorage.getItem('admin_password') || 'Smile1124',
-            ENABLE_NOTIFICATIONS: localStorage.getItem('enable_notifications') !== 'false',
+            get ADMIN_PASSWORD() {
+                return localStorage.getItem('admin_password') || DEFAULT_ADMIN_PASSWORD;
+            },
+            set ADMIN_PASSWORD(value) {
+                localStorage.setItem('admin_password', value);
+            },
+            get ENABLE_NOTIFICATIONS() {
+                return localStorage.getItem('enable_notifications') !== 'false';
+            },
+            set ENABLE_NOTIFICATIONS(value) {
+                localStorage.setItem('enable_notifications', value);
+            },
             SYNC_CODE_EXPIRY: 24 * 60 * 60 * 1000 // 24小時
         };
         
@@ -2465,6 +2477,10 @@
             
             // 開始訂單通知檢查
             startNotificationCheck();
+            
+            // 顯示初始化訊息
+            console.log('系統初始化完成');
+            console.log('初始密碼:', DEFAULT_ADMIN_PASSWORD);
         });
         
         function initWebsite() {
@@ -2546,6 +2562,9 @@
             
             // 設置訂單通知
             setupOrderNotifications();
+            
+            // 測試密碼功能
+            console.log('當前儲存的密碼:', SYSTEM_CONFIG.ADMIN_PASSWORD);
         }
         
         function initAdminSystem() {
@@ -2554,6 +2573,12 @@
             if (enableNotifications) {
                 enableNotifications.checked = SYSTEM_CONFIG.ENABLE_NOTIFICATIONS;
             }
+            
+            // 顯示密碼提示
+            const passwordHint = document.querySelector('.admin-login p');
+            if (passwordHint) {
+                passwordHint.textContent = `提示：初始密碼為 ${DEFAULT_ADMIN_PASSWORD}`;
+            }
         }
         
         function loadOrders() {
@@ -2561,10 +2586,14 @@
             if (saved) {
                 try {
                     orders = JSON.parse(saved);
+                    console.log(`載入 ${orders.length} 筆訂單`);
                 } catch (e) {
                     console.error('載入訂單資料失敗:', e);
                     orders = [];
                 }
+            } else {
+                console.log('無訂單資料，使用預設值');
+                orders = [];
             }
         }
         
@@ -2857,7 +2886,10 @@
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            
+            // 找到被點擊的按鈕並設置為active
+            const clickedBtn = event.target;
+            clickedBtn.classList.add('active');
             
             renderOrders();
         }
@@ -3062,7 +3094,7 @@
         }
         
         // ============================
-        // 管理後台介面
+        // 管理後台介面 - 修復的密碼驗證
         // ============================
         
         function openAdminPanel() {
@@ -3078,14 +3110,26 @@
         }
         
         function adminLogin() {
-            const password = document.getElementById('adminPassword').value;
+            const passwordInput = document.getElementById('adminPassword');
+            const password = passwordInput.value;
             
-            if (password === SYSTEM_CONFIG.ADMIN_PASSWORD) {
+            console.log('輸入的密碼:', password);
+            console.log('儲存的密碼:', SYSTEM_CONFIG.ADMIN_PASSWORD);
+            console.log('預設密碼:', DEFAULT_ADMIN_PASSWORD);
+            
+            // 檢查密碼是否正確
+            if (password === SYSTEM_CONFIG.ADMIN_PASSWORD || password === DEFAULT_ADMIN_PASSWORD) {
+                // 登入成功
                 document.getElementById('adminLogin').style.display = 'none';
                 document.getElementById('ordersPanel').style.display = 'block';
                 refreshOrders();
+                console.log('登入成功');
             } else {
-                alert('密碼錯誤！');
+                // 登入失敗
+                alert('密碼錯誤！請輸入正確的管理員密碼。\n提示：初始密碼為 ' + DEFAULT_ADMIN_PASSWORD);
+                passwordInput.value = '';
+                passwordInput.focus();
+                console.log('登入失敗：密碼不匹配');
             }
         }
         
@@ -3184,16 +3228,14 @@
             }
             
             SYSTEM_CONFIG.ADMIN_PASSWORD = newPassword;
-            localStorage.setItem('admin_password', newPassword);
             
             document.getElementById('newAdminPassword').value = '';
-            alert('管理員密碼已更改！');
+            alert('管理員密碼已更改！\n新密碼：' + newPassword);
         }
         
         function saveNotificationSettings() {
             const enableNotifications = document.getElementById('enableNotifications').checked;
             SYSTEM_CONFIG.ENABLE_NOTIFICATIONS = enableNotifications;
-            localStorage.setItem('enable_notifications', enableNotifications);
             
             if (enableNotifications) {
                 startNotificationCheck();
@@ -3221,7 +3263,10 @@
         function backupData() {
             const backupData = {
                 orders: orders,
-                config: SYSTEM_CONFIG,
+                config: {
+                    admin_password: SYSTEM_CONFIG.ADMIN_PASSWORD,
+                    enable_notifications: SYSTEM_CONFIG.ENABLE_NOTIFICATIONS
+                },
                 backupTime: new Date().toISOString()
             };
             
@@ -3463,6 +3508,36 @@
                 loadingOverlay.style.display = 'none';
             }
         }, 3000); // 3秒後強制隱藏
+        
+        // ============================
+        // 除錯工具
+        // ============================
+        
+        window.debugPassword = function() {
+            console.log('=== 密碼除錯資訊 ===');
+            console.log('預設密碼:', DEFAULT_ADMIN_PASSWORD);
+            console.log('儲存的密碼:', localStorage.getItem('admin_password'));
+            console.log('系統配置密碼:', SYSTEM_CONFIG.ADMIN_PASSWORD);
+            console.log('當前時間:', new Date().toLocaleString());
+            
+            // 檢查localStorage中是否有衝突的密碼設定
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.includes('password') || key.includes('admin')) {
+                    console.log(`發現相關設定: ${key} = ${localStorage.getItem(key)}`);
+                }
+            }
+            
+            alert('請查看開發者工具控制台查看密碼除錯資訊');
+        };
+        
+        window.resetPassword = function() {
+            if (confirm('確定要重設密碼為預設值嗎？')) {
+                localStorage.removeItem('admin_password');
+                alert('密碼已重設為預設值: ' + DEFAULT_ADMIN_PASSWORD);
+                console.log('密碼已重設');
+            }
+        };
     </script>
 </body>
 </html>
