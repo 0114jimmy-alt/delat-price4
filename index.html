@@ -3750,7 +3750,205 @@
 <!-- ==================== -->
 <!-- Firebase 初始化結束 -->
 <!-- ==================== -->
+<!-- ==================== -->
+<!-- 主要應用程式 JavaScript -->
+<!-- ==================== -->
+<script>
+// 全域變數
+let currentStep = 1;
+let selectedService = null;
+let selectedPaymentMethod = null;
+
+// 步驟導航函數
+function nextStep() {
+    if (currentStep < 4) {
+        // 隱藏當前步驟
+        document.getElementById(`payment-step${currentStep}`).style.display = 'none';
+        
+        // 顯示下一步
+        currentStep++;
+        document.getElementById(`payment-step${currentStep}`).style.display = 'block';
+        
+        // 更新進度指示器（如果你的網站有）
+        updateProgressIndicator();
+        
+        console.log(`前往步驟 ${currentStep}`);
+    }
+}
+
+function prevStep() {
+    if (currentStep > 1) {
+        // 隱藏當前步驟
+        document.getElementById(`payment-step${currentStep}`).style.display = 'none';
+        
+        // 顯示上一步
+        currentStep--;
+        document.getElementById(`payment-step${currentStep}`).style.display = 'block';
+        
+        // 更新進度指示器
+        updateProgressIndicator();
+        
+        console.log(`返回步驟 ${currentStep}`);
+    }
+}
+
+function goToStep(stepNumber) {
+    // 隱藏所有步驟
+    for (let i = 1; i <= 4; i++) {
+        const step = document.getElementById(`payment-step${i}`);
+        if (step) {
+            step.style.display = 'none';
+        }
+    }
+    
+    // 顯示指定步驟
+    currentStep = stepNumber;
+    const targetStep = document.getElementById(`payment-step${stepNumber}`);
+    if (targetStep) {
+        targetStep.style.display = 'block';
+    }
+    
+    // 更新進度指示器
+    updateProgressIndicator();
+    
+    console.log(`跳轉到步驟 ${stepNumber}`);
+}
+
+// 更新進度指示器（如果你有）
+function updateProgressIndicator() {
+    // 找到所有步驟指示器
+    const indicators = document.querySelectorAll('.step-indicator, .progress-step');
+    indicators.forEach((indicator, index) => {
+        if (index + 1 === currentStep) {
+            indicator.classList.add('active');
+            indicator.classList.remove('completed');
+        } else if (index + 1 < currentStep) {
+            indicator.classList.remove('active');
+            indicator.classList.add('completed');
+        } else {
+            indicator.classList.remove('active', 'completed');
+        }
+    });
+}
+
+// 服務選擇函數
+function selectService(serviceName, servicePrice, serviceDetails = {}) {
+    selectedService = {
+        name: serviceName,
+        price: servicePrice,
+        details: serviceDetails
+    };
+    
+    // 更新顯示
+    document.getElementById('selected-service-name').textContent = serviceName;
+    document.getElementById('selected-service-price').textContent = servicePrice + '元';
+    document.getElementById('order-total').textContent = servicePrice + '元';
+    
+    // 儲存到全域變數供其他步驟使用
+    window.selectedService = selectedService;
+    
+    console.log(`已選擇服務: ${serviceName}, 價格: ${servicePrice}元`);
+}
+
+// 付款方式選擇
+function selectPaymentMethod(method) {
+    selectedPaymentMethod = method;
+    
+    // 移除所有已選擇的樣式
+    document.querySelectorAll('.payment-method').forEach(el => {
+        el.style.boxShadow = 'none';
+        el.style.borderColor = 'var(--border-color)';
+    });
+    
+    // 為選擇的項目添加樣式
+    const selectedEl = document.querySelector(`.payment-method[onclick*="${method}"]`);
+    if (selectedEl) {
+        selectedEl.style.boxShadow = '0 0 0 2px var(--secondary-color)';
+        selectedEl.style.borderColor = 'var(--secondary-color)';
+    }
+    
+    console.log(`已選擇付款方式: ${method}`);
+}
+
+// 列印訂單
+function printOrder() {
+    window.print();
+}
+
+// 初始化函數
+function initializePage() {
+    console.log('頁面初始化...');
+    
+    // 確保從步驟1開始
+    goToStep(1);
+    
+    // 設置預約時間為明天
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(19, 0, 0, 0); // 晚上7點
+    
+    const formattedDate = tomorrow.toISOString().slice(0, 16);
+    const bookingTimeInput = document.getElementById('booking-time');
+    if (bookingTimeInput) {
+        bookingTimeInput.value = formattedDate;
+        bookingTimeInput.min = new Date().toISOString().slice(0, 16);
+    }
+    
+    // 檢查是否有儲存的訂單資料
+    const savedOrder = localStorage.getItem('currentOrder');
+    if (savedOrder) {
+        console.log('發現儲存的訂單:', JSON.parse(savedOrder));
+    }
+    
+    console.log('頁面初始化完成');
+}
+
+// 頁面載入完成後執行
+document.addEventListener('DOMContentLoaded', function() {
+    initializePage();
+    
+    // 為服務選擇按鈕添加事件監聽器
+    // 你需要根據你的服務按鈕來調整
+    document.querySelectorAll('.service-select-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const serviceName = this.getAttribute('data-service');
+            const servicePrice = parseInt(this.getAttribute('data-price'));
+            selectService(serviceName, servicePrice);
+        });
+    });
+    
+    // 為步驟1的下一步按鈕添加事件
+    const step1NextBtn = document.querySelector('#payment-step1 .btn-success');
+    if (step1NextBtn) {
+        step1NextBtn.addEventListener('click', function(e) {
+            if (!selectedService) {
+                e.preventDefault();
+                alert('請先選擇服務項目');
+                return;
+            }
+            nextStep();
+        });
+    }
+});
+
+// 錯誤處理
+window.addEventListener('error', function(e) {
+    console.error('JavaScript 錯誤:', e.message, e.filename, e.lineno);
+});
+</script>
+
+<!-- ==================== -->
+<!-- Firebase 初始化開始 -->
+<!-- ==================== -->
+<script type="module">
+// 你的 Firebase 初始化程式碼放在這裡
+// 確保 firebaseConfig 已正確設定
+</script>
+<!-- ==================== -->
+<!-- Firebase 初始化結束 -->
+<!-- ==================== -->
 
 </body>
 </html>
+
 
