@@ -2166,10 +2166,9 @@
                     
                     <div class="btn-group">
                         <button onclick="prevStep()" class="btn btn-secondary">上一步</button>
-                       <button onclick=”saveOrderAndGoToStep3()“ class=”btn btn-success“>下一步：選擇付款方式</button>
-                        </div>
+                        <button onclick="saveOrderAndGoToStep3()" class="btn btn-success">下一步：選擇付款方式</button>
+                    </div>
                 </div>
-                     
 
                 <!-- 步驟3：選擇付款方式 -->
                 <div id="payment-step3" class="payment-step" style="display: none;">
@@ -2224,7 +2223,7 @@
                     
                     <div class="btn-group">
                         <button onclick="prevStep()" class="btn btn-secondary">上一步</button>
-                       <button onclick=”savePaymentAndGoToStep4()“ class=”btn btn-success“>下一步：確認訂單</button>
+                        <button onclick="savePaymentAndGoToStep4()" class="btn btn-success">下一步：確認訂單</button>
                     </div>
                 </div>
 
@@ -2707,8 +2706,6 @@
             if (enableNotifications) {
                 enableNotifications.checked = SYSTEM_CONFIG.ENABLE_NOTIFICATIONS;
             }
-            
-            
         }
         
         function loadOrders() {
@@ -2876,43 +2873,6 @@
                     return;
                 }
                 
-                // 如果是最後一步，完成訂單
-                if (currentStep === 3 && selectedService) {
-                    // 收集訂單資料
-                    const orderData = {
-                        serviceName: selectedService.name,
-                        description: selectedService.description,
-                        amount: selectedService.price,
-                        gameId: document.getElementById('game-id')?.value || '',
-                        contactType: document.getElementById('contact-type')?.value || '',
-                        contactId: document.getElementById('contact-id')?.value || '',
-                        bookingTime: document.getElementById('booking-time')?.value || '',
-                        specialRequest: document.getElementById('special-request')?.value || '',
-                        paymentMethod: selectedPaymentMethod,
-                        status: ORDER_STATUS.PENDING,
-                        createdAt: new Date().toISOString(),
-                        updatedAt: new Date().toISOString()
-                    };
-                    
-                    // 建立訂單
-                    const orderId = createOrder(orderData);
-                    
-                    // 顯示訂單編號
-                    const orderIdDisplay = document.getElementById('order-id-display');
-                    if (orderIdDisplay) {
-                        orderIdDisplay.textContent = orderId;
-                    }
-                    
-                    // 顯示付款方式
-                    const finalPaymentMethod = document.getElementById('final-payment-method');
-                    if (finalPaymentMethod) {
-                        finalPaymentMethod.textContent = getPaymentMethodText(selectedPaymentMethod);
-                    }
-                    
-                    // 顯示成功訊息
-                    alert(`訂單建立成功！\n訂單編號：${orderId}\n請聯繫客服完成付款。`);
-                }
-                
                 goToStep(currentStep + 1);
             }
         }
@@ -2935,11 +2895,18 @@
         function selectPaymentMethod(method) {
             selectedPaymentMethod = method;
             
-            // 更新UI
+            // 移除所有已選擇的樣式
             document.querySelectorAll('.payment-method').forEach(el => {
                 el.classList.remove('selected');
             });
-            event.currentTarget.classList.add('selected');
+            
+            // 為選擇的項目添加樣式
+            const selectedEl = event.currentTarget;
+            if (selectedEl) {
+                selectedEl.classList.add('selected');
+            }
+            
+            console.log(`已選擇付款方式: ${method}`);
         }
         
         function validateForm() {
@@ -3256,7 +3223,7 @@
                 console.log('登入成功');
             } else {
                 // 登入失敗
-                alert('密碼錯誤！請輸入正確的管理員密碼。);
+                alert('密碼錯誤！請輸入正確的管理員密碼。');
                 passwordInput.value = '';
                 passwordInput.focus();
                 console.log('登入失敗：密碼不匹配');
@@ -3565,7 +3532,6 @@
             const methodMap = {
                 'linepay': 'LINE Pay',
                 'bank': '銀行轉帳',
-                'crypto': '加密貨幣',
                 '711': '超商代碼'
             };
             return methodMap[method] || method || '未選擇';
@@ -3669,286 +3635,460 @@
             }
         };
     </script>
+    
     <!-- ==================== -->
-<!-- Firebase 初始化開始 -->
-<!-- ==================== -->
-<script type="module">
-  // 你的 Firebase 設定（從控制台取得）
- const firebaseConfig = {
-  apiKey: "AIzaSyD9jPcOgBMhSL7b-obih7QP8nu0Nm5iOCo",
-  authDomain: "jimmy-477f5.firebaseapp.com",
-  projectId: "jimmy-477f5",
-  storageBucket: "jimmy-477f5.firebasestorage.app",
-  messagingSenderId: "18519393220",
-  appId: "1:18519393220:web:799be0d22a4d581a431a91"
-};
+    <!-- Firebase 初始化開始 -->
+    <!-- ==================== -->
+    <script type="module">
+        // 你的 Firebase 設定（從控制台取得）
+        const firebaseConfig = {
+            apiKey: "AIzaSyD9jPcOgBMhSL7b-obih7QP8nu0Nm5iOCo",
+            authDomain: "jimmy-477f5.firebaseapp.com",
+            projectId: "jimmy-477f5",
+            storageBucket: "jimmy-477f5.firebasestorage.app",
+            messagingSenderId: "18519393220",
+            appId: "1:18519393220:web:799be0d22a4d581a431a91"
+        };
 
-  // 顯示訊息，確認腳本已載入
-  console.log("正在載入 Firebase...");
-  
-  try {
-    // 從 Firebase CDN 載入需要的模組
-    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js");
-    const { getFirestore } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
-    
-    // 初始化 Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    
-    // 儲存到全域變數，讓其他函數可以使用
-    window.firebaseApp = app;
-    window.db = db;
-    
-    console.log("✅ Firebase 初始化成功！");
-    console.log("資料庫物件：", db);
-    
-    // 建立一個測試按鈕（可選，用於測試）
-    createTestButton();
-    
-  } catch (error) {
-    console.error("❌ Firebase 初始化失敗：", error);
-    alert("Firebase 連線失敗，請檢查主控台查看錯誤訊息。");
-  }
-  
-  // 建立測試按鈕的函數（可選）
-  function createTestButton() {
-    // 只在管理後台頁面添加測試按鈕
-    if (window.location.pathname.includes('admin') || document.querySelector('[data-admin]')) {
-      const testBtn = document.createElement('button');
-      testBtn.textContent = '🔥 測試 Firebase 連線';
-      testBtn.style.cssText = 'position:fixed; bottom:20px; right:20px; padding:10px; background:#4285f4; color:white; border:none; border-radius:5px; z-index:1000;';
-      testBtn.onclick = testFirebaseConnection;
-      document.body.appendChild(testBtn);
-    }
-  }
-  
-  // 測試連線的函數（可選）
-  async function testFirebaseConnection() {
-    try {
-      const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
-      
-      // 建立一筆測試訂單
-      const testOrder = {
-        service: "測試服務",
-        amount: 100,
-        customerName: "測試客戶",
-        status: "測試中",
-        createdAt: serverTimestamp(),
-        test: true
-      };
-      
-      const docRef = await addDoc(collection(window.db, "orders"), testOrder);
-      alert(`✅ 測試成功！\n訂單已建立，ID: ${docRef.id}\n請檢查 Firebase 控制台。`);
-      console.log("測試訂單 ID:", docRef.id);
-      
-    } catch (error) {
-      alert(`❌ 測試失敗：${error.message}`);
-      console.error("測試錯誤:", error);
-    }
-  }
-</script>
-<!-- ==================== -->
-<!-- Firebase 初始化結束 -->
-<!-- ==================== -->
-<!-- ==================== -->
-<!-- 主要應用程式 JavaScript -->
-<!-- ==================== -->
-<script>
-// 全域變數
-let currentStep = 1;
-let selectedService = null;
-let selectedPaymentMethod = null;
-
-// 步驟導航函數
-function nextStep() {
-    if (currentStep < 4) {
-        // 隱藏當前步驟
-        document.getElementById(`payment-step${currentStep}`).style.display = 'none';
+        // 顯示訊息，確認腳本已載入
+        console.log("正在載入 Firebase...");
         
-        // 顯示下一步
-        currentStep++;
-        document.getElementById(`payment-step${currentStep}`).style.display = 'block';
-        
-        // 更新進度指示器（如果你的網站有）
-        updateProgressIndicator();
-        
-        console.log(`前往步驟 ${currentStep}`);
-    }
-}
-
-function prevStep() {
-    if (currentStep > 1) {
-        // 隱藏當前步驟
-        document.getElementById(`payment-step${currentStep}`).style.display = 'none';
-        
-        // 顯示上一步
-        currentStep--;
-        document.getElementById(`payment-step${currentStep}`).style.display = 'block';
-        
-        // 更新進度指示器
-        updateProgressIndicator();
-        
-        console.log(`返回步驟 ${currentStep}`);
-    }
-}
-
-function goToStep(stepNumber) {
-    // 隱藏所有步驟
-    for (let i = 1; i <= 4; i++) {
-        const step = document.getElementById(`payment-step${i}`);
-        if (step) {
-            step.style.display = 'none';
+        try {
+            // 從 Firebase CDN 載入需要的模組
+            const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js");
+            const { getFirestore } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
+            
+            // 初始化 Firebase
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            
+            // 儲存到全域變數，讓其他函數可以使用
+            window.firebaseApp = app;
+            window.db = db;
+            
+            console.log("✅ Firebase 初始化成功！");
+            console.log("資料庫物件：", db);
+            
+            // 建立一個測試按鈕（可選，用於測試）
+            createTestButton();
+            
+        } catch (error) {
+            console.error("❌ Firebase 初始化失敗：", error);
+            alert("Firebase 連線失敗，請檢查主控台查看錯誤訊息。");
         }
-    }
-    
-    // 顯示指定步驟
-    currentStep = stepNumber;
-    const targetStep = document.getElementById(`payment-step${stepNumber}`);
-    if (targetStep) {
-        targetStep.style.display = 'block';
-    }
-    
-    // 更新進度指示器
-    updateProgressIndicator();
-    
-    console.log(`跳轉到步驟 ${stepNumber}`);
-}
-
-// 更新進度指示器（如果你有）
-function updateProgressIndicator() {
-    // 找到所有步驟指示器
-    const indicators = document.querySelectorAll('.step-indicator, .progress-step');
-    indicators.forEach((indicator, index) => {
-        if (index + 1 === currentStep) {
-            indicator.classList.add('active');
-            indicator.classList.remove('completed');
-        } else if (index + 1 < currentStep) {
-            indicator.classList.remove('active');
-            indicator.classList.add('completed');
-        } else {
-            indicator.classList.remove('active', 'completed');
+        
+        // 建立測試按鈕的函數（可選）
+        function createTestButton() {
+            // 只在管理後台頁面添加測試按鈕
+            if (window.location.pathname.includes('admin') || document.querySelector('[data-admin]')) {
+                const testBtn = document.createElement('button');
+                testBtn.textContent = '🔥 測試 Firebase 連線';
+                testBtn.style.cssText = 'position:fixed; bottom:20px; right:20px; padding:10px; background:#4285f4; color:white; border:none; border-radius:5px; z-index:1000;';
+                testBtn.onclick = testFirebaseConnection;
+                document.body.appendChild(testBtn);
+            }
         }
-    });
-}
-
-// 服務選擇函數
-function selectService(serviceName, servicePrice, serviceDetails = {}) {
-    selectedService = {
-        name: serviceName,
-        price: servicePrice,
-        details: serviceDetails
-    };
+        
+        // 測試連線的函數（可選）
+        async function testFirebaseConnection() {
+            try {
+                const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
+                
+                // 建立一筆測試訂單
+                const testOrder = {
+                    service: "測試服務",
+                    amount: 100,
+                    customerName: "測試客戶",
+                    status: "測試中",
+                    createdAt: serverTimestamp(),
+                    test: true
+                };
+                
+                const docRef = await addDoc(collection(window.db, "orders"), testOrder);
+                alert(`✅ 測試成功！\n訂單已建立，ID: ${docRef.id}\n請檢查 Firebase 控制台。`);
+                console.log("測試訂單 ID:", docRef.id);
+                
+            } catch (error) {
+                alert(`❌ 測試失敗：${error.message}`);
+                console.error("測試錯誤:", error);
+            }
+        }
+    </script>
+    <!-- ==================== -->
+    <!-- Firebase 初始化結束 -->
+    <!-- ==================== -->
     
-    // 更新顯示
-    document.getElementById('selected-service-name').textContent = serviceName;
-    document.getElementById('selected-service-price').textContent = servicePrice + '元';
-    document.getElementById('order-total').textContent = servicePrice + '元';
-    
-    // 儲存到全域變數供其他步驟使用
-    window.selectedService = selectedService;
-    
-    console.log(`已選擇服務: ${serviceName}, 價格: ${servicePrice}元`);
-}
-
-// 付款方式選擇
-function selectPaymentMethod(method) {
-    selectedPaymentMethod = method;
-    
-    // 移除所有已選擇的樣式
-    document.querySelectorAll('.payment-method').forEach(el => {
-        el.style.boxShadow = 'none';
-        el.style.borderColor = 'var(--border-color)';
-    });
-    
-    // 為選擇的項目添加樣式
-    const selectedEl = document.querySelector(`.payment-method[onclick*="${method}"]`);
-    if (selectedEl) {
-        selectedEl.style.boxShadow = '0 0 0 2px var(--secondary-color)';
-        selectedEl.style.borderColor = 'var(--secondary-color)';
-    }
-    
-    console.log(`已選擇付款方式: ${method}`);
-}
-
-// 列印訂單
-function printOrder() {
-    window.print();
-}
-
-// 初始化函數
-function initializePage() {
-    console.log('頁面初始化...');
-    
-    // 確保從步驟1開始
-    goToStep(1);
-    
-    // 設置預約時間為明天
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(19, 0, 0, 0); // 晚上7點
-    
-    const formattedDate = tomorrow.toISOString().slice(0, 16);
-    const bookingTimeInput = document.getElementById('booking-time');
-    if (bookingTimeInput) {
-        bookingTimeInput.value = formattedDate;
-        bookingTimeInput.min = new Date().toISOString().slice(0, 16);
-    }
-    
-    // 檢查是否有儲存的訂單資料
-    const savedOrder = localStorage.getItem('currentOrder');
-    if (savedOrder) {
-        console.log('發現儲存的訂單:', JSON.parse(savedOrder));
-    }
-    
-    console.log('頁面初始化完成');
-}
-
-// 頁面載入完成後執行
-document.addEventListener('DOMContentLoaded', function() {
-    initializePage();
-    
-    // 為服務選擇按鈕添加事件監聽器
-    // 你需要根據你的服務按鈕來調整
-    document.querySelectorAll('.service-select-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const serviceName = this.getAttribute('data-service');
-            const servicePrice = parseInt(this.getAttribute('data-price'));
-            selectService(serviceName, servicePrice);
-        });
-    });
-    
-    // 為步驟1的下一步按鈕添加事件
-    const step1NextBtn = document.querySelector('#payment-step1 .btn-success');
-    if (step1NextBtn) {
-        step1NextBtn.addEventListener('click', function(e) {
-            if (!selectedService) {
-                e.preventDefault();
-                alert('請先選擇服務項目');
+    <!-- ==================== -->
+    <!-- 新增的 Firebase 訂單功能 -->
+    <!-- ==================== -->
+    <script>
+        // 儲存訂單並前往步驟3
+        async function saveOrderAndGoToStep3() {
+            console.log("開始儲存訂單並前往步驟3...");
+            
+            // 1. 收集所有表單資料
+            const orderData = collectStep2Data();
+            
+            if (!orderData) {
+                console.error("收集資料失敗");
                 return;
             }
+            
+            // 2. 顯示載入狀態
+            const nextButton = document.querySelector('#payment-step2 .btn-success');
+            const originalText = nextButton.textContent;
+            nextButton.textContent = "處理中...";
+            nextButton.disabled = true;
+            
+            try {
+                // 3. 儲存到 Firebase
+                console.log("訂單資料:", orderData);
+                const orderId = await createFirebaseOrder(orderData);
+                
+                if (orderId) {
+                    // 4. 儲存到全域變數供後續使用
+                    window.currentOrderId = orderId;
+                    window.currentOrderData = orderData;
+                    
+                    console.log("訂單儲存成功，ID:", orderId);
+                    
+                    // 5. 更新步驟3的顯示（在跳轉前）
+                    updateStep3Display(orderData);
+                    
+                    // 6. 執行原本的 nextStep() 前往步驟3
+                    nextStep();
+                } else {
+                    alert("訂單建立失敗，請稍後再試");
+                }
+                
+            } catch (error) {
+                console.error("儲存訂單時發生錯誤:", error);
+                alert("系統繁忙，請稍後再試");
+            } finally {
+                // 恢復按鈕狀態
+                nextButton.textContent = originalText;
+                nextButton.disabled = false;
+            }
+        }
+
+        // 收集步驟2的表單資料
+        function collectStep2Data() {
+            try {
+                // 從步驟1獲取服務資訊
+                if (!window.selectedService) {
+                    alert("請先選擇服務項目");
+                    goToStep(1);
+                    return null;
+                }
+                
+                // 收集表單資料
+                const formData = {
+                    // 服務資訊
+                    serviceName: window.selectedService.name,
+                    servicePrice: parseInt(window.selectedService.price),
+                    serviceDescription: window.selectedService.description || window.selectedService.details || '',
+                    
+                    // 客戶資料
+                    gameId: document.getElementById('game-id').value.trim(),
+                    contactType: document.getElementById('contact-type').value,
+                    contactId: document.getElementById('contact-id').value.trim(),
+                    bookingTime: document.getElementById('booking-time').value,
+                    specialRequest: document.getElementById('special-request').value.trim(),
+                    
+                    // 系統資料
+                    amount: parseInt(window.selectedService.price),
+                    status: "待付款",
+                    paymentMethod: "未選擇",
+                    orderNumber: generateOrderNumber(),
+                    createdAt: new Date().toISOString(),
+                    source: "網站訂單"
+                };
+                
+                // 驗證必填欄位
+                if (!formData.gameId) {
+                    alert("請填寫遊戲ID");
+                    document.getElementById('game-id').focus();
+                    return null;
+                }
+                
+                if (!formData.contactType) {
+                    alert("請選擇聯絡方式");
+                    document.getElementById('contact-type').focus();
+                    return null;
+                }
+                
+                if (!formData.contactId) {
+                    alert("請填寫聯絡帳號");
+                    document.getElementById('contact-id').focus();
+                    return null;
+                }
+                
+                if (!formData.bookingTime) {
+                    alert("請選擇預約時間");
+                    document.getElementById('booking-time').focus();
+                    return null;
+                }
+                
+                if (formData.amount <= 0) {
+                    alert("請先選擇服務項目");
+                    goToStep(1);
+                    return null;
+                }
+                
+                console.log("表單資料收集完成:", formData);
+                return formData;
+                
+            } catch (error) {
+                console.error("收集資料時發生錯誤:", error);
+                return null;
+            }
+        }
+
+        // 產生訂單編號
+        function generateOrderNumber() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return `DELTA-${year}${month}${day}-${random}`;
+        }
+
+        // 更新步驟3的顯示內容
+        function updateStep3Display(orderData) {
+            // 更新服務名稱和價格
+            document.getElementById('confirm-service-name').textContent = orderData.serviceName;
+            document.getElementById('confirm-service-price').textContent = orderData.amount + '元';
+            
+            // 更新預約時間
+            if (orderData.bookingTime) {
+                const bookingDate = new Date(orderData.bookingTime);
+                const timeString = bookingDate.toLocaleString('zh-TW', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                document.getElementById('confirm-booking-time').textContent = timeString;
+            }
+            
+            // 更新總金額
+            document.getElementById('confirm-order-total').textContent = orderData.amount + '元';
+        }
+
+        // Firebase 訂單建立函數
+        async function createFirebaseOrder(orderData) {
+            try {
+                console.log("正在建立 Firebase 訂單...");
+                
+                // 確保 Firebase 函數已載入
+                const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
+                
+                // 準備要儲存的資料
+                const firebaseOrder = {
+                    // 基本資料
+                    gameId: orderData.gameId,
+                    contactType: orderData.contactType,
+                    contactId: orderData.contactId,
+                    
+                    // 服務資料
+                    service: orderData.serviceName,
+                    serviceDescription: orderData.serviceDescription,
+                    amount: orderData.amount,
+                    
+                    // 時間資料
+                    bookingTime: orderData.bookingTime,
+                    
+                    // 備註
+                    notes: orderData.specialRequest,
+                    
+                    // 系統欄位
+                    status: "待付款",
+                    paymentMethod: "未選擇",
+                    orderNumber: orderData.orderNumber,
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp(),
+                    source: "網站訂單"
+                };
+                
+                // 儲存到 Firestore
+                const docRef = await addDoc(collection(window.db, "orders"), firebaseOrder);
+                console.log("✅ 訂單已儲存到 Firebase，ID:", docRef.id);
+                
+                // 儲存到本地儲存空間
+                localStorage.setItem('currentOrder', JSON.stringify({
+                    id: docRef.id,
+                    data: firebaseOrder,
+                    timestamp: new Date().getTime()
+                }));
+                
+                // 更新訂單編號顯示
+                document.getElementById('order-id-display').textContent = orderData.orderNumber;
+                
+                return docRef.id;
+                
+            } catch (error) {
+                console.error("❌ 建立 Firebase 訂單失敗:", error);
+                alert("訂單儲存失敗: " + error.message);
+                return null;
+            }
+        }
+
+        // 儲存付款方式並前往步驟4
+        async function savePaymentAndGoToStep4() {
+            console.log("儲存付款方式...");
+            
+            // 1. 檢查是否有選擇付款方式
+            if (!selectedPaymentMethod) {
+                alert("請選擇付款方式");
+                return;
+            }
+            
+            // 2. 更新訂單資料中的付款方式
+            if (window.currentOrderId) {
+                try {
+                    // 載入 Firebase 函數
+                    const { doc, updateDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
+                    
+                    // 更新付款方式
+                    const orderRef = doc(window.db, "orders", window.currentOrderId);
+                    await updateDoc(orderRef, {
+                        paymentMethod: selectedPaymentMethod,
+                        updatedAt: serverTimestamp()
+                    });
+                    
+                    console.log("✅ 付款方式已更新:", selectedPaymentMethod);
+                    
+                } catch (error) {
+                    console.error("更新付款方式失敗:", error);
+                    // 繼續流程，不阻擋用戶
+                }
+            }
+            
+            // 3. 更新步驟4的顯示
+            updateStep4Display(selectedPaymentMethod);
+            
+            // 4. 前往步驟4
             nextStep();
+        }
+
+        // 更新步驟4的顯示
+        function updateStep4Display(paymentMethod) {
+            // 更新付款方式
+            const paymentMethods = {
+                'linepay': 'LINE Pay',
+                'bank': '銀行轉帳',
+                '711': '超商代碼繳費'
+            };
+            
+            const paymentText = paymentMethods[paymentMethod] || '未選擇';
+            document.getElementById('final-payment-method').textContent = paymentText;
+            
+            // 更新其他資訊
+            if (window.currentOrderData) {
+                document.getElementById('final-service-name').textContent = window.currentOrderData.serviceName;
+                document.getElementById('final-order-total').textContent = window.currentOrderData.amount + '元';
+            }
+        }
+
+        // 修正選擇付款方式的函數
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            
+            // 移除所有已選擇的樣式
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // 為選擇的項目添加樣式
+            const selectedEl = event.currentTarget;
+            if (selectedEl) {
+                selectedEl.classList.add('selected');
+            }
+            
+            console.log(`已選擇付款方式: ${method}`);
+        }
+
+        // 覆蓋原有的選擇服務函數，確保正確設置變數
+        function selectService(serviceName, servicePrice, serviceDetails = {}) {
+            selectedService = {
+                name: serviceName,
+                price: servicePrice,
+                description: serviceDetails,
+                details: serviceDetails
+            };
+            
+            window.selectedService = selectedService;
+            
+            // 更新顯示
+            document.getElementById('selected-service-name').textContent = serviceName;
+            document.getElementById('selected-service-price').textContent = servicePrice + '元';
+            document.getElementById('order-total').textContent = servicePrice + '元';
+            
+            console.log(`已選擇服務: ${serviceName}, 價格: ${servicePrice}元`);
+        }
+
+        // 管理後台 Firebase 功能
+        async function setupFirebaseAdmin() {
+            try {
+                if (!window.db) {
+                    console.error("Firebase 未初始化");
+                    return;
+                }
+                
+                // 載入 Firebase 函數
+                const { collection, query, orderBy, onSnapshot } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
+                
+                // 設定訂單監聽
+                const ordersQuery = query(
+                    collection(window.db, "orders"),
+                    orderBy("createdAt", "desc")
+                );
+                
+                // 監聽訂單變化
+                const unsubscribe = onSnapshot(ordersQuery, (snapshot) => {
+                    console.log(`收到 ${snapshot.size} 筆訂單`);
+                    
+                    // 清空現有訂單
+                    orders = [];
+                    
+                    snapshot.forEach((doc) => {
+                        const order = doc.data();
+                        order.id = doc.id;
+                        orders.push(order);
+                    });
+                    
+                    // 更新顯示
+                    renderOrders();
+                    updateOrderStats();
+                    
+                    // 顯示通知
+                    if (snapshot.size > 0 && SYSTEM_CONFIG.ENABLE_NOTIFICATIONS) {
+                        showNewOrderNotification(orders[0]);
+                    }
+                });
+                
+                // 儲存取消監聽函數
+                window.firebaseUnsubscribe = unsubscribe;
+                
+                console.log("管理後台 Firebase 監聽已設定");
+                
+            } catch (error) {
+                console.error("設定管理後台 Firebase 失敗:", error);
+            }
+        }
+
+        // 頁面載入後設定管理後台 Firebase
+        document.addEventListener('DOMContentLoaded', function() {
+            // 等待 Firebase 初始化完成
+            setTimeout(() => {
+                if (window.db) {
+                    setupFirebaseAdmin();
+                }
+            }, 1000);
         });
-    }
-});
-
-// 錯誤處理
-window.addEventListener('error', function(e) {
-    console.error('JavaScript 錯誤:', e.message, e.filename, e.lineno);
-});
-</script>
-
-<!-- ==================== -->
-<!-- Firebase 初始化開始 -->
-<!-- ==================== -->
-<script type="module">
-// 你的 Firebase 初始化程式碼放在這裡
-// 確保 firebaseConfig 已正確設定
-</script>
-<!-- ==================== -->
-<!-- Firebase 初始化結束 -->
-<!-- ==================== -->
+    </script>
 
 </body>
 </html>
-
-
