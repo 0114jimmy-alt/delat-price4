@@ -1356,9 +1356,6 @@
             }
         }
 
-        /* ============================
-           行動裝置優化
-           ============================ */
         @media (max-width: 480px) {
             .hero-title {
                 font-size: 1.8rem;
@@ -1453,7 +1450,7 @@
                         <li>體驗單：200起，保底400w</li>
                         <li>航天賭約單：高風險高回報</li>
                     </ul>
-                    <button onclick="showTab('escort')" class="book-btn">
+                    <button onclick="handleBookButtonClick('戰術護航服務', '500', '基礎護航服務')" class="book-btn">
                         了解更多
                     </button>
                 </div>
@@ -1469,7 +1466,7 @@
                         <li>女陪玩：娛樂350/小時，技術550/小時</li>
                         <li>時長套餐優惠，新客專屬福利</li>
                     </ul>
-                    <button onclick="showTab('peipei')" class="book-btn">
+                    <button onclick="handleBookButtonClick('娛樂陪玩服務', '250', '男陪玩-娛樂')" class="book-btn">
                         了解更多
                     </button>
                 </div>
@@ -1486,7 +1483,7 @@
                         <li>150M幣號：800元</li>
                         <li>雲機+腳本：500元/月</li>
                     </ul>
-                    <button onclick="showTab('coin')" class="book-btn">
+                    <button onclick="handleBookButtonClick('幣號專區', '300', '40M幣號')" class="book-btn">
                         了解更多
                     </button>
                 </div>
@@ -1511,32 +1508,32 @@
                         <tr>
                             <td class="price-number">500</td>
                             <td><span class="price-unit">保底 600w</span></td>
-                            <td><button onclick="selectService('基礎單-500', '500', '保底 600w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            <td><button onclick="handleBookButtonClick('基礎單', '500', '保底 600w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">800</td>
                             <td><span class="price-unit">保底 900w</span></td>
-                            <td><button onclick="selectService('基礎單-800', '800', '保底 900w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            <td><button onclick="handleBookButtonClick('基礎單', '800', '保底 900w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">1000</td>
                             <td><span class="price-unit">保底 1300w</span></td>
-                            <td><button onclick="selectService('基礎單-1000', '1000', '保底 1300w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            <td><button onclick="handleBookButtonClick('基礎單', '1000', '保底 1300w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">2000</td>
                             <td><span class="price-unit">保底 2300w</span></td>
-                            <td><button onclick="selectService('基礎單-2000', '2000', '保底 2300w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            <td><button onclick="handleBookButtonClick('基礎單', '2000', '保底 2300w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">8000</td>
                             <td><span class="price-unit">保底 8600w</span></td>
-                            <td><button onclick="selectService('基礎單-8000', '8000', '保底 8600w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            <td><button onclick="handleBookButtonClick('基礎單', '8000', '保底 8600w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">10000</td>
                             <td><span class="price-unit">保底 11888w</span></td>
-                            <td><button onclick="selectService('基礎單-10000', '10000', '保底 11888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            <td><button onclick="handleBookButtonClick('基礎單', '10000', '保底 11888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                     </table>
                     <div style="margin-top: 20px; padding: 15px; background: rgba(255, 204, 0, 0.1); border-radius: 8px;">
@@ -1557,17 +1554,17 @@
                         <tr>
                             <td class="price-number">200</td>
                             <td><span class="price-unit">保底 400w</span></td>
-                            <td><button onclick="selectService('體驗單-200', '200', '保底 400w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            <td><button onclick="handleBookButtonClick('體驗單', '200', '保底 400w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">600</td>
                             <td><span class="price-unit">保底 750w</span></td>
-                            <td><button onclick="selectService('體驗單-600', '600', '保底 750w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            <td><button onclick="handleBookButtonClick('體驗單', '600', '保底 750w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                         <tr>
                             <td class="price-number">1500</td>
                             <td><span class="price-unit">保底 1700w</span></td>
-                            <td><button onclick="selectService('體驗單-1500', '1500', '保底 1700w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                            <td><button onclick="handleBookButtonClick('體驗單', '1500', '保底 1700w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                         </tr>
                     </table>
                     <div style="margin-top: 40px; padding: 15px; background: rgba(0, 150, 255, 0.1); border-radius: 8px;">
@@ -1598,32 +1595,32 @@
                     <tr>
                         <td class="price-number" style="color: #ff66ff;">1000</td>
                         <td><span class="price-unit">單局沒有 588w 不結單</span></td>
-                        <td><button onclick="selectService('賭約單-1000', '1000', '單局沒有 588w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                        <td><button onclick="handleBookButtonClick('賭約單', '1000', '單局沒有 588w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                     </tr>
                     <tr>
                         <td class="price-number" style="color: #ff66ff;">1500</td>
                         <td><span class="price-unit">單局沒有 688w 不結單</span></td>
-                        <td><button onclick="selectService('賭約單-1500', '1500', '單局沒有 688w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                        <td><button onclick="handleBookButtonClick('賭約單', '1500', '單局沒有 688w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                     </tr>
                     <tr>
                         <td class="price-number" style="color: #ff66ff;">2000</td>
                         <td><span class="price-unit">單局沒有 799w 不結單</span></td>
-                        <td><button onclick="selectService('賭約單-2000', '2000', '單局沒有 799w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                        <td><button onclick="handleBookButtonClick('賭約單', '2000', '單局沒有 799w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                     </tr>
                     <tr>
                         <td class="price-number" style="color: #ff66ff;">2500</td>
                         <td><span class="price-unit">單局沒有 888w 不結單</span></td>
-                        <td><button onclick="selectService('賭約單-2500', '2500', '單局沒有 888w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                        <td><button onclick="handleBookButtonClick('賭約單', '2500', '單局沒有 888w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                     </tr>
                     <tr>
                         <td class="price-number" style="color: #ff66ff;">3500</td>
                         <td><span class="price-unit">單局沒有 1288w 不結單</span></td>
-                        <td><button onclick="selectService('賭約單-3500', '3500', '單局沒有 1288w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                        <td><button onclick="handleBookButtonClick('賭約單', '3500', '單局沒有 1288w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                     </tr>
                     <tr>
                         <td class="price-number" style="color: #ff66ff;">5500</td>
                         <td><span class="price-unit">單局沒有 1488w 不結單</span></td>
-                        <td><button onclick="selectService('賭約單-5500', '5500', '單局沒有 1488w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                        <td><button onclick="handleBookButtonClick('賭約單', '5500', '單局沒有 1488w 不結單')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                     </tr>
                 </table>
             </div>
@@ -1638,22 +1635,22 @@
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">588</td>
                                 <td><span class="price-unit">沒出鍋保 688w</span></td>
-                                <td><button onclick="selectService('稀有目標-588', '588', '沒出鍋保 688w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                                <td><button onclick="handleBookButtonClick('稀有目標', '588', '沒出鍋保 688w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">1088</td>
                                 <td><span class="price-unit">必出鍋</span></td>
-                                <td><button onclick="selectService('稀有目標-1088', '1088', '必出鍋')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                                <td><button onclick="handleBookButtonClick('稀有目標', '1088', '必出鍋')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">1888</td>
                                 <td><span class="price-unit">沒出油保 2000w</span></td>
-                                <td><button onclick="selectService('稀有目標-1888', '1888', '沒出油保 2000w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                                <td><button onclick="handleBookButtonClick('稀有目標', '1888', '沒出油保 2000w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">4888</td>
                                 <td><span class="price-unit">必出油</span></td>
-                                <td><button onclick="selectService('稀有目標-4888', '4888', '必出油')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                                <td><button onclick="handleBookButtonClick('稀有目標', '4888', '必出油')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                         </table>
                     </div>
@@ -1662,22 +1659,22 @@
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">5200</td>
                                 <td><span class="price-unit">沒出心保 6888w</span></td>
-                                <td><button onclick="selectService('稀有目標-5200', '5200', '沒出心保 6888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                                <td><button onclick="handleBookButtonClick('稀有目標', '5200', '沒出心保 6888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">40000</td>
                                 <td><span class="price-unit">必出心</span></td>
-                                <td><button onclick="selectService('稀有目標-40000', '40000', '必出心')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                                <td><button onclick="handleBookButtonClick('稀有目標', '40000', '必出心')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">90000</td>
                                 <td><span class="price-unit">沒出淚保 10888w</span></td>
-                                <td><button onclick="selectService('稀有目標-90000', '90000', '沒出心保 10888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                                <td><button onclick="handleBookButtonClick('稀有目標', '90000', '沒出心保 10888w')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                             <tr>
                                 <td class="price-number" style="color: #ff66ff;">130000</td>
                                 <td><span class="price-unit">必出淚</span></td>
-                                <td><button onclick="selectService('稀有目標-130000', '130000', '必出淚保')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
+                                <td><button onclick="handleBookButtonClick('稀有目標', '130000', '必出淚保')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem;">預約</button></td>
                             </tr>
                         </table>
                     </div>
@@ -1706,7 +1703,7 @@
                             <strong>※ 額外加成：</strong> 一個牛角額外加 50w (無上限)
                         </div>
                     </div>
-                    <button onclick="selectService('牛角單-1088', '1088', '保底 800w')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                    <button onclick="handleBookButtonClick('牛角單', '1088', '保底 800w')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
                         立即預約
                     </button>
                 </div>
@@ -1724,7 +1721,7 @@
                             2. 一個人加 100w，下局打手會幫忙打到金額
                         </div>
                     </div>
-                    <button onclick="selectService('自力根生-1000', '1000', '初始保底 500w')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                    <button onclick="handleBookButtonClick('自力根生', '1000', '初始保底 500w')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
                         立即預約
                     </button>
                 </div>
@@ -1749,12 +1746,12 @@
                         <td>
                             <div class="price-number">250/小時</div>
                             <div style="color: #ff9999; font-size: 0.9rem;">輕鬆聊天娛樂局</div>
-                            <button onclick="selectService('男陪玩-娛樂', '250', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
+                            <button onclick="handleBookButtonClick('男陪玩-娛樂', '250', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
                         </td>
                         <td>
                             <div class="price-number">450/小時</div>
                             <div style="color: #ff9999; font-size: 0.9rem;">戰術指導技術局</div>
-                            <button onclick="selectService('男陪玩-技術', '450', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
+                            <button onclick="handleBookButtonClick('男陪玩-技術', '450', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
                         </td>
                     </tr>
                     <tr>
@@ -1762,12 +1759,12 @@
                         <td>
                             <div class="price-number">350/小時</div>
                             <div style="color: #ff9999; font-size: 0.9rem;">甜蜜互動娛樂局</div>
-                            <button onclick="selectService('女陪玩-娛樂', '350', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
+                            <button onclick="handleBookButtonClick('女陪玩-娛樂', '350', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
                         </td>
                         <td>
                             <div class="price-number">550/小時</div>
                             <div style="color: #ff9999; font-size: 0.9rem;">專業指導技術局</div>
-                            <button onclick="selectService('女陪玩-技術', '550', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
+                            <button onclick="handleBookButtonClick('女陪玩-技術', '550', '每小時')" class="book-btn" style="padding: 8px 15px; font-size: 0.9rem; margin-top: 10px;">預約</button>
                         </td>
                     </tr>
                 </table>
@@ -1790,8 +1787,8 @@
                             <span>技術套餐</span>
                             <span class="price-number">1200元</span>
                         </div>
-                        <button onclick="selectService('男陪玩3小時套餐-娛樂', '700', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
-                        <button onclick="selectService('男陪玩3小時套餐-技術', '1200', '技術套餐')" class="book-btn" style="margin-top: 10px; background: var(--border-color);">選擇技術套餐</button>
+                        <button onclick="handleBookButtonClick('男陪玩3小時套餐-娛樂', '700', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
+                        <button onclick="handleBookButtonClick('男陪玩3小時套餐-技術', '1200', '技術套餐')" class="book-btn" style="margin-top: 10px; background: var(--border-color);">選擇技術套餐</button>
                     </div>
                     
                     <div class="service-card">
@@ -1804,8 +1801,8 @@
                             <span>技術套餐</span>
                             <span class="price-number">2000元</span>
                         </div>
-                        <button onclick="selectService('男陪玩5小時套餐-娛樂', '1100', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
-                        <button onclick="selectService('男陪玩5小時套餐-技術', '2000', '技術套餐')" class="book-btn" style="margin-top: 10px; background: var(--border-color);">選擇技術套餐</button>
+                        <button onclick="handleBookButtonClick('男陪玩5小時套餐-娛樂', '1100', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
+                        <button onclick="handleBookButtonClick('男陪玩5小時套餐-技術', '2000', '技術套餐')" class="book-btn" style="margin-top: 10px; background: var(--border-color);">選擇技術套餐</button>
                     </div>
                     
                     <div class="service-card">
@@ -1818,8 +1815,8 @@
                             <span>技術套餐</span>
                             <span class="price-number">1500元</span>
                         </div>
-                        <button onclick="selectService('女陪玩3小時套餐-娛樂', '1000', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
-                        <button onclick="selectService('女陪玩3小時套餐-技術', '1500', '技術套餐')" class="book-btn" style="margin-top: 10px; background: var(--border-color);">選擇技術套餐</button>
+                        <button onclick="handleBookButtonClick('女陪玩3小時套餐-娛樂', '1000', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
+                        <button onclick="handleBookButtonClick('女陪玩3小時套餐-技術', '1500', '技術套餐')" class="book-btn" style="margin-top: 10px; background: var(--border-color);">選擇技術套餐</button>
                     </div>
                     
                     <div class="service-card">
@@ -1832,8 +1829,8 @@
                             <span>技術套餐</span>
                             <span class="price-number">2500元</span>
                         </div>
-                        <button onclick="selectService('女陪玩5小時套餐-娛樂', '1600', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
-                        <button onclick="selectService('女陪玩5小時套餐-技術', '2500', '技術套餐')" class="book-btn" style="margin-top: 10px; background: var(--border-color);">選擇技術套餐</button>
+                        <button onclick="handleBookButtonClick('女陪玩5小時套餐-娛樂', '1600', '娛樂套餐')" class="book-btn" style="margin-top: 15px;">選擇娛樂套餐</button>
+                        <button onclick="handleBookButtonClick('女陪玩5小時套餐-技術', '2500', '技術套餐')" class="book-btn" style="margin-top: 10px; background: var(--border-color);">選擇技術套餐</button>
                     </div>
                 </div>
             </div>
@@ -1862,7 +1859,7 @@
                             <li>安全穩定，保障帳號安全</li>
                         </ul>
                     </div>
-                    <button onclick="selectService('40M幣號', '300', '40M遊戲幣')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                    <button onclick="handleBookButtonClick('40M幣號', '300', '40M遊戲幣')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
                         立即購買
                     </button>
                 </div>
@@ -1884,7 +1881,7 @@
                             <li>適合中等需求玩家</li>
                         </ul>
                     </div>
-                    <button onclick="selectService('100M幣號', '600', '100M遊戲幣')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                    <button onclick="handleBookButtonClick('100M幣號', '600', '100M遊戲幣')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
                         立即購買
                     </button>
                 </div>
@@ -1906,7 +1903,7 @@
                             <li>適合高階玩家需求</li>
                         </ul>
                     </div>
-                    <button onclick="selectService('150M幣號', '800', '150M遊戲幣')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                    <button onclick="handleBookButtonClick('150M幣號', '800', '150M遊戲幣')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
                         立即購買
                     </button>
                 </div>
@@ -1928,7 +1925,7 @@
                             <li>穩定高效，省時省力</li>
                         </ul>
                     </div>
-                    <button onclick="selectService('雲機+腳本(1個月)', '500', '雲機+腳本服務')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
+                    <button onclick="handleBookButtonClick('雲機+腳本(1個月)', '500', '雲機+腳本服務')" class="book-btn" style="display: block; margin: 20px auto 0; width: 200px;">
                         立即訂購
                     </button>
                 </div>
@@ -2057,7 +2054,7 @@
                     <p style="text-align: center; color: var(--text-secondary); margin-bottom: 30px;">請選擇您要預約的服務項目</p>
                     
                     <div class="services-grid">
-                        <div class="service-card" onclick="selectService('基礎單-500', '500', '保底 600w')">
+                        <div class="service-card" onclick="selectServiceFromCard('基礎單', '500', '保底 600w')">
                             <h3 style="color: var(--warning-color);">基礎單</h3>
                             <div class="order-item">
                                 <span>500元方案</span>
@@ -2066,7 +2063,7 @@
                             <div style="color: #66b3ff; margin-top: 10px;">保底 600w</div>
                         </div>
                         
-                        <div class="service-card" onclick="selectService('體驗單-200', '200', '保底 400w')">
+                        <div class="service-card" onclick="selectServiceFromCard('體驗單', '200', '保底 400w')">
                             <h3 style="color: var(--warning-color);">體驗單</h3>
                             <div class="order-item">
                                 <span>200元方案</span>
@@ -2075,7 +2072,7 @@
                             <div style="color: #66b3ff; margin-top: 10px;">保底 400w</div>
                         </div>
                         
-                        <div class="service-card" onclick="selectService('男陪玩-娛樂', '250', '每小時')">
+                        <div class="service-card" onclick="selectServiceFromCard('男陪玩-娛樂', '250', '每小時')">
                             <h3 style="color: #00ffff;">男陪玩師</h3>
                             <div class="order-item">
                                 <span>娛樂陪玩</span>
@@ -2084,7 +2081,7 @@
                             <div style="color: #66b3ff; margin-top: 10px;">輕鬆聊天娛樂局</div>
                         </div>
                         
-                        <div class="service-card" onclick="selectService('女陪玩-娛樂', '350', '每小時')">
+                        <div class="service-card" onclick="selectServiceFromCard('女陪玩-娛樂', '350', '每小時')">
                             <h3 style="color: #ff66ff;">女陪玩師</h3>
                             <div class="order-item">
                                 <span>娛樂陪玩</span>
@@ -2093,7 +2090,7 @@
                             <div style="color: #66b3ff; margin-top: 10px;">甜蜜互動娛樂局</div>
                         </div>
                         
-                        <div class="service-card" onclick="selectService('40M幣號', '300', '40M遊戲幣')">
+                        <div class="service-card" onclick="selectServiceFromCard('40M幣號', '300', '40M遊戲幣')">
                             <h3 style="color: #ffcc00;">40M幣號</h3>
                             <div class="order-item">
                                 <span>遊戲幣號</span>
@@ -2102,7 +2099,7 @@
                             <div style="color: #66b3ff; margin-top: 10px;">包含多項遊戲資源</div>
                         </div>
                         
-                        <div class="service-card" onclick="selectService('雲機+腳本(1個月)', '500', '雲機+腳本服務')">
+                        <div class="service-card" onclick="selectServiceFromCard('雲機+腳本(1個月)', '500', '雲機+腳本服務')">
                             <h3 style="color: #ffcc00;">雲機+腳本</h3>
                             <div class="order-item">
                                 <span>1個月服務</span>
@@ -2586,7 +2583,7 @@
         // ============================
         
         document.addEventListener('DOMContentLoaded', function() {
-            // 立即隱藏載入畫面（確保不會卡住）
+            // 隱藏載入畫面
             setTimeout(() => {
                 const loadingOverlay = document.getElementById('loadingOverlay');
                 if (loadingOverlay) {
@@ -2611,9 +2608,7 @@
             // 開始訂單通知檢查
             startNotificationCheck();
             
-            // 顯示初始化訊息
             console.log('系統初始化完成');
-            console.log('初始密碼:', DEFAULT_ADMIN_PASSWORD);
         });
         
         function initWebsite() {
@@ -2690,14 +2685,15 @@
                 const now = new Date();
                 const minDate = new Date(now.getTime() + 3600000); // 1小時後
                 bookingTimeInput.min = minDate.toISOString().slice(0, 16);
-                bookingTimeInput.value = minDate.toISOString().slice(0, 16);
+                
+                // 設定預設值為明天下午2點
+                const tomorrow = new Date(now.getTime() + 86400000);
+                tomorrow.setHours(14, 0, 0, 0);
+                bookingTimeInput.value = tomorrow.toISOString().slice(0, 16);
             }
             
             // 設置訂單通知
             setupOrderNotifications();
-            
-            // 測試密碼功能
-            console.log('當前儲存的密碼:', SYSTEM_CONFIG.ADMIN_PASSWORD);
         }
         
         function initAdminSystem() {
@@ -2725,40 +2721,21 @@
         }
         
         // ============================
-        // 付款流程功能
+        // 統一預約按鈕處理函數
         // ============================
         
-        function selectService(name, price, description) {
+        function handleBookButtonClick(serviceName, price, description) {
+            console.log('處理預約按鈕:', serviceName, price, description);
+            
+            // 設定選擇的服務
             selectedService = {
-                name: name,
-                price: parseInt(price),
+                name: serviceName,
+                price: parseInt(price) || 0,
                 description: description
             };
             
             // 更新顯示
-            updateSelectedServiceDisplay();
-            
-            // 更新其他顯示元素
-            const elementsToUpdate = {
-                'selected-service-name': `${name} - ${description}`,
-                'selected-service-price': `${price}元`,
-                'order-total': `${price}元`,
-                'confirm-service-name': `${name} - ${description}`,
-                'confirm-service-price': `${price}元`,
-                'confirm-order-total': `${price}元`,
-                'final-service-name': `${name} - ${description}`,
-                'final-order-total': `${price}元`,
-                'displayServiceName': name,
-                'displayServiceDescription': description,
-                'displayServicePrice': `${price}元`
-            };
-            
-            for (const [id, text] of Object.entries(elementsToUpdate)) {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.textContent = text;
-                }
-            }
+            updateServiceDisplay();
             
             // 切換到付款頁面
             showTab('payment');
@@ -2766,67 +2743,57 @@
             goToStep(1);
         }
         
-        function updateSelectedServiceDisplay() {
-            const displayElement = document.getElementById('selectedServiceDisplay');
-            if (selectedService && displayElement) {
-                displayElement.classList.add('active');
-            } else if (displayElement) {
-                displayElement.classList.remove('active');
-            }
+        function selectServiceFromCard(serviceName, price, description) {
+            handleBookButtonClick(serviceName, price, description);
         }
         
-        function clearServiceSelection() {
-            selectedService = null;
-            selectedPaymentMethod = '';
+        function updateServiceDisplay() {
+            if (!selectedService) return;
             
-            // 重置顯示
+            // 更新已選擇服務顯示區
             const displayElement = document.getElementById('selectedServiceDisplay');
             if (displayElement) {
-                displayElement.classList.remove('active');
+                displayElement.classList.add('active');
             }
             
-            // 重置表格顯示
-            const elementsToReset = [
-                'selected-service-name',
-                'selected-service-price',
-                'order-total',
-                'confirm-service-name',
-                'confirm-service-price',
-                'confirm-order-total',
-                'final-service-name',
-                'final-order-total',
-                'displayServiceName',
-                'displayServiceDescription',
-                'displayServicePrice'
-            ];
+            // 更新所有相關的顯示元素
+            const elements = {
+                'selected-service-name': selectedService.name,
+                'selected-service-price': selectedService.price + '元',
+                'order-total': selectedService.price + '元',
+                'confirm-service-name': selectedService.name,
+                'confirm-service-price': selectedService.price + '元',
+                'confirm-order-total': selectedService.price + '元',
+                'final-service-name': selectedService.name,
+                'final-order-total': selectedService.price + '元',
+                'displayServiceName': selectedService.name,
+                'displayServiceDescription': selectedService.description,
+                'displayServicePrice': selectedService.price + '元'
+            };
             
-            elementsToReset.forEach(id => {
+            for (const [id, text] of Object.entries(elements)) {
                 const element = document.getElementById(id);
                 if (element) {
-                    if (id.includes('price') || id.includes('total') || id.includes('ServicePrice')) {
-                        element.textContent = '0元';
-                    } else if (id.includes('ServiceName')) {
-                        element.textContent = '尚未選擇服務';
-                    } else if (id.includes('Description')) {
-                        element.textContent = '';
-                    } else {
-                        element.textContent = '尚未選擇服務';
-                    }
+                    element.textContent = text;
                 }
-            });
-            
-            // 重置步驟
-            goToStep(1);
+            }
         }
         
+        // ============================
+        // 付款流程功能
+        // ============================
+        
         function goToStep(step) {
+            console.log('前往步驟:', step);
+            
             // 隱藏所有步驟
             document.querySelectorAll('.payment-step').forEach(el => {
                 el.style.display = 'none';
             });
             
             // 顯示當前步驟
-            const currentStepEl = document.getElementById(`payment-step${step}`);
+            const stepId = `payment-step${step}`;
+            const currentStepEl = document.getElementById(stepId);
             if (currentStepEl) {
                 currentStepEl.style.display = 'block';
             }
@@ -2845,6 +2812,8 @@
         }
         
         function nextStep() {
+            console.log('下一步，當前步驟:', currentStep);
+            
             if (currentStep < 4) {
                 // 檢查是否已選擇服務（步驟1）
                 if (currentStep === 1 && !selectedService) {
@@ -2857,13 +2826,6 @@
                     if (!validateForm()) {
                         alert('請填寫所有必填欄位');
                         return;
-                    }
-                    
-                    // 更新確認頁面的資料
-                    const bookingTimeInput = document.getElementById('booking-time');
-                    const confirmBookingTime = document.getElementById('confirm-booking-time');
-                    if (bookingTimeInput && confirmBookingTime) {
-                        confirmBookingTime.textContent = bookingTimeInput.value || '未設定';
                     }
                 }
                 
@@ -2878,6 +2840,8 @@
         }
         
         function prevStep() {
+            console.log('上一步，當前步驟:', currentStep);
+            
             if (currentStep > 1) {
                 goToStep(currentStep - 1);
             }
@@ -2935,6 +2899,50 @@
             return true;
         }
         
+        function clearServiceSelection() {
+            selectedService = null;
+            selectedPaymentMethod = '';
+            
+            // 重置顯示
+            const displayElement = document.getElementById('selectedServiceDisplay');
+            if (displayElement) {
+                displayElement.classList.remove('active');
+            }
+            
+            // 重置所有顯示元素
+            const elementsToReset = [
+                'selected-service-name',
+                'selected-service-price',
+                'order-total',
+                'confirm-service-name',
+                'confirm-service-price',
+                'confirm-order-total',
+                'final-service-name',
+                'final-order-total',
+                'displayServiceName',
+                'displayServiceDescription',
+                'displayServicePrice'
+            ];
+            
+            elementsToReset.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    if (id.includes('price') || id.includes('total') || id.includes('ServicePrice')) {
+                        element.textContent = '0元';
+                    } else if (id.includes('ServiceName')) {
+                        element.textContent = '尚未選擇服務';
+                    } else if (id.includes('Description')) {
+                        element.textContent = '';
+                    } else {
+                        element.textContent = '尚未選擇服務';
+                    }
+                }
+            });
+            
+            // 重置步驟
+            resetPaymentSteps();
+        }
+        
         function printOrder() {
             window.print();
         }
@@ -2942,29 +2950,6 @@
         // ============================
         // 訂單管理功能
         // ============================
-        
-        function createOrder(orderData) {
-            const now = new Date();
-            const orderId = `DELTA-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(orders.length + 1).padStart(4, '0')}`;
-            
-            const newOrder = {
-                id: orderId,
-                ...orderData,
-                paymentTime: null,
-                assignedTo: null,
-                notes: ''
-            };
-            
-            orders.unshift(newOrder);
-            saveOrders();
-            
-            // 發送通知
-            if (SYSTEM_CONFIG.ENABLE_NOTIFICATIONS) {
-                showNewOrderNotification(newOrder);
-            }
-            
-            return orderId;
-        }
         
         function saveOrders() {
             localStorage.setItem('delta_orders', JSON.stringify(orders));
@@ -3022,16 +3007,16 @@
                 const row = document.createElement('div');
                 row.className = 'table-row';
                 row.innerHTML = `
-                    <div>${order.id}</div>
-                    <div>${order.serviceName}</div>
+                    <div>${order.orderNumber || order.id}</div>
+                    <div>${order.serviceName || order.service}</div>
                     <div>${order.gameId || 'N/A'}</div>
                     <div>${formatDateTime(order.bookingTime)}</div>
                     <div>${order.amount}元</div>
                     <div><span class="order-status status-${order.status}">${getStatusText(order.status)}</span></div>
                     <div class="order-actions">
-                        <button class="action-btn view" onclick="viewOrderDetail('${order.id}')">查看</button>
-                        <button class="action-btn edit" onclick="editOrder('${order.id}')">編輯</button>
-                        <button class="action-btn delete" onclick="deleteOrder('${order.id}')">刪除</button>
+                        <button class="action-btn view" onclick="viewOrderDetail('${order.orderNumber || order.id}')">查看</button>
+                        <button class="action-btn edit" onclick="editOrder('${order.orderNumber || order.id}')">編輯</button>
+                        <button class="action-btn delete" onclick="deleteOrder('${order.orderNumber || order.id}')">刪除</button>
                     </div>
                 `;
                 ordersList.appendChild(row);
@@ -3059,15 +3044,15 @@
         }
         
         function viewOrderDetail(orderId) {
-            const order = orders.find(o => o.id === orderId);
+            const order = orders.find(o => o.orderNumber === orderId || o.id === orderId);
             if (!order) return;
             
             currentOrderId = orderId;
             
             // 填充訂單詳情
             const detailElements = {
-                'detailOrderId': order.id,
-                'detailService': order.serviceName,
+                'detailOrderId': order.orderNumber || order.id,
+                'detailService': order.serviceName || order.service,
                 'detailDescription': order.description || order.specialRequest || '無',
                 'detailAmount': (order.amount || 0) + '元',
                 'detailCreateTime': formatDateTime(order.createdAt),
@@ -3098,100 +3083,8 @@
             document.getElementById('orderDetailModal').classList.remove('active');
         }
         
-        function updateOrderStatus(newStatus) {
-            if (!currentOrderId) return;
-            
-            const orderIndex = orders.findIndex(o => o.id === currentOrderId);
-            if (orderIndex === -1) return;
-            
-            orders[orderIndex].status = newStatus;
-            orders[orderIndex].updatedAt = new Date().toISOString();
-            
-            // 如果是付款狀態，記錄付款時間
-            if (newStatus === ORDER_STATUS.PAID && !orders[orderIndex].paymentTime) {
-                orders[orderIndex].paymentTime = new Date().toISOString();
-            }
-            
-            saveOrders();
-            refreshOrders();
-            
-            // 更新詳情視窗
-            viewOrderDetail(currentOrderId);
-            
-            alert(`訂單狀態已更新為：${getStatusText(newStatus)}`);
-        }
-        
-        function assignToMe() {
-            if (!currentOrderId) return;
-            
-            const playerName = prompt('請輸入您的名字（打手暱稱）：');
-            if (playerName) {
-                const orderIndex = orders.findIndex(o => o.id === currentOrderId);
-                orders[orderIndex].assignedTo = playerName;
-                orders[orderIndex].notes = `已指派給 ${playerName} 處理`;
-                orders[orderIndex].status = ORDER_STATUS.PROCESSING;
-                orders[orderIndex].updatedAt = new Date().toISOString();
-                
-                saveOrders();
-                refreshOrders();
-                viewOrderDetail(currentOrderId);
-                
-                alert(`訂單已指派給 ${playerName} 處理！`);
-            }
-        }
-        
-        function addOrderNote() {
-            if (!currentOrderId) return;
-            
-            const note = prompt('請輸入備註：');
-            if (note) {
-                const orderIndex = orders.findIndex(o => o.id === currentOrderId);
-                const currentNotes = orders[orderIndex].notes || '';
-                orders[orderIndex].notes = currentNotes ? `${currentNotes}\n${note}` : note;
-                orders[orderIndex].updatedAt = new Date().toISOString();
-                
-                saveOrders();
-                refreshOrders();
-                viewOrderDetail(currentOrderId);
-                
-                alert('備註已新增！');
-            }
-        }
-        
-        function editOrder(orderId) {
-            const order = orders.find(o => o.id === orderId);
-            if (!order) return;
-            
-            const notes = prompt('請輸入訂單備註：', order.notes || '');
-            if (notes !== null) {
-                order.notes = notes;
-                order.updatedAt = new Date().toISOString();
-                saveOrders();
-                refreshOrders();
-                alert('訂單備註已更新！');
-            }
-        }
-        
-        function deleteOrder(orderId) {
-            if (!confirm('確定要刪除這個訂單嗎？此操作無法恢復！')) {
-                return;
-            }
-            
-            const orderIndex = orders.findIndex(o => o.id === orderId);
-            if (orderIndex !== -1) {
-                orders.splice(orderIndex, 1);
-                saveOrders();
-                refreshOrders();
-                alert('訂單已刪除！');
-                
-                if (currentOrderId === orderId) {
-                    closeOrderDetail();
-                }
-            }
-        }
-        
         // ============================
-        // 管理後台介面 - 修復的密碼驗證
+        // 管理後台介面
         // ============================
         
         function openAdminPanel() {
@@ -3210,194 +3103,16 @@
             const passwordInput = document.getElementById('adminPassword');
             const password = passwordInput.value;
             
-            console.log('輸入的密碼:', password);
-            console.log('儲存的密碼:', SYSTEM_CONFIG.ADMIN_PASSWORD);
-            console.log('預設密碼:', DEFAULT_ADMIN_PASSWORD);
-            
-            // 檢查密碼是否正確
             if (password === SYSTEM_CONFIG.ADMIN_PASSWORD || password === DEFAULT_ADMIN_PASSWORD) {
-                // 登入成功
                 document.getElementById('adminLogin').style.display = 'none';
                 document.getElementById('ordersPanel').style.display = 'block';
                 refreshOrders();
                 console.log('登入成功');
             } else {
-                // 登入失敗
                 alert('密碼錯誤！請輸入正確的管理員密碼。');
                 passwordInput.value = '';
                 passwordInput.focus();
-                console.log('登入失敗：密碼不匹配');
             }
-        }
-        
-        function showSyncPanel() {
-            const syncPanel = document.getElementById('syncPanel');
-            syncPanel.style.display = syncPanel.style.display === 'none' ? 'block' : 'none';
-        }
-        
-        // ============================
-        // 資料同步功能
-        // ============================
-        
-        function generateSyncCode() {
-            const syncData = {
-                orders: orders,
-                timestamp: new Date().getTime(),
-                expiry: new Date().getTime() + SYSTEM_CONFIG.SYNC_CODE_EXPIRY
-            };
-            
-            // 將資料轉為Base64編碼
-            const jsonString = JSON.stringify(syncData);
-            const syncCode = btoa(encodeURIComponent(jsonString));
-            
-            document.getElementById('syncCodeDisplay').textContent = syncCode;
-            
-            // 自動複製到剪貼簿
-            navigator.clipboard.writeText(syncCode).then(() => {
-                alert('同步碼已複製到剪貼簿！分享給其他管理員使用。');
-            });
-        }
-        
-        function importFromSyncCode() {
-            const syncCode = document.getElementById('inputSyncCode').value.trim();
-            if (!syncCode) {
-                alert('請輸入同步碼！');
-                return;
-            }
-            
-            try {
-                // 解碼Base64
-                const jsonString = decodeURIComponent(atob(syncCode));
-                const syncData = JSON.parse(jsonString);
-                
-                // 檢查是否過期
-                if (new Date().getTime() > syncData.expiry) {
-                    alert('同步碼已過期，請重新產生！');
-                    return;
-                }
-                
-                // 合併訂單資料
-                syncData.orders.forEach(newOrder => {
-                    const existingIndex = orders.findIndex(o => o.id === newOrder.id);
-                    if (existingIndex === -1) {
-                        // 新增訂單
-                        orders.push(newOrder);
-                    } else {
-                        // 更新現有訂單（保留較新的資料）
-                        const existingOrder = orders[existingIndex];
-                        const existingTime = new Date(existingOrder.updatedAt || 0);
-                        const newTime = new Date(newOrder.updatedAt || 0);
-                        
-                        if (newTime > existingTime) {
-                            orders[existingIndex] = newOrder;
-                        }
-                    }
-                });
-                
-                // 儲存並更新
-                saveOrders();
-                refreshOrders();
-                alert(`成功同步 ${syncData.orders.length} 筆訂單資料！`);
-                
-                // 清空輸入框
-                document.getElementById('inputSyncCode').value = '';
-                
-            } catch (error) {
-                alert('同步碼無效或已損壞！');
-                console.error('同步錯誤:', error);
-            }
-        }
-        
-        // ============================
-        // 系統設定功能
-        // ============================
-        
-        function changeAdminPassword() {
-            const newPassword = document.getElementById('newAdminPassword').value;
-            if (!newPassword) {
-                alert('請輸入新密碼！');
-                return;
-            }
-            
-            if (newPassword.length < 4) {
-                alert('密碼長度至少需要4個字元！');
-                return;
-            }
-            
-            SYSTEM_CONFIG.ADMIN_PASSWORD = newPassword;
-            
-            document.getElementById('newAdminPassword').value = '';
-            alert('管理員密碼已更改！\n新密碼：' + newPassword);
-        }
-        
-        function saveNotificationSettings() {
-            const enableNotifications = document.getElementById('enableNotifications').checked;
-            SYSTEM_CONFIG.ENABLE_NOTIFICATIONS = enableNotifications;
-            
-            if (enableNotifications) {
-                startNotificationCheck();
-            } else {
-                stopNotificationCheck();
-            }
-            
-            alert('通知設定已儲存！');
-        }
-        
-        function exportOrders() {
-            const dataStr = JSON.stringify(orders, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `delta_orders_${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            alert('訂單資料已匯出！');
-        }
-        
-        function backupData() {
-            const backupData = {
-                orders: orders,
-                config: {
-                    admin_password: SYSTEM_CONFIG.ADMIN_PASSWORD,
-                    enable_notifications: SYSTEM_CONFIG.ENABLE_NOTIFICATIONS
-                },
-                backupTime: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(backupData, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `delta_backup_${new Date().getTime()}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            alert('系統資料已備份！');
-        }
-        
-        function clearOldOrders() {
-            if (!confirm('確定要清除30天前的舊訂單嗎？此操作無法恢復！')) {
-                return;
-            }
-            
-            const thirtyDaysAgo = new Date();
-            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-            
-            const originalLength = orders.length;
-            orders = orders.filter(order => {
-                const orderDate = new Date(order.createdAt);
-                return orderDate >= thirtyDaysAgo;
-            });
-            
-            saveOrders();
-            refreshOrders();
-            
-            alert(`已清除 ${originalLength - orders.length} 筆舊訂單！`);
         }
         
         // ============================
@@ -3412,7 +3127,7 @@
             if (SYSTEM_CONFIG.ENABLE_NOTIFICATIONS) {
                 notificationCheckInterval = setInterval(() => {
                     checkNewOrders();
-                }, 30000); // 每30秒檢查一次
+                }, 30000);
             }
         }
         
@@ -3441,13 +3156,12 @@
             const notificationText = document.getElementById('notificationText');
             
             if (notification && notificationText) {
-                notificationText.textContent = `訂單 ${order.id} - ${order.serviceName} (${order.amount}元)`;
+                notificationText.textContent = `訂單 ${order.orderNumber || order.id} - ${order.serviceName} (${order.amount}元)`;
                 notification.style.display = 'block';
                 
                 // 播放提示音
                 playNotificationSound();
                 
-                // 10秒後自動關閉
                 setTimeout(() => {
                     if (notification.style.display === 'block') {
                         notification.style.display = 'none';
@@ -3478,12 +3192,11 @@
                 oscillator.start(audioContext.currentTime);
                 oscillator.stop(audioContext.currentTime + 0.5);
             } catch (e) {
-                // 如果音效播放失敗，忽略錯誤
+                // 忽略錯誤
             }
         }
         
         function setupOrderNotifications() {
-            // 初始化最後檢查時間
             if (!localStorage.getItem('last_order_check')) {
                 localStorage.setItem('last_order_check', new Date().toISOString());
             }
@@ -3537,6 +3250,15 @@
             return methodMap[method] || method || '未選擇';
         }
         
+        function generateOrderNumber() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return `DELTA-${year}${month}${day}-${random}`;
+        }
+        
         // ============================
         // 測試資料
         // ============================
@@ -3544,38 +3266,20 @@
         function loadSampleOrders() {
             const sampleOrders = [
                 {
-                    id: 'DELTA-20240001',
+                    orderNumber: 'DELTA-20240001',
                     gameId: '遊戲玩家001',
                     contactType: 'line',
                     contactId: 'line001',
                     bookingTime: new Date(Date.now() + 86400000).toISOString(),
                     serviceName: '基礎單',
                     description: '保底 600w',
-                    amount: '500',
+                    amount: 500,
                     specialRequest: '希望晚上時段',
                     status: ORDER_STATUS.PENDING,
                     createdAt: new Date(Date.now() - 3600000).toISOString(),
                     updatedAt: new Date(Date.now() - 3600000).toISOString(),
                     paymentMethod: '待確認',
                     notes: '新客戶，首次預約'
-                },
-                {
-                    id: 'DELTA-20240002',
-                    gameId: '資深玩家',
-                    contactType: 'discord',
-                    contactId: 'discord_user',
-                    bookingTime: new Date(Date.now() + 172800000).toISOString(),
-                    serviceName: '男陪玩-技術',
-                    description: '每小時',
-                    amount: '450',
-                    specialRequest: '需要技術指導',
-                    status: ORDER_STATUS.PAID,
-                    createdAt: new Date(Date.now() - 7200000).toISOString(),
-                    updatedAt: new Date(Date.now() - 3600000).toISOString(),
-                    paymentMethod: 'LINE Pay',
-                    paymentTime: new Date(Date.now() - 3600000).toISOString(),
-                    assignedTo: '打手阿明',
-                    notes: '已付款，等待服務'
                 }
             ];
             
@@ -3584,10 +3288,135 @@
         }
         
         // ============================
+        // Firebase 功能
+        // ============================
+        
+        async function saveOrderAndGoToStep3() {
+            console.log('儲存訂單並前往步驟3');
+            
+            // 驗證表單
+            if (!validateForm()) {
+                alert('請填寫所有必填欄位');
+                return;
+            }
+            
+            // 顯示載入狀態
+            const nextButton = document.querySelector('#payment-step2 .btn-success');
+            const originalText = nextButton.textContent;
+            nextButton.textContent = "處理中...";
+            nextButton.disabled = true;
+            
+            try {
+                // 儲存到本地
+                const orderData = {
+                    gameId: document.getElementById('game-id').value.trim(),
+                    contactType: document.getElementById('contact-type').value,
+                    contactId: document.getElementById('contact-id').value.trim(),
+                    bookingTime: document.getElementById('booking-time').value,
+                    specialRequest: document.getElementById('special-request').value.trim(),
+                    serviceName: selectedService.name,
+                    amount: selectedService.price,
+                    description: selectedService.description,
+                    status: ORDER_STATUS.PENDING,
+                    createdAt: new Date().toISOString(),
+                    orderNumber: generateOrderNumber(),
+                    paymentMethod: '未選擇'
+                };
+                
+                orders.unshift(orderData);
+                saveOrders();
+                
+                console.log('訂單已儲存到本地:', orderData);
+                
+                // 發送通知
+                if (SYSTEM_CONFIG.ENABLE_NOTIFICATIONS) {
+                    showNewOrderNotification(orderData);
+                }
+                
+                // 嘗試儲存到 Firebase
+                if (window.db) {
+                    try {
+                        const firebaseOrder = {
+                            ...orderData,
+                            source: "網站訂單",
+                            firebaseCreatedAt: new Date().toISOString()
+                        };
+                        
+                        const docRef = await window.firebaseFunctions.addDoc(
+                            window.firebaseFunctions.collection(window.db, "orders"), 
+                            firebaseOrder
+                        );
+                        console.log("✅ 訂單已儲存到 Firebase，ID:", docRef.id);
+                    } catch (firebaseError) {
+                        console.error("Firebase 儲存失敗，但本地已儲存:", firebaseError);
+                    }
+                }
+                
+                // 更新確認頁面的資料
+                const bookingTimeInput = document.getElementById('booking-time');
+                const confirmBookingTime = document.getElementById('confirm-booking-time');
+                if (bookingTimeInput && confirmBookingTime && bookingTimeInput.value) {
+                    const bookingDate = new Date(bookingTimeInput.value);
+                    const timeString = bookingDate.toLocaleString('zh-TW', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    confirmBookingTime.textContent = timeString;
+                }
+                
+                // 更新訂單編號顯示
+                document.getElementById('order-id-display').textContent = orderData.orderNumber;
+                
+                // 前往步驟3
+                nextStep();
+                
+            } catch (error) {
+                console.error('儲存訂單時發生錯誤:', error);
+                alert('系統繁忙，請稍後再試');
+            } finally {
+                // 恢復按鈕狀態
+                nextButton.textContent = originalText;
+                nextButton.disabled = false;
+            }
+        }
+        
+        function savePaymentAndGoToStep4() {
+            console.log('儲存付款方式並前往步驟4');
+            
+            if (!selectedPaymentMethod) {
+                alert('請選擇付款方式');
+                return;
+            }
+            
+            // 更新當前訂單的付款方式（如果有）
+            if (orders.length > 0) {
+                const latestOrder = orders[0];
+                latestOrder.paymentMethod = selectedPaymentMethod;
+                latestOrder.updatedAt = new Date().toISOString();
+                saveOrders();
+                
+                // 更新顯示
+                const paymentMethods = {
+                    'linepay': 'LINE Pay',
+                    'bank': '銀行轉帳',
+                    '711': '超商代碼繳費'
+                };
+                
+                const paymentText = paymentMethods[selectedPaymentMethod] || '未選擇';
+                document.getElementById('final-payment-method').textContent = paymentText;
+            }
+            
+            // 前往步驟4
+            nextStep();
+        }
+        
+        // ============================
         // 確保載入畫面一定會隱藏
         // ============================
         
-        // 監聽頁面完全載入
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loadingOverlay = document.getElementById('loadingOverlay');
@@ -3597,50 +3426,19 @@
             }, 100);
         });
         
-        // 安全超時，確保載入畫面不會永久顯示
         setTimeout(() => {
             const loadingOverlay = document.getElementById('loadingOverlay');
             if (loadingOverlay && loadingOverlay.style.display !== 'none') {
                 loadingOverlay.style.display = 'none';
             }
-        }, 3000); // 3秒後強制隱藏
-        
-        // ============================
-        // 除錯工具
-        // ============================
-        
-        window.debugPassword = function() {
-            console.log('=== 密碼除錯資訊 ===');
-            console.log('預設密碼:', DEFAULT_ADMIN_PASSWORD);
-            console.log('儲存的密碼:', localStorage.getItem('admin_password'));
-            console.log('系統配置密碼:', SYSTEM_CONFIG.ADMIN_PASSWORD);
-            console.log('當前時間:', new Date().toLocaleString());
-            
-            // 檢查localStorage中是否有衝突的密碼設定
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.includes('password') || key.includes('admin')) {
-                    console.log(`發現相關設定: ${key} = ${localStorage.getItem(key)}`);
-                }
-            }
-            
-            alert('請查看開發者工具控制台查看密碼除錯資訊');
-        };
-        
-        window.resetPassword = function() {
-            if (confirm('確定要重設密碼為預設值嗎？')) {
-                localStorage.removeItem('admin_password');
-                alert('密碼已重設為預設值: ' + DEFAULT_ADMIN_PASSWORD);
-                console.log('密碼已重設');
-            }
-        };
+        }, 3000);
     </script>
     
     <!-- ==================== -->
-    <!-- Firebase 初始化開始 -->
+    <!-- Firebase 初始化 -->
     <!-- ==================== -->
     <script type="module">
-        // 你的 Firebase 設定（從控制台取得）
+        // Firebase 設定
         const firebaseConfig = {
             apiKey: "AIzaSyD9jPcOgBMhSL7b-obih7QP8nu0Nm5iOCo",
             authDomain: "jimmy-477f5.firebaseapp.com",
@@ -3649,639 +3447,29 @@
             messagingSenderId: "18519393220",
             appId: "1:18519393220:web:799be0d22a4d581a431a91"
         };
-
-        // 顯示訊息，確認腳本已載入
-        console.log("正在載入 Firebase...");
+        
+        console.log("正在初始化 Firebase...");
         
         try {
-            // 從 Firebase CDN 載入需要的模組
+            // 載入 Firebase
             const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js");
-            const { getFirestore } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
+            const { getFirestore, collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
             
-            // 初始化 Firebase
+            // 初始化
             const app = initializeApp(firebaseConfig);
             const db = getFirestore(app);
             
-            // 儲存到全域變數，讓其他函數可以使用
+            // 儲存到全域變數
             window.firebaseApp = app;
             window.db = db;
+            window.firebaseFunctions = { collection, addDoc, serverTimestamp };
             
             console.log("✅ Firebase 初始化成功！");
-            console.log("資料庫物件：", db);
-            
-            // 建立一個測試按鈕（可選，用於測試）
-            createTestButton();
             
         } catch (error) {
-            console.error("❌ Firebase 初始化失敗：", error);
-            alert("Firebase 連線失敗，請檢查主控台查看錯誤訊息。");
-        }
-        
-        // 建立測試按鈕的函數（可選）
-        function createTestButton() {
-            // 只在管理後台頁面添加測試按鈕
-            if (window.location.pathname.includes('admin') || document.querySelector('[data-admin]')) {
-                const testBtn = document.createElement('button');
-                testBtn.textContent = '🔥 測試 Firebase 連線';
-                testBtn.style.cssText = 'position:fixed; bottom:20px; right:20px; padding:10px; background:#4285f4; color:white; border:none; border-radius:5px; z-index:1000;';
-                testBtn.onclick = testFirebaseConnection;
-                document.body.appendChild(testBtn);
-            }
-        }
-        
-        // 測試連線的函數（可選）
-        async function testFirebaseConnection() {
-            try {
-                const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
-                
-                // 建立一筆測試訂單
-                const testOrder = {
-                    service: "測試服務",
-                    amount: 100,
-                    customerName: "測試客戶",
-                    status: "測試中",
-                    createdAt: serverTimestamp(),
-                    test: true
-                };
-                
-                const docRef = await addDoc(collection(window.db, "orders"), testOrder);
-                alert(`✅ 測試成功！\n訂單已建立，ID: ${docRef.id}\n請檢查 Firebase 控制台。`);
-                console.log("測試訂單 ID:", docRef.id);
-                
-            } catch (error) {
-                alert(`❌ 測試失敗：${error.message}`);
-                console.error("測試錯誤:", error);
-            }
+            console.error("❌ Firebase 初始化失敗:", error);
+            // 如果 Firebase 失敗，系統仍可正常運作（使用本地儲存）
         }
     </script>
-    <!-- ==================== -->
-    <!-- Firebase 初始化結束 -->
-    <!-- ==================== -->
-    
-    <!-- ==================== -->
-    <!-- 新增的 Firebase 訂單功能 -->
-    <!-- ==================== -->
-    <script>
-        // 儲存訂單並前往步驟3
-        async function saveOrderAndGoToStep3() {
-            console.log("開始儲存訂單並前往步驟3...");
-            
-            // 1. 收集所有表單資料
-            const orderData = collectStep2Data();
-            
-            if (!orderData) {
-                console.error("收集資料失敗");
-                return;
-            }
-            
-            // 2. 顯示載入狀態
-            const nextButton = document.querySelector('#payment-step2 .btn-success');
-            const originalText = nextButton.textContent;
-            nextButton.textContent = "處理中...";
-            nextButton.disabled = true;
-            
-            try {
-                // 3. 儲存到 Firebase
-                console.log("訂單資料:", orderData);
-                const orderId = await createFirebaseOrder(orderData);
-                
-                if (orderId) {
-                    // 4. 儲存到全域變數供後續使用
-                    window.currentOrderId = orderId;
-                    window.currentOrderData = orderData;
-                    
-                    console.log("訂單儲存成功，ID:", orderId);
-                    
-                    // 5. 更新步驟3的顯示（在跳轉前）
-                    updateStep3Display(orderData);
-                    
-                    // 6. 執行原本的 nextStep() 前往步驟3
-                    nextStep();
-                } else {
-                    alert("訂單建立失敗，請稍後再試");
-                }
-                
-            } catch (error) {
-                console.error("儲存訂單時發生錯誤:", error);
-                alert("系統繁忙，請稍後再試");
-            } finally {
-                // 恢復按鈕狀態
-                nextButton.textContent = originalText;
-                nextButton.disabled = false;
-            }
-        }
-
-        // 收集步驟2的表單資料
-        function collectStep2Data() {
-            try {
-                // 從步驟1獲取服務資訊
-                if (!window.selectedService) {
-                    alert("請先選擇服務項目");
-                    goToStep(1);
-                    return null;
-                }
-                
-                // 收集表單資料
-                const formData = {
-                    // 服務資訊
-                    serviceName: window.selectedService.name,
-                    servicePrice: parseInt(window.selectedService.price),
-                    serviceDescription: window.selectedService.description || window.selectedService.details || '',
-                    
-                    // 客戶資料
-                    gameId: document.getElementById('game-id').value.trim(),
-                    contactType: document.getElementById('contact-type').value,
-                    contactId: document.getElementById('contact-id').value.trim(),
-                    bookingTime: document.getElementById('booking-time').value,
-                    specialRequest: document.getElementById('special-request').value.trim(),
-                    
-                    // 系統資料
-                    amount: parseInt(window.selectedService.price),
-                    status: "待付款",
-                    paymentMethod: "未選擇",
-                    orderNumber: generateOrderNumber(),
-                    createdAt: new Date().toISOString(),
-                    source: "網站訂單"
-                };
-                
-                // 驗證必填欄位
-                if (!formData.gameId) {
-                    alert("請填寫遊戲ID");
-                    document.getElementById('game-id').focus();
-                    return null;
-                }
-                
-                if (!formData.contactType) {
-                    alert("請選擇聯絡方式");
-                    document.getElementById('contact-type').focus();
-                    return null;
-                }
-                
-                if (!formData.contactId) {
-                    alert("請填寫聯絡帳號");
-                    document.getElementById('contact-id').focus();
-                    return null;
-                }
-                
-                if (!formData.bookingTime) {
-                    alert("請選擇預約時間");
-                    document.getElementById('booking-time').focus();
-                    return null;
-                }
-                
-                if (formData.amount <= 0) {
-                    alert("請先選擇服務項目");
-                    goToStep(1);
-                    return null;
-                }
-                
-                console.log("表單資料收集完成:", formData);
-                return formData;
-                
-            } catch (error) {
-                console.error("收集資料時發生錯誤:", error);
-                return null;
-            }
-        }
-
-        // 產生訂單編號
-        function generateOrderNumber() {
-            const date = new Date();
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-            return `DELTA-${year}${month}${day}-${random}`;
-        }
-
-        // 更新步驟3的顯示內容
-        function updateStep3Display(orderData) {
-            // 更新服務名稱和價格
-            document.getElementById('confirm-service-name').textContent = orderData.serviceName;
-            document.getElementById('confirm-service-price').textContent = orderData.amount + '元';
-            
-            // 更新預約時間
-            if (orderData.bookingTime) {
-                const bookingDate = new Date(orderData.bookingTime);
-                const timeString = bookingDate.toLocaleString('zh-TW', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-                document.getElementById('confirm-booking-time').textContent = timeString;
-            }
-            
-            // 更新總金額
-            document.getElementById('confirm-order-total').textContent = orderData.amount + '元';
-        }
-
-        // Firebase 訂單建立函數
-        async function createFirebaseOrder(orderData) {
-            try {
-                console.log("正在建立 Firebase 訂單...");
-                
-                // 確保 Firebase 函數已載入
-                const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
-                
-                // 準備要儲存的資料
-                const firebaseOrder = {
-                    // 基本資料
-                    gameId: orderData.gameId,
-                    contactType: orderData.contactType,
-                    contactId: orderData.contactId,
-                    
-                    // 服務資料
-                    service: orderData.serviceName,
-                    serviceDescription: orderData.serviceDescription,
-                    amount: orderData.amount,
-                    
-                    // 時間資料
-                    bookingTime: orderData.bookingTime,
-                    
-                    // 備註
-                    notes: orderData.specialRequest,
-                    
-                    // 系統欄位
-                    status: "待付款",
-                    paymentMethod: "未選擇",
-                    orderNumber: orderData.orderNumber,
-                    createdAt: serverTimestamp(),
-                    updatedAt: serverTimestamp(),
-                    source: "網站訂單"
-                };
-                
-                // 儲存到 Firestore
-                const docRef = await addDoc(collection(window.db, "orders"), firebaseOrder);
-                console.log("✅ 訂單已儲存到 Firebase，ID:", docRef.id);
-                
-                // 儲存到本地儲存空間
-                localStorage.setItem('currentOrder', JSON.stringify({
-                    id: docRef.id,
-                    data: firebaseOrder,
-                    timestamp: new Date().getTime()
-                }));
-                
-                // 更新訂單編號顯示
-                document.getElementById('order-id-display').textContent = orderData.orderNumber;
-                
-                return docRef.id;
-                
-            } catch (error) {
-                console.error("❌ 建立 Firebase 訂單失敗:", error);
-                alert("訂單儲存失敗: " + error.message);
-                return null;
-            }
-        }
-
-        // 儲存付款方式並前往步驟4
-        async function savePaymentAndGoToStep4() {
-            console.log("儲存付款方式...");
-            
-            // 1. 檢查是否有選擇付款方式
-            if (!selectedPaymentMethod) {
-                alert("請選擇付款方式");
-                return;
-            }
-            
-            // 2. 更新訂單資料中的付款方式
-            if (window.currentOrderId) {
-                try {
-                    // 載入 Firebase 函數
-                    const { doc, updateDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
-                    
-                    // 更新付款方式
-                    const orderRef = doc(window.db, "orders", window.currentOrderId);
-                    await updateDoc(orderRef, {
-                        paymentMethod: selectedPaymentMethod,
-                        updatedAt: serverTimestamp()
-                    });
-                    
-                    console.log("✅ 付款方式已更新:", selectedPaymentMethod);
-                    
-                } catch (error) {
-                    console.error("更新付款方式失敗:", error);
-                    // 繼續流程，不阻擋用戶
-                }
-            }
-            
-            // 3. 更新步驟4的顯示
-            updateStep4Display(selectedPaymentMethod);
-            
-            // 4. 前往步驟4
-            nextStep();
-        }
-
-        // 更新步驟4的顯示
-        function updateStep4Display(paymentMethod) {
-            // 更新付款方式
-            const paymentMethods = {
-                'linepay': 'LINE Pay',
-                'bank': '銀行轉帳',
-                '711': '超商代碼繳費'
-            };
-            
-            const paymentText = paymentMethods[paymentMethod] || '未選擇';
-            document.getElementById('final-payment-method').textContent = paymentText;
-            
-            // 更新其他資訊
-            if (window.currentOrderData) {
-                document.getElementById('final-service-name').textContent = window.currentOrderData.serviceName;
-                document.getElementById('final-order-total').textContent = window.currentOrderData.amount + '元';
-            }
-        }
-
-        // 修正選擇付款方式的函數
-        function selectPaymentMethod(method) {
-            selectedPaymentMethod = method;
-            
-            // 移除所有已選擇的樣式
-            document.querySelectorAll('.payment-method').forEach(el => {
-                el.classList.remove('selected');
-            });
-            
-            // 為選擇的項目添加樣式
-            const selectedEl = event.currentTarget;
-            if (selectedEl) {
-                selectedEl.classList.add('selected');
-            }
-            
-            console.log(`已選擇付款方式: ${method}`);
-        }
-
-        // 覆蓋原有的選擇服務函數，確保正確設置變數
-        function selectService(serviceName, servicePrice, serviceDetails = {}) {
-            selectedService = {
-                name: serviceName,
-                price: servicePrice,
-                description: serviceDetails,
-                details: serviceDetails
-            };
-            
-            window.selectedService = selectedService;
-            
-            // 更新顯示
-            document.getElementById('selected-service-name').textContent = serviceName;
-            document.getElementById('selected-service-price').textContent = servicePrice + '元';
-            document.getElementById('order-total').textContent = servicePrice + '元';
-            
-            console.log(`已選擇服務: ${serviceName}, 價格: ${servicePrice}元`);
-        }
-
-        // 管理後台 Firebase 功能
-        async function setupFirebaseAdmin() {
-            try {
-                if (!window.db) {
-                    console.error("Firebase 未初始化");
-                    return;
-                }
-                
-                // 載入 Firebase 函數
-                const { collection, query, orderBy, onSnapshot } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
-                
-                // 設定訂單監聽
-                const ordersQuery = query(
-                    collection(window.db, "orders"),
-                    orderBy("createdAt", "desc")
-                );
-                
-                // 監聽訂單變化
-                const unsubscribe = onSnapshot(ordersQuery, (snapshot) => {
-                    console.log(`收到 ${snapshot.size} 筆訂單`);
-                    
-                    // 清空現有訂單
-                    orders = [];
-                    
-                    snapshot.forEach((doc) => {
-                        const order = doc.data();
-                        order.id = doc.id;
-                        orders.push(order);
-                    });
-                    
-                    // 更新顯示
-                    renderOrders();
-                    updateOrderStats();
-                    
-                    // 顯示通知
-                    if (snapshot.size > 0 && SYSTEM_CONFIG.ENABLE_NOTIFICATIONS) {
-                        showNewOrderNotification(orders[0]);
-                    }
-                });
-                
-                // 儲存取消監聽函數
-                window.firebaseUnsubscribe = unsubscribe;
-                
-                console.log("管理後台 Firebase 監聽已設定");
-                
-            } catch (error) {
-                console.error("設定管理後台 Firebase 失敗:", error);
-            }
-        }
-
-        // 頁面載入後設定管理後台 Firebase
-        document.addEventListener('DOMContentLoaded', function() {
-            // 等待 Firebase 初始化完成
-            setTimeout(() => {
-                if (window.db) {
-                    setupFirebaseAdmin();
-                }
-            }, 1000);
-        });
-    </script>
-    // ==================== 修正立即預約按鈕功能 ====================
-
-// 修正選擇服務函數（統一處理所有預約按鈕）
-function selectService(serviceName, servicePrice, serviceDetails = {}) {
-    console.log('選擇服務:', serviceName, servicePrice, serviceDetails);
-    
-    // 設定選擇的服務
-    selectedService = {
-        name: serviceName,
-        price: parseInt(servicePrice),
-        description: serviceDetails,
-        details: serviceDetails
-    };
-    
-    window.selectedService = selectedService;
-    
-    // 更新顯示
-    updateServiceDisplay(serviceName, servicePrice, serviceDetails);
-    
-    // 切換到付款頁面
-    showTab('payment');
-    resetPaymentSteps();
-    goToStep(1);
-}
-
-// 更新服務顯示
-function updateServiceDisplay(serviceName, servicePrice, serviceDetails) {
-    // 更新付款頁面的顯示
-    const elementsToUpdate = {
-        'selected-service-name': `${serviceName} - ${serviceDetails}`,
-        'selected-service-price': `${servicePrice}元`,
-        'order-total': `${servicePrice}元`,
-        'confirm-service-name': `${serviceName} - ${serviceDetails}`,
-        'confirm-service-price': `${servicePrice}元`,
-        'confirm-order-total': `${servicePrice}元`,
-        'final-service-name': `${serviceName} - ${serviceDetails}`,
-        'final-order-total': `${servicePrice}元`,
-        'displayServiceName': serviceName,
-        'displayServiceDescription': serviceDetails,
-        'displayServicePrice': `${servicePrice}元`
-    };
-    
-    for (const [id, text] of Object.entries(elementsToUpdate)) {
-        const element = document.getElementById(id);
-        if (element) {
-            element.textContent = text;
-        }
-    }
-    
-    // 顯示已選擇服務區域
-    const displayElement = document.getElementById('selectedServiceDisplay');
-    if (displayElement) {
-        displayElement.classList.add('active');
-    }
-}
-
-// 為所有預約按鈕重新綁定事件
-function fixAllBookButtons() {
-    console.log('修復所有預約按鈕...');
-    
-    // 找到所有預約按鈕
-    const bookButtons = document.querySelectorAll(`
-        .book-btn,
-        button[onclick*="selectService"],
-        button[onclick*="預約"],
-        button[onclick*="立即預約"],
-        button[onclick*="立即購買"],
-        button[onclick*="立即訂購"]
-    `);
-    
-    console.log(`找到 ${bookButtons.length} 個預約按鈕`);
-    
-    bookButtons.forEach((button, index) => {
-        // 移除原有的 onclick 事件
-        const oldOnClick = button.getAttribute('onclick');
-        button.removeAttribute('onclick');
-        
-        // 重新綁定點擊事件
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // 從按鈕屬性獲取服務資訊
-            const serviceName = this.getAttribute('data-service') || 
-                               this.textContent.replace(/[0-9元]/g, '').trim() || 
-                               '未命名服務';
-            
-            const servicePrice = this.getAttribute('data-price') || 
-                                this.textContent.match(/[0-9]+/)?.[0] || 
-                                '0';
-            
-            const serviceDetails = this.getAttribute('data-details') || 
-                                  this.getAttribute('title') || 
-                                  this.getAttribute('alt') || 
-                                  '服務詳情';
-            
-            console.log(`按鈕 ${index}: ${serviceName}, ${servicePrice}元`);
-            
-            // 調用統一的選擇服務函數
-            selectService(serviceName, servicePrice, serviceDetails);
-        });
-        
-        // 為按鈕添加數據屬性（如果還沒有）
-        if (!button.hasAttribute('data-service')) {
-            const text = button.textContent;
-            if (text.includes('基礎單')) {
-                button.setAttribute('data-service', '基礎單');
-                button.setAttribute('data-price', text.match(/[0-9]+/)?.[0] || '500');
-                button.setAttribute('data-details', '保底服務');
-            } else if (text.includes('體驗單')) {
-                button.setAttribute('data-service', '體驗單');
-                button.setAttribute('data-price', text.match(/[0-9]+/)?.[0] || '200');
-                button.setAttribute('data-details', '體驗服務');
-            } else if (text.includes('陪玩')) {
-                button.setAttribute('data-service', '陪玩服務');
-                button.setAttribute('data-price', text.match(/[0-9]+/)?.[0] || '250');
-                button.setAttribute('data-details', '每小時');
-            } else if (text.includes('幣號')) {
-                button.setAttribute('data-service', '遊戲幣號');
-                button.setAttribute('data-price', text.match(/[0-9]+/)?.[0] || '300');
-                button.setAttribute('data-details', '遊戲資源');
-            }
-        }
-    });
-}
-
-// 修復步驟1的服務選擇卡片
-function fixStep1ServiceCards() {
-    console.log('修復步驟1服務卡片...');
-    
-    const serviceCards = document.querySelectorAll('#payment-step1 .service-card');
-    
-    serviceCards.forEach((card, index) => {
-        // 移除原有的 onclick
-        card.removeAttribute('onclick');
-        
-        // 為卡片添加點擊事件
-        card.addEventListener('click', function() {
-            const title = this.querySelector('h3')?.textContent || '服務';
-            const priceElement = this.querySelector('.price-number');
-            const price = priceElement?.textContent.replace(/[^0-9]/g, '') || '0';
-            const description = this.querySelector('[style*="color: #66b3ff"]')?.textContent || '服務詳情';
-            
-            console.log(`卡片 ${index}: ${title}, ${price}元`);
-            
-            selectService(title, price, description);
-        });
-        
-        // 添加懸停效果
-        card.style.cursor = 'pointer';
-    });
-}
-
-// 初始化頁面時修復所有按鈕
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => {
-        fixAllBookButtons();
-        fixStep1ServiceCards();
-        console.log('所有預約按鈕已修復完成');
-    }, 1000);
-});
-
-// 添加測試按鈕（用於除錯）
-function addTestButton() {
-    const testBtn = document.createElement('button');
-    testBtn.textContent = '🔧 測試預約按鈕';
-    testBtn.style.cssText = `
-        position: fixed;
-        bottom: 100px;
-        right: 20px;
-        background: #ff6600;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        z-index: 9999;
-        cursor: pointer;
-    `;
-    
-    testBtn.onclick = function() {
-        // 測試選擇服務
-        selectService('測試服務', '100', '這是一個測試服務');
-        alert('測試成功！已選擇測試服務（100元）');
-    };
-    
-    document.body.appendChild(testBtn);
-}
-
-// 頁面載入完成後添加測試按鈕
-window.addEventListener('load', function() {
-    setTimeout(addTestButton, 2000);
-});
-</script>
-
 </body>
 </html>
