@@ -3668,5 +3668,89 @@
             }
         };
     </script>
+    <!-- ==================== -->
+<!-- Firebase 初始化開始 -->
+<!-- ==================== -->
+<script type="module">
+  // 你的 Firebase 設定（從控制台取得）
+  const firebaseConfig = {
+    apiKey: "你的-apiKey-在這裡",
+    authDomain: "你的專案.firebaseapp.com",
+    projectId: "你的專案ID",
+    storageBucket: "你的專案.appspot.com",
+    messagingSenderId: "你的發送者ID",
+    appId: "你的appId"
+  };
+
+  // 顯示訊息，確認腳本已載入
+  console.log("正在載入 Firebase...");
+  
+  try {
+    // 從 Firebase CDN 載入需要的模組
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js");
+    const { getFirestore } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
+    
+    // 初始化 Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    // 儲存到全域變數，讓其他函數可以使用
+    window.firebaseApp = app;
+    window.db = db;
+    
+    console.log("✅ Firebase 初始化成功！");
+    console.log("資料庫物件：", db);
+    
+    // 建立一個測試按鈕（可選，用於測試）
+    createTestButton();
+    
+  } catch (error) {
+    console.error("❌ Firebase 初始化失敗：", error);
+    alert("Firebase 連線失敗，請檢查主控台查看錯誤訊息。");
+  }
+  
+  // 建立測試按鈕的函數（可選）
+  function createTestButton() {
+    // 只在管理後台頁面添加測試按鈕
+    if (window.location.pathname.includes('admin') || document.querySelector('[data-admin]')) {
+      const testBtn = document.createElement('button');
+      testBtn.textContent = '🔥 測試 Firebase 連線';
+      testBtn.style.cssText = 'position:fixed; bottom:20px; right:20px; padding:10px; background:#4285f4; color:white; border:none; border-radius:5px; z-index:1000;';
+      testBtn.onclick = testFirebaseConnection;
+      document.body.appendChild(testBtn);
+    }
+  }
+  
+  // 測試連線的函數（可選）
+  async function testFirebaseConnection() {
+    try {
+      const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js");
+      
+      // 建立一筆測試訂單
+      const testOrder = {
+        service: "測試服務",
+        amount: 100,
+        customerName: "測試客戶",
+        status: "測試中",
+        createdAt: serverTimestamp(),
+        test: true
+      };
+      
+      const docRef = await addDoc(collection(window.db, "orders"), testOrder);
+      alert(`✅ 測試成功！\n訂單已建立，ID: ${docRef.id}\n請檢查 Firebase 控制台。`);
+      console.log("測試訂單 ID:", docRef.id);
+      
+    } catch (error) {
+      alert(`❌ 測試失敗：${error.message}`);
+      console.error("測試錯誤:", error);
+    }
+  }
+</script>
+<!-- ==================== -->
+<!-- Firebase 初始化結束 -->
+<!-- ==================== -->
+
+</body>
+</html>
 </body>
 </html>
