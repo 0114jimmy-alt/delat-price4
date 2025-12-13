@@ -4089,6 +4089,199 @@
             }, 1000);
         });
     </script>
+    // ==================== 修正立即預約按鈕功能 ====================
+
+// 修正選擇服務函數（統一處理所有預約按鈕）
+function selectService(serviceName, servicePrice, serviceDetails = {}) {
+    console.log('選擇服務:', serviceName, servicePrice, serviceDetails);
+    
+    // 設定選擇的服務
+    selectedService = {
+        name: serviceName,
+        price: parseInt(servicePrice),
+        description: serviceDetails,
+        details: serviceDetails
+    };
+    
+    window.selectedService = selectedService;
+    
+    // 更新顯示
+    updateServiceDisplay(serviceName, servicePrice, serviceDetails);
+    
+    // 切換到付款頁面
+    showTab('payment');
+    resetPaymentSteps();
+    goToStep(1);
+}
+
+// 更新服務顯示
+function updateServiceDisplay(serviceName, servicePrice, serviceDetails) {
+    // 更新付款頁面的顯示
+    const elementsToUpdate = {
+        'selected-service-name': `${serviceName} - ${serviceDetails}`,
+        'selected-service-price': `${servicePrice}元`,
+        'order-total': `${servicePrice}元`,
+        'confirm-service-name': `${serviceName} - ${serviceDetails}`,
+        'confirm-service-price': `${servicePrice}元`,
+        'confirm-order-total': `${servicePrice}元`,
+        'final-service-name': `${serviceName} - ${serviceDetails}`,
+        'final-order-total': `${servicePrice}元`,
+        'displayServiceName': serviceName,
+        'displayServiceDescription': serviceDetails,
+        'displayServicePrice': `${servicePrice}元`
+    };
+    
+    for (const [id, text] of Object.entries(elementsToUpdate)) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = text;
+        }
+    }
+    
+    // 顯示已選擇服務區域
+    const displayElement = document.getElementById('selectedServiceDisplay');
+    if (displayElement) {
+        displayElement.classList.add('active');
+    }
+}
+
+// 為所有預約按鈕重新綁定事件
+function fixAllBookButtons() {
+    console.log('修復所有預約按鈕...');
+    
+    // 找到所有預約按鈕
+    const bookButtons = document.querySelectorAll(`
+        .book-btn,
+        button[onclick*="selectService"],
+        button[onclick*="預約"],
+        button[onclick*="立即預約"],
+        button[onclick*="立即購買"],
+        button[onclick*="立即訂購"]
+    `);
+    
+    console.log(`找到 ${bookButtons.length} 個預約按鈕`);
+    
+    bookButtons.forEach((button, index) => {
+        // 移除原有的 onclick 事件
+        const oldOnClick = button.getAttribute('onclick');
+        button.removeAttribute('onclick');
+        
+        // 重新綁定點擊事件
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // 從按鈕屬性獲取服務資訊
+            const serviceName = this.getAttribute('data-service') || 
+                               this.textContent.replace(/[0-9元]/g, '').trim() || 
+                               '未命名服務';
+            
+            const servicePrice = this.getAttribute('data-price') || 
+                                this.textContent.match(/[0-9]+/)?.[0] || 
+                                '0';
+            
+            const serviceDetails = this.getAttribute('data-details') || 
+                                  this.getAttribute('title') || 
+                                  this.getAttribute('alt') || 
+                                  '服務詳情';
+            
+            console.log(`按鈕 ${index}: ${serviceName}, ${servicePrice}元`);
+            
+            // 調用統一的選擇服務函數
+            selectService(serviceName, servicePrice, serviceDetails);
+        });
+        
+        // 為按鈕添加數據屬性（如果還沒有）
+        if (!button.hasAttribute('data-service')) {
+            const text = button.textContent;
+            if (text.includes('基礎單')) {
+                button.setAttribute('data-service', '基礎單');
+                button.setAttribute('data-price', text.match(/[0-9]+/)?.[0] || '500');
+                button.setAttribute('data-details', '保底服務');
+            } else if (text.includes('體驗單')) {
+                button.setAttribute('data-service', '體驗單');
+                button.setAttribute('data-price', text.match(/[0-9]+/)?.[0] || '200');
+                button.setAttribute('data-details', '體驗服務');
+            } else if (text.includes('陪玩')) {
+                button.setAttribute('data-service', '陪玩服務');
+                button.setAttribute('data-price', text.match(/[0-9]+/)?.[0] || '250');
+                button.setAttribute('data-details', '每小時');
+            } else if (text.includes('幣號')) {
+                button.setAttribute('data-service', '遊戲幣號');
+                button.setAttribute('data-price', text.match(/[0-9]+/)?.[0] || '300');
+                button.setAttribute('data-details', '遊戲資源');
+            }
+        }
+    });
+}
+
+// 修復步驟1的服務選擇卡片
+function fixStep1ServiceCards() {
+    console.log('修復步驟1服務卡片...');
+    
+    const serviceCards = document.querySelectorAll('#payment-step1 .service-card');
+    
+    serviceCards.forEach((card, index) => {
+        // 移除原有的 onclick
+        card.removeAttribute('onclick');
+        
+        // 為卡片添加點擊事件
+        card.addEventListener('click', function() {
+            const title = this.querySelector('h3')?.textContent || '服務';
+            const priceElement = this.querySelector('.price-number');
+            const price = priceElement?.textContent.replace(/[^0-9]/g, '') || '0';
+            const description = this.querySelector('[style*="color: #66b3ff"]')?.textContent || '服務詳情';
+            
+            console.log(`卡片 ${index}: ${title}, ${price}元`);
+            
+            selectService(title, price, description);
+        });
+        
+        // 添加懸停效果
+        card.style.cursor = 'pointer';
+    });
+}
+
+// 初始化頁面時修復所有按鈕
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        fixAllBookButtons();
+        fixStep1ServiceCards();
+        console.log('所有預約按鈕已修復完成');
+    }, 1000);
+});
+
+// 添加測試按鈕（用於除錯）
+function addTestButton() {
+    const testBtn = document.createElement('button');
+    testBtn.textContent = '🔧 測試預約按鈕';
+    testBtn.style.cssText = `
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        background: #ff6600;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        z-index: 9999;
+        cursor: pointer;
+    `;
+    
+    testBtn.onclick = function() {
+        // 測試選擇服務
+        selectService('測試服務', '100', '這是一個測試服務');
+        alert('測試成功！已選擇測試服務（100元）');
+    };
+    
+    document.body.appendChild(testBtn);
+}
+
+// 頁面載入完成後添加測試按鈕
+window.addEventListener('load', function() {
+    setTimeout(addTestButton, 2000);
+});
+</script>
 
 </body>
 </html>
